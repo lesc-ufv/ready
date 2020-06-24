@@ -1,0 +1,3 @@
+[submodule "fdam"]
+	path = fdam
+	url = https://github.com/ComputerArchitectureUFV/fdam.git
