@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+CALLPATH=`pwd`
+cd $(dirname $(readlink -f $0))
+MYPATH=`pwd`
+cd $CALLPATH
+
+export READY_BASEDIR=`cd $MYPATH/.. && pwd`
+source $READY_BASEDIR/fdam/scripts/setup.fdam
