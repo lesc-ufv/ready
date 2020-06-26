@@ -1,5 +1,5 @@
-#ifndef CGRASCHEDULER_CGRA_H
-#define CGRASCHEDULER_CGRA_H
+#ifndef CGRA_ARCH_H
+#define CGRA_ARCH_H
 
 
 #include <ready/data_flow.h>
@@ -101,4 +101,4 @@ public:
 
 };
 
-#endif //CGRASCHEDULER_CGRA_H
+#endif //CGRA_ARCH_H

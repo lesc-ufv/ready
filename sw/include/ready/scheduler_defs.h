@@ -1,7 +1,3 @@
-//
-// Created by lucas on 30/01/19.
-//
-
 #ifndef MAIN_SCHEDULER_DEFS_H
 #define MAIN_SCHEDULER_DEFS_H
 

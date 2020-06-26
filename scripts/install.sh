@@ -7,18 +7,19 @@ echo 'Welcome to READY Setup Wizard.'
 echo ''
 echo '----------------------------------------------------------------------------'
 
-CALLPATH=`pwd`
-cd $(dirname $(readlink -f $0))/..
-READY_ROOT=`pwd`
-cd $CALLPATH
+if echo "$SHELL" | grep 'bash' >/dev/null 2>&1 ; then
+  MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+else
+  MYPATH="$( cd "$( dirname "$0" )" >/dev/null 2>&1 && pwd )"
+fi
+
+READY_ROOT=`cd $MYPATH/.. && pwd`
+
 
 # read command line args
 SUDO=''
 INSTALL_DIR=$READY_ROOT/installation
-
-
 N=3
-
 
 for i in "$@"
 do

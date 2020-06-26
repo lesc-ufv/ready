@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
 
-CALLPATH=`pwd`
-cd $(dirname $(readlink -f $0))
-MYPATH=`pwd`
-cd $CALLPATH
+if echo "$SHELL" | grep 'bash' >/dev/null 2>&1 ; then
+  MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+else
+  MYPATH="$( cd "$( dirname "$0" )" >/dev/null 2>&1 && pwd )"
+fi
 
 export READY_BASEDIR=`cd $MYPATH/.. && pwd`
+export READY_INSTALLDIR=$READY_BASEDIR/installation
 source $READY_BASEDIR/fdam/scripts/setup.fdam
+
+
