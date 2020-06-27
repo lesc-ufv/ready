@@ -5,6 +5,7 @@
 #include <map>
 #include <iostream>
 #include <fstream>
+#include <string>
 
 #include <ready/data_flow_defs.h>
 #include <ready/cgra_arch_defs.h>
@@ -60,6 +61,8 @@ public:
     Operator *getOp(int id);
 
     void toDot(std::string fileNamePath);
+    
+    void toJSON(const std::string &fileNamePath);
 
     void connect(Operator *src, Operator *dst, int dstPort);
 

@@ -11,12 +11,12 @@
 
 class PassB : public Operator {
 public:
-    explicit PassB(int id) : Operator(id, OP_PASS_B, OP_BASIC) {}
+    explicit PassB(int id) : Operator(id, OP_PASS_B, OP_BASIC, "pass_b") {}
 };
 
 class PassBi : public Operator {
 public:
-    explicit PassBi(int id, int constant) : Operator(id, OP_PASS_B, OP_IMMEDIATE, constant) {}
+    explicit PassBi(int id, int constant) : Operator(id, OP_PASS_B, OP_IMMEDIATE, "pass_bi", constant) {}
 };
 
 #endif //MAIN_PASSB_H

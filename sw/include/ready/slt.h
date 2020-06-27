@@ -10,12 +10,12 @@
 
 class Slt : public Operator {
 public:
-    explicit Slt(int id) : Operator(id, OP_SLT, OP_BASIC) {}
+    explicit Slt(int id) : Operator(id, OP_SLT, OP_BASIC,"slt") {}
 };
 
 class Slti : public Operator {
 public:
-    explicit Slti(int id, int constant) : Operator(id, OP_SLT, OP_IMMEDIATE, constant) {}
+    explicit Slti(int id, int constant) : Operator(id, OP_SLT, OP_IMMEDIATE,"slti", constant) {}
 };
 
 

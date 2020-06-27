@@ -13,14 +13,20 @@ endif ()
 
 include_directories("${CMAKE_PREFIX_PATH}/include" "${CMAKE_SOURCE_DIR}/include")
 
+find_library(LIB_OPAE NAMES opae-c REQUIRED)
+find_library(LIB_OPAE_ASE NAMES opae-c-ase REQUIRED)
+find_library(LIB_UUID NAMES uuid REQUIRED)
+find_library(LIB_MPF NAMES MPF REQUIRED)
 find_library(LIB_FDAM NAMES fdam REQUIRED)
 
 file(GLOB_RECURSE CPP_SRCS ${CMAKE_SOURCE_DIR}/src/*.cpp)
 file(GLOB_RECURSE H_SRCS ${CMAKE_SOURCE_DIR}/include/*.h)
 
 add_library(ready SHARED ${CPP_SRCS} ${H_SRCS})
+add_library(ready_ase SHARED ${CPP_SRCS} ${H_SRCS})
 
-target_link_libraries(ready ${LIB_FDAM})
+target_link_libraries(ready ${LIB_FDAM} ${LIB_OPAE} ${LIB_UUID} ${LIB_MPF})
+target_link_libraries(ready_ase ${LIB_FDAM} ${LIB_OPAE_ASE} ${LIB_UUID} ${LIB_MPF})
 
 get_property(LIB64 GLOBAL PROPERTY FIND_LIBRARY_USE_LIB64_PATHS)
 if ("${LIB64}" STREQUAL "TRUE")
@@ -30,10 +36,11 @@ else()
 endif()
 
 install(
-    TARGETS ready
+    TARGETS ready ready_ase
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION ${LIB_DIR}
     ARCHIVE DESTINATION ${LIB_DIR}
     )
         
 install(FILES ${H_SRCS} DESTINATION include/ready)
+

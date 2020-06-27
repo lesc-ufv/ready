@@ -11,7 +11,7 @@
 
 class PassA : public Operator {
 public:
-    explicit PassA(int id) : Operator(id, OP_PASS_A, OP_BASIC) {}
+    explicit PassA(int id) : Operator(id, OP_PASS_A, OP_BASIC,"pass_a") {}
 };
 
 #endif //MAIN_PASSA_H

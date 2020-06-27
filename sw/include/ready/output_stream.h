@@ -12,7 +12,7 @@
 
 class OutputStream : public Operator {
 public:
-    explicit OutputStream(int id) : Operator(id, OP_PASS_A, OP_OUT) {}
+    explicit OutputStream(int id) : Operator(id, OP_PASS_A, OP_OUT,"output") {}
 
 };
 

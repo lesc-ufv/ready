@@ -11,12 +11,12 @@
 
 class Max : public Operator {
 public:
-    explicit Max(int id) : Operator(id, OP_MAX, OP_BASIC) {}
+    explicit Max(int id) : Operator(id, OP_MAX, OP_BASIC,"max") {}
 };
 
 class Maxi : public Operator {
 public:
-    Maxi(int id, int constant) : Operator(id, OP_MAX, OP_IMMEDIATE, constant) {}
+    Maxi(int id, int constant) : Operator(id, OP_MAX, OP_IMMEDIATE, "maxi", constant) {}
 };
 
 

@@ -10,7 +10,7 @@
 
 class Abs : public Operator {
 public:
-    explicit Abs(int id) : Operator(id, OP_ABS, OP_BASIC) {}
+    explicit Abs(int id) : Operator(id, OP_ABS, OP_BASIC,"abs") {}
 };
 
 #endif //MAIN_ABS_H

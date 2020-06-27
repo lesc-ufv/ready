@@ -10,12 +10,12 @@
 
 class Mux : public Operator {
 public:
-    explicit Mux(int id) : Operator(id, OP_MUX, OP_BASIC) {}
+    explicit Mux(int id) : Operator(id, OP_MUX, OP_BASIC,"mux") {}
 };
 
 class Muxi : public Operator {
 public:
-    Muxi(int id, int constant) : Operator(id, OP_MUX, OP_IMMEDIATE, constant) {}
+    Muxi(int id, int constant) : Operator(id, OP_MUX, OP_IMMEDIATE, "muxi", constant) {}
 };
 
 #endif //MAIN_MUX_H

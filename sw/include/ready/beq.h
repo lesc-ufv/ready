@@ -10,12 +10,12 @@
 
 class Beq : public Operator {
 public:
-    explicit Beq(int id) : Operator(id, OP_BEQ, OP_BASIC) {}
+    explicit Beq(int id) : Operator(id, OP_BEQ, OP_BASIC,"beq") {}
 };
 
 class Beqi : public Operator {
 public:
-    Beqi(int id, int constant) : Operator(id, OP_BEQ, OP_IMMEDIATE, constant) {}
+    Beqi(int id, int constant) : Operator(id, OP_BEQ, OP_IMMEDIATE, "beqi", constant) {}
 };
 
 #endif //MAIN_BEQ_H

@@ -10,12 +10,12 @@
 
 class Sgt : public Operator {
 public:
-    explicit Sgt(int id) : Operator(id, OP_SGT, OP_BASIC) {}
+    explicit Sgt(int id) : Operator(id, OP_SGT, OP_BASIC,"sgt") {}
 };
 
 class Sgti : public Operator {
 public:
-    explicit Sgti(int id, int constant) : Operator(id, OP_SGT, OP_IMMEDIATE, constant) {}
+    explicit Sgti(int id, int constant) : Operator(id, OP_SGT, OP_IMMEDIATE,"sgti", constant) {}
 };
 
 

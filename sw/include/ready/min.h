@@ -10,12 +10,12 @@
 
 class Min : public Operator {
 public:
-    explicit Min(int id) : Operator(id, OP_MIN, OP_BASIC) {}
+    explicit Min(int id) : Operator(id, OP_MIN, OP_BASIC,"min") {}
 };
 
 class Mini : public Operator {
 public:
-    Mini(int id, int constant) : Operator(id, OP_MIN, OP_IMMEDIATE, constant) {}
+    Mini(int id, int constant) : Operator(id, OP_MIN, OP_IMMEDIATE, "mini", constant) {}
 };
 
 

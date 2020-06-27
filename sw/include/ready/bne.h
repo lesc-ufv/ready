@@ -11,12 +11,12 @@
 
 class Bne : public Operator {
 public:
-    explicit Bne(int id) : Operator(id, OP_BNE, OP_BASIC) {}
+    explicit Bne(int id) : Operator(id, OP_BNE, OP_BASIC,"bne") {}
 };
 
 class Bnei : public Operator {
 public:
-    Bnei(int id, int constant) : Operator(id, OP_BNE, OP_IMMEDIATE, constant) {}
+    Bnei(int id, int constant) : Operator(id, OP_BNE, OP_IMMEDIATE,"bnei", constant) {}
 };
 
 #endif //MAIN_BNE_H

@@ -11,12 +11,12 @@
 
 class Sub : public Operator {
 public:
-    explicit Sub(int id) : Operator(id, OP_SUB, OP_BASIC) {}
+    explicit Sub(int id) : Operator(id, OP_SUB, OP_BASIC, "sub") {}
 };
 
 class Subi : public Operator {
 public:
-    Subi(int id, int constant) : Operator(id, OP_SUB, OP_IMMEDIATE, constant) {}
+    Subi(int id, int constant) : Operator(id, OP_SUB, OP_IMMEDIATE, "subi", constant) {}
 };
 
 #endif //MAIN_SUB_H

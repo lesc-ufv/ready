@@ -48,7 +48,6 @@ Operator *DataFlow::getOp(int id) {
 }
 
 void DataFlow::toDot(std::string fileNamePath) {
-
     std::ofstream myfile;
     myfile.open(fileNamePath);
     myfile << "digraph " << DataFlow::name << "{" << std::endl;
@@ -80,6 +79,51 @@ void DataFlow::toDot(std::string fileNamePath) {
     }
     myfile << "}" << std::endl;
     myfile.close();
+}
+
+void DataFlow::toJSON(const std::string &fileNamePath) {
+        std::ofstream myfile;
+        myfile.open(fileNamePath);
+        myfile << "[" << std::endl;
+        
+        char str_node_sub[] = R"({"data":{"id":"%d","op1":"%d","op2":"%d","type":"sub"},"group":"nodes"})";
+        char str_node[] = R"({"data":{"id":"%d","type":"%s"},"group":"nodes"})";
+        char str_edge[] = R"({"data":{"id":"%d","source":"%d","target":"%d"},"group":"edges"})";
+        
+        char buf[256];
+        int numOp = DataFlow::getNumOp();
+        int numEdge = DataFlow::getNumEdges();
+        int cnt = 0;
+        int max_id = 0;
+        int id_edges = 0;
+        for (auto item:DataFlow::op_array) {
+            cnt++;
+            auto op = item.second;
+            if(op->getLabel() == "sub"){
+                 sprintf(buf, str_node_sub, op->getId(),op->getSrcA(),op->getSrcB(), op->getLabel().c_str());
+            }else{
+                sprintf(buf, str_node, op->getId(), op->getLabel().c_str()); 
+            }
+            if (op->getId() > max_id) {
+                max_id = op->getId();
+            }
+            myfile << buf << "," << std::endl;
+        }
+        id_edges = max_id + 1;
+        cnt = 0;
+        for (auto item:DataFlow::op_array) {
+            auto op = item.second;
+            for (auto neighbor:op->getDst()) {
+                cnt++;
+                sprintf(buf, str_edge, id_edges++, op->getId(), neighbor);
+                if (cnt < numEdge)
+                    myfile << buf << "," << std::endl;
+                else
+                    myfile << buf << std::endl;
+            }
+        }
+        myfile << "]";
+        myfile.close();
 }
 
 void DataFlow::connect(Operator *src, Operator *dst, int dstPort) {

@@ -10,12 +10,12 @@
 
 class Or : public Operator {
 public:
-    explicit Or(int id) : Operator(id, OP_OR, OP_BASIC) {}
+    explicit Or(int id) : Operator(id, OP_OR, OP_BASIC,"or") {}
 };
 
 class Ori : public Operator {
 public:
-    explicit Ori(int id, int constant) : Operator(id, OP_OR, OP_IMMEDIATE, constant) {}
+    explicit Ori(int id, int constant) : Operator(id, OP_OR, OP_IMMEDIATE,"ori", constant) {}
 };
 
 #endif //MAIN_OR_H

@@ -10,7 +10,7 @@
 
 class Not : public Operator {
 public:
-    explicit Not(int id) : Operator(id, OP_NOT, OP_BASIC) {}
+    explicit Not(int id) : Operator(id, OP_NOT, OP_BASIC, "not") {}
 };
 
 

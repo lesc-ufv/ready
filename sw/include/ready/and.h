@@ -10,12 +10,12 @@
 
 class And : public Operator {
 public:
-    explicit And(int id) : Operator(id, OP_AND, OP_BASIC) {}
+    explicit And(int id) : Operator(id, OP_AND, OP_BASIC,"and") {}
 };
 
 class Andi : public Operator {
 public:
-    Andi(int id, int constant) : Operator(id, OP_AND, OP_IMMEDIATE, constant) {}
+    Andi(int id, int constant) : Operator(id, OP_AND, OP_IMMEDIATE,"andi", constant) {}
 };
 
 

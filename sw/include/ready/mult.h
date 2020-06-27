@@ -11,12 +11,12 @@
 
 class Mult : public Operator {
 public:
-    explicit Mult(int id) : Operator(id, OP_MULT, OP_BASIC) {}
+    explicit Mult(int id) : Operator(id, OP_MULT, OP_BASIC, "mult") {}
 };
 
 class Multi : public Operator {
 public:
-    Multi(int id, int constant) : Operator(id, OP_MULT, OP_IMMEDIATE, constant) {}
+    Multi(int id, int constant) : Operator(id, OP_MULT, OP_IMMEDIATE, "multi", constant) {}
 };
 
 

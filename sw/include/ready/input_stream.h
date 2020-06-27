@@ -12,7 +12,7 @@
 
 class InputStream : public Operator {
 public:
-    explicit InputStream(int id) : Operator(id, OP_PASS_A, OP_IN) {}
+    explicit InputStream(int id) : Operator(id, OP_PASS_A, OP_IN,"input") {}
 };
 
 

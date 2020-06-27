@@ -2,6 +2,8 @@
 #define CGRASCHEDULER_OPERATOR_H
 
 #include <vector>
+#include <string>
+
 #include <ready/cgra_arch_defs.h>
 
 class Operator {
@@ -18,11 +20,12 @@ private:
     int branchIn;
     std::vector<int> dst;
     int dataFlowId;
+    std::string label;
 
 public:
-    Operator(int id, int op_code, int type);
+    Operator(int id, int op_code, int type, std::string label);
 
-    Operator(int id, int op_code, int type, int constant);
+    Operator(int id, int op_code, int type,  std::string label, int constant);
 
     ~Operator();
 
@@ -75,6 +78,8 @@ public:
     int getPortB();
     
     int getPortBranch();
+    
+    const std::string &getLabel() const;
 
 };
 
