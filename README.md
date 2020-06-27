@@ -13,7 +13,7 @@ processor
 
 Lucas Bragança , Ricardo Ferreira, Michael Canesche, Marcelo M Menezes, Maria D Vieira, Jeronimo Penha, Peter Jamieson, José Augusto M Nacif, [READY: A Fine-Grained Multithreading Overlay Framework for Modern CPU-FPGA Dataflow Applications](https://dl.acm.org/doi/pdf/10.1145/3358187) in ACM Transactions on Embedded Computing System 2019.
   
-If you find FDAM useful or if you use it in your work, please cite the following paper:
+If you find READY useful or if you use it in your work, please cite the following paper:
   
   ```
 @article{ready,
