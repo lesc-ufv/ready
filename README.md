@@ -1,13 +1,8 @@
 # READY: A Fine-Grained Multithreading Overlay Framework for Modern CPU-FPGA Dataflow Applications
 
-In this work, we propose a framework called REconfigurable Accelerator DeploY (READY), the first framework to support polynomial runtime mapping of dataflow applications in high-performance CPU-FPGA platforms. READY introduces an efficient mapping with fine-grained multithreading onto an overlay architecture
-that hides the latency of a global interconnection network. In addition to our overlay architecture, we show
-how this system helps solve some of the challenges for FPGA cloud computing adoption in high-performance
-computing. The framework encapsulates dataflow descriptions by using a target independent, high-level API,
-and a dataflow model that allows for explicit spatial and temporal parallelism. READY directly maps the
-dataflow kernels onto the accelerator. Our tool is flexible and extensible and provides the infrastructure to
-explore different accelerator designs. We validate READY on the Intel Harp platform, and our experimental results show an average 2x execution runtime improvement when compared to an 8-thread multi-core
-processor
+In this work, we propose a framework called REconfigurable Accelerator DeploY (READY), the first framework to support polynomial runtime mapping of dataflow applications in high-performance CPU-FPGA platforms. READY introduces an efficient mapping with fine-grained multithreading onto an overlay architecture that hides the latency of a global interconnection network. In addition to our overlay architecture, we show how this system helps solve some of the challenges for FPGA cloud computing adoption in high-performance computing. The framework encapsulates dataflow descriptions by using a target independent, high-level API, and a dataflow model that allows for explicit spatial and temporal parallelism. READY directly maps the dataflow kernels onto the accelerator. Our tool is flexible and extensible and provides the infrastructure to explore different accelerator designs. We validate READY on the Intel Harp platform, and our experimental results show an average 2x execution runtime improvement when compared to an 8-thread multi-core processor.
+
+To perform the installation see the project's [Wiki](https://github.com/ComputerArchitectureUFV/ready/wiki).
 
 # Publication
 
