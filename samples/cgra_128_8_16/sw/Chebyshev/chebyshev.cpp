@@ -110,7 +110,6 @@ int chebyshev_cgra(int idx, int copies) {
 
     for (int i = 0; i < NUM_THREAD; ++i) {
         auto df = createDataFlow(i, copies);
-        df->toDot("/home/lucas/Documentos/dataflow.dot");
         dfs.push_back(createDataFlow(i, copies));
         scheduler.addDataFlow(dfs[i], i, 0);
         cgraArch->getNetBranch(i)->createRouteTable();

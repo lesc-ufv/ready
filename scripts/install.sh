@@ -76,6 +76,16 @@ echo "installing fdam ..."
 
 $SUDO $READY_ROOT/fdam/scripts/install.sh --prefix=$INSTALL_DIR --jobs=$N
 
+echo "installing jsoncpp ..."
+echo ""
+mkdir $READY_ROOT/jsoncpp/mybuild
+cd $READY_ROOT/jsoncpp/mybuild
+cmake .. -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR -DCMAKE_PREFIX_PATH=$INSTALL_DIR
+make $JOBS
+$SUDO make install 
+echo "end of installing jsoncpp"
+echo ""
+
 echo "installing ready ..."
 echo ""
 mkdir $READY_ROOT/sw/mybuild

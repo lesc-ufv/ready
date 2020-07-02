@@ -1,7 +1,13 @@
 #include <ready/data_flow.h>
 
-
-DataFlow::DataFlow(int id, std::string name) : id(id), name(std::move(name)), num_op_in(0), num_op_out(0), num_op(0) {}
+DataFlow::DataFlow(int id, std::string name) : 
+    id(id),
+    name(std::move(name)),
+    num_op_in(0),
+    num_op_out(0),
+    num_op(0) {
+        
+}
 
 DataFlow::~DataFlow() {
     DataFlow::op_array.clear();
@@ -86,9 +92,8 @@ void DataFlow::toJSON(const std::string &fileNamePath) {
         myfile.open(fileNamePath);
         myfile << "[" << std::endl;
         
-        char str_node_sub[] = R"({"data":{"id":"%d","op1":"%d","op2":"%d","type":"sub"},"group":"nodes"})";
-        char str_node[] = R"({"data":{"id":"%d","type":"%s"},"group":"nodes"})";
-        char str_edge[] = R"({"data":{"id":"%d","source":"%d","target":"%d"},"group":"edges"})";
+        char str_node[] = R"({"data":{"id":%d,"type":"%s","value":%d},"group":"nodes"})";
+        char str_edge[] = R"({"data":{"id":%d,"source":%d,"target":%d, "port":%d},"group":"edges"})";
         
         char buf[256];
         int numOp = DataFlow::getNumOp();
@@ -99,11 +104,7 @@ void DataFlow::toJSON(const std::string &fileNamePath) {
         for (auto item:DataFlow::op_array) {
             cnt++;
             auto op = item.second;
-            if(op->getLabel() == "sub"){
-                 sprintf(buf, str_node_sub, op->getId(),op->getSrcA(),op->getSrcB(), op->getLabel().c_str());
-            }else{
-                sprintf(buf, str_node, op->getId(), op->getLabel().c_str()); 
-            }
+            sprintf(buf, str_node, op->getId(), op->getLabel().c_str(),op->getConstant()); 
             if (op->getId() > max_id) {
                 max_id = op->getId();
             }
@@ -111,11 +112,17 @@ void DataFlow::toJSON(const std::string &fileNamePath) {
         }
         id_edges = max_id + 1;
         cnt = 0;
+        int port;
         for (auto item:DataFlow::op_array) {
             auto op = item.second;
-            for (auto neighbor:op->getDst()) {
+            for (auto neighbor_id:op->getDst()) {
+                auto neighbor = DataFlow::op_array[neighbor_id];
                 cnt++;
-                sprintf(buf, str_edge, id_edges++, op->getId(), neighbor);
+                port = 1;
+                if(neighbor->getSrcA() == op->getId()){
+                    port = 0;
+                }
+                sprintf(buf, str_edge, id_edges++, op->getId(), neighbor_id, port);
                 if (cnt < numEdge)
                     myfile << buf << "," << std::endl;
                 else
@@ -124,6 +131,52 @@ void DataFlow::toJSON(const std::string &fileNamePath) {
         }
         myfile << "]";
         myfile.close();
+}
+
+void DataFlow::fromJSON(const std::string &fileNamePath){
+  Json::Value df;
+  Json::Value map_op;
+  
+  const auto str_map_op_length = static_cast<int>(str_map_op.length());
+  
+  std::ifstream ifs;
+  ifs.open(fileNamePath);
+  
+  Json::CharReaderBuilder builder;
+  JSONCPP_STRING errs;
+  
+  if (!parseFromStream(builder, ifs, &df, &errs)) {
+    std::cout << errs << std::endl;
+    return;
+  }
+  const std::unique_ptr<Json::CharReader> reader(builder.newCharReader());
+  if (!reader->parse(str_map_op.c_str(), str_map_op.c_str() + str_map_op_length, &map_op, &errs)) {
+      std::cout << errs << std::endl;
+      return;
+  }
+    
+  for(auto e:df){
+    if(e["group"] == "nodes"){
+        int id = e["data"]["id"].asInt();
+        std::string label = e["data"]["type"].asString();
+        int opcode = map_op[label]["opcode"].asInt();
+        int type = map_op[label]["type"].asInt();
+        int constant = e["data"]["value"].asInt();
+        auto op = new Operator(id, opcode, type, label, constant);
+        DataFlow::addOperator(op);
+    }
+  }
+  for(auto e:df){
+    if(e["group"] == "edges"){
+        auto src =  e["data"]["source"].asInt();
+        auto dst = e["data"]["target"].asInt();
+        auto port = e["data"]["port"].asInt();
+        auto op_src = DataFlow::op_array[src];
+        auto op_dst = DataFlow::op_array[dst];
+        DataFlow::connect(op_src,op_dst,port);   
+    }
+  }
+  
 }
 
 void DataFlow::connect(Operator *src, Operator *dst, int dstPort) {

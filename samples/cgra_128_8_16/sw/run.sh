@@ -8,7 +8,7 @@ type="_"$1
 do_build=$2
 tests=$3
 
-bitstream_cgra="$FDAM_BASEDIR/fdam-samples/fdam-cgra-samples/cgra_128_radix8/hw/synth/cgra_128_radix8.gbs"
+bitstream_cgra="$READY_BASEDIR/samples/cgra_128_8_16/hw/synth/cgra_128_8_16.gbs"
 
 if test "$do_build" == "exec_harp"
 then 
@@ -22,7 +22,7 @@ then
     rm -rf build
     mkdir build
     cd build
-    cmake .. -DCMAKE_PREFIX_PATH=$FDAM_INSTALLDIR
+    cmake .. -DCMAKE_PREFIX_PATH=$READY_INSTALLDIR
     make -j7
 else
     echo "Run Chebyshev ..."
@@ -38,7 +38,7 @@ then
     rm -rf build
     mkdir build
     cd build
-    cmake .. -DCMAKE_PREFIX_PATH=$FDAM_INSTALLDIR
+    cmake .. -DCMAKE_PREFIX_PATH=$READY_INSTALLDIR
     make -j7
 else
     echo "Run Fir ..."
@@ -54,7 +54,7 @@ then
     rm -rf build
     mkdir build
     cd build
-    cmake .. -DCMAKE_PREFIX_PATH=$FDAM_INSTALLDIR
+    cmake .. -DCMAKE_PREFIX_PATH=$READY_INSTALLDIR
     make -j7
 else
     echo "Run Kmeans ..."
@@ -70,7 +70,7 @@ then
     rm -rf build
     mkdir build
     cd build
-    cmake .. -DCMAKE_PREFIX_PATH=$FDAM_INSTALLDIR
+    cmake .. -DCMAKE_PREFIX_PATH=$READY_INSTALLDIR
     make -j7
 else
     echo "Run Mibench ..."
@@ -86,7 +86,7 @@ then
     rm -rf build
     mkdir build
     cd build
-    cmake .. -DCMAKE_PREFIX_PATH=$FDAM_INSTALLDIR
+    cmake .. -DCMAKE_PREFIX_PATH=$READY_INSTALLDIR
     make -j7
 else
     echo "Run Paeth ..."
@@ -102,7 +102,7 @@ then
     rm -rf build
     mkdir build
     cd build
-    cmake .. -DCMAKE_PREFIX_PATH=$FDAM_INSTALLDIR
+    cmake .. -DCMAKE_PREFIX_PATH=$READY_INSTALLDIR
     make -j7
 else
     echo "Run Poly5 ..."
@@ -118,7 +118,7 @@ then
     rm -rf build
     mkdir build
     cd build
-    cmake .. -DCMAKE_PREFIX_PATH=$FDAM_INSTALLDIR
+    cmake .. -DCMAKE_PREFIX_PATH=$READY_INSTALLDIR
     make -j7
 else
     echo "Run Poly6 ..."
@@ -134,7 +134,7 @@ then
     rm -rf build
     mkdir build
     cd build
-    cmake .. -DCMAKE_PREFIX_PATH=$FDAM_INSTALLDIR
+    cmake .. -DCMAKE_PREFIX_PATH=$READY_INSTALLDIR
     make -j7
 else
     echo "Run Poly8 ..."
@@ -150,7 +150,7 @@ then
     rm -rf build
     mkdir build
     cd build
-    cmake .. -DCMAKE_PREFIX_PATH=$FDAM_INSTALLDIR
+    cmake .. -DCMAKE_PREFIX_PATH=$READY_INSTALLDIR
     make -j7
 else
     echo "Run Qspline ..."
@@ -166,7 +166,7 @@ then
     rm -rf build
     mkdir build
     cd build
-    cmake .. -DCMAKE_PREFIX_PATH=$FDAM_INSTALLDIR
+    cmake .. -DCMAKE_PREFIX_PATH=$READY_INSTALLDIR
     make -j7
 else
     echo "Run Sgfilter ..."
@@ -182,7 +182,7 @@ then
     rm -rf build
     mkdir build
     cd build
-    cmake .. -DCMAKE_PREFIX_PATH=$FDAM_INSTALLDIR
+    cmake .. -DCMAKE_PREFIX_PATH=$READY_INSTALLDIR
     make -j7
 else
     echo "Run SobelFilter ..."

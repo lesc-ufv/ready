@@ -1,11 +1,32 @@
 #include <ready/operator.h>
 
-Operator::Operator(int id, int op_code, int type, std::string label) : id(id), opCode(op_code), type(type), srcA(-1), srcB(-1),
-                                                    branchIn(-1), level(0), dataFlowId(-1),label(std::move(label)) {}
+Operator::Operator(int id, int op_code, int type, std::string label) : 
+    id(id),
+    opCode(op_code),
+    type(type),
+    srcA(-1),
+    srcB(-1),
+    branchIn(-1),
+    constant(0),
+    level(0),
+    dataFlowId(-1),
+    label(std::move(label)) {
+        
+    }
 
-Operator::Operator(int id, int op_code, int type, std::string label, int constant) : id(id), opCode(op_code), type(type),
-                                                                  srcA(-1), srcB(-1), branchIn(-1), constant(constant),
-                                                                  level(0), dataFlowId(-1),label(std::move(label)) {}
+Operator::Operator(int id, int op_code, int type, std::string label, int constant) : 
+    id(id),
+    opCode(op_code),
+    type(type),
+    srcA(-1),
+    srcB(-1),
+    branchIn(-1),
+    constant(constant),
+    level(0),
+    dataFlowId(-1),
+    label(std::move(label)) {
+        
+    }
 
 Operator::~Operator() {
     Operator::dst.clear();

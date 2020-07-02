@@ -7,6 +7,8 @@
 #include <fstream>
 #include <string>
 
+#include <json/json.h>
+
 #include <ready/data_flow_defs.h>
 #include <ready/cgra_arch_defs.h>
 #include <ready/operator.h>
@@ -63,6 +65,8 @@ public:
     void toDot(std::string fileNamePath);
     
     void toJSON(const std::string &fileNamePath);
+    
+    void fromJSON(const std::string &fileNamePath);
 
     void connect(Operator *src, Operator *dst, int dstPort);
 
