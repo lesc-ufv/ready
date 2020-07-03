@@ -189,3 +189,20 @@ else
     cd build
     ./sobel_filter$type $tests
 fi
+
+cd ../../
+cd Loopback
+if test "$do_build" == "build"
+then
+    echo "Build Loopback ..."
+    rm -rf build
+    mkdir build
+    cd build
+    cmake .. -DCMAKE_PREFIX_PATH=$READY_INSTALLDIR
+    make -j7
+else
+    echo "Run Loopback ..."
+    cd build
+    ./loopback$type $tests
+fi
+

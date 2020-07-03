@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
     if(test & 2)
         loopback_openmp(idx);
     if(test & 4)
-        loopback_cgra(idx, 2);
+        loopback_cgra(idx, 8);
 
     return 0;
 }

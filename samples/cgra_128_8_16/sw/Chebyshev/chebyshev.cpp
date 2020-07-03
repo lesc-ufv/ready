@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
     if(test & 2)
         chebyshev_openmp(idx);
     if(test & 4)
-        chebyshev_cgra(idx, 1);
+        chebyshev_cgra(idx, 8);
 
     return 0;
 }
