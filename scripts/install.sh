@@ -69,6 +69,7 @@ cd $CALLPATH
 echo "cleaning up..."
 echo ""
 rm -rf $READY_ROOT/sw/mybuild
+rm -rf $READY_ROOT/jsoncpp/mybuild
 echo "end of cleaning up!"
 echo ""
 
