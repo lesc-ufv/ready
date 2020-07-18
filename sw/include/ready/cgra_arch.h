@@ -1,7 +1,7 @@
 #ifndef CGRA_ARCH_H
 #define CGRA_ARCH_H
 
-
+#include <map>
 #include <ready/data_flow.h>
 #include <ready/operator.h>
 #include <ready/data_flow_defs.h>

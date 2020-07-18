@@ -1,8 +1,8 @@
-#ifndef CGRASCHEDULER_PATHFINDER_H
-#define CGRASCHEDULER_PATHFINDER_H
+#ifndef PATHFINDER_H
+#define PATHFINDER_H
 
 #include <vector>
-#include <map>
+#include<map>
 #include <queue>
 
 class PathFinder {
@@ -12,4 +12,4 @@ public:
 };
 
 
-#endif //CGRASCHEDULER_PATHFINDER_H
+#endif //PATHFINDER_H

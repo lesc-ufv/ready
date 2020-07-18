@@ -3,18 +3,24 @@
 int main(int argc, char *argv[]) {
 
     int idx = 0;
-    int test= 0;
+    int test = 0;
     if (argc > 1)
         test = atoi(argv[1]);
+
     if (argc > 2)
         idx = atoi(argv[2]);
-    
-    if(test & 1)
+
+    if (test & 1)
         chebyshev(idx);
-    if(test & 2)
+
+    if (test & 2)
         chebyshev_openmp(idx);
-    if(test & 4)
+
+    if (test & 4)
         chebyshev_cgra(idx, 1);
+
+    if (test & 8)
+        chebyshev_dataflow_cpu();
 
     return 0;
 }
@@ -104,7 +110,7 @@ int chebyshev_cgra(int idx, int copies) {
     int r = 0, v = 0, tries = 0;
 
     for (int k = 0; k < DATA_SIZE; ++k) {
-        data_in[k] = k;
+        data_in[k] = k+1;
         data_out[k] = 0;
     }
 
@@ -112,14 +118,11 @@ int chebyshev_cgra(int idx, int copies) {
         auto df = createDataFlow(i, copies);
         dfs.push_back(createDataFlow(i, copies));
         scheduler.addDataFlow(dfs[i], i, 0);
-        cgraArch->getNetBranch(i)->createRouteTable();
-        cgraArch->getNet(i)->createRouteTable();
     }
-
     do {
         r = scheduler.scheduling();
         tries++;
-    } while (r != SCHEDULE_SUCCESS && tries < 10000);
+    } while (r != SCHEDULE_SUCCESS && tries < 100);
 
     if (r == SCHEDULE_SUCCESS) {
 
@@ -144,8 +147,12 @@ int chebyshev_cgra(int idx, int copies) {
         }
         cgraExecTime /= SAMPLES;
         printf("Time(ms) CGRA: %5.2lf\n", cgraExecTime);
-
         v = data_out[idx];
+
+        for(int i=0;i < 10;i++){
+            cout << data_out[i] << " ";
+        }
+        cout << endl;
 
     } else {
         printf("Scheduler Error: %d\n", r);
@@ -167,8 +174,8 @@ DataFlow *createDataFlow(int id, int copies) {
     std::vector<Operator *> in;
     std::vector<Operator *> out;
     for (int i = 0; i < copies; ++i) {
-        in.push_back(new InputStream(idx++));
-        out.push_back(new OutputStream(idx++));
+        in.push_back(new InputStream(idx++, nullptr));
+        out.push_back(new OutputStream(idx++, nullptr));
     }
     for (int i = 0; i < copies; ++i) {
 
@@ -207,5 +214,42 @@ DataFlow *createDataFlow(int id, int copies) {
         df->connect(add1, mult5, mult5->getPortB());
         df->connect(mult5, out[i], out[i]->getPortA());
     }
+    df->toJSON("chebyshev.json");
+
     return df;
+}
+
+void chebyshev_dataflow_cpu() {
+
+    std::vector<int> data_in[1] = {{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
+    std::vector<int> data_out[1];
+
+    auto dataFlow = createDataFlow(0, 1);
+
+    auto in = reinterpret_cast<InputStream *>(dataFlow->getOp(0));
+    auto out = reinterpret_cast<OutputStream *>(dataFlow->getOp(1));
+    in->setData(&data_in[0]);
+    out->setData(&data_out[0]);
+
+    dataFlow->compute();
+
+    dataFlow->toJSON("chebyshev.json");
+    dataFlow->toDOT("chebyshev.dot");
+
+    for (const auto &dv:data_in) {
+        for (auto v:dv) {
+            cout << v << " ";
+        }
+        cout << endl;
+    }
+    cout << endl;
+    for (const auto &dv:data_out) {
+        for (auto v:dv) {
+            cout << v << " ";
+        }
+        cout << endl;
+    }
+    cout << endl;
+
+    delete dataFlow;
 }

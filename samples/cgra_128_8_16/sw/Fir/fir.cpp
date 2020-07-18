@@ -220,7 +220,8 @@ DataFlow *createDataFlow(int id, int copies, unsigned short *coef, int taps) {
         op1 = add[taps - 1];
         df->connect(op1, out_cp[j], out_cp[j]->getPortA());
     }
-
+    
+    df->toDot("fir.dot");
     return df;
 
 }

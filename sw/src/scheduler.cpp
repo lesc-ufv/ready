@@ -1,7 +1,5 @@
 #include <ready/scheduler.h>
 
-Scheduler::Scheduler() = default;
-
 Scheduler::Scheduler(CgraArch *cgra) : cgraArch(cgra) {
     int num_thread = Scheduler::cgraArch->getNumThreads();
     for(int i = 0; i < num_thread; i++){
@@ -16,7 +14,6 @@ Scheduler::~Scheduler() {
 bool Scheduler::addDataFlow(DataFlow *df, int threadID, int groupID) {
     if (Scheduler::cgraArch) {
         if (threadID >= 0 && threadID <= (Scheduler::cgraArch->getNumThreads() - 1)) {
-            
             Scheduler::dataflows[threadID] = df;
             Scheduler::dataflow_group[df->getId()] = groupID;
             return true;
@@ -35,7 +32,7 @@ CgraArch *Scheduler::getCgra() {
 
 int Scheduler::scheduling() {
 
-    for (const auto &df : Scheduler::dataflows) {
+  for (const auto &df : Scheduler::dataflows) {
         int r = mapAndRoute(df.first);
         if (r != SCHEDULE_SUCCESS) {
             return r;
@@ -165,7 +162,6 @@ int Scheduler::placeAndRoute(std::vector<int> &mapping, int threadID) {
 
     std::map<int, int> mapping_op;
     Operator *op_src = nullptr;
-    Operator *op_dst = nullptr;
     PEArch *pe_dst = nullptr;
     PEArch *pe_src = nullptr;
 
@@ -194,42 +190,47 @@ int Scheduler::placeAndRoute(std::vector<int> &mapping, int threadID) {
                     if (op_src->getDst().empty() && op_src->getType() != OP_OUT) {
                         return i;
                     } else {
-                        for (auto p:op_src->getDst()) {
-                            op_dst = Scheduler::dataflows[threadID]->getOp(p);
-                            pe_dst = Scheduler::cgraArch->getPE(mapping_op[p]);
-                            if (pe_dst && op_dst) {
-                                if (op_dst->getBranchIn() == op_src->getId()) {
+                        for (auto op_dst:op_src->getDst()) {
+                            pe_dst = Scheduler::cgraArch->getPE(mapping_op[op_dst->getId()]);
+                            int dst_branch_in_id  = -1;
+                            int dst_src_a_id = -1;
+                            int dst_src_b_id = -1;
+                            if(op_dst->getBranchIn()){
+                                dst_branch_in_id = op_dst->getBranchIn()->getId();
+                            }
+                            if(op_dst->getSrcA()){
+                                dst_src_a_id = op_dst->getSrcA()->getId();
+                            }
+                            if(op_dst->getSrcB()){
+                                dst_src_b_id = op_dst->getSrcB()->getId();
+                            }
+                            if (pe_dst) {
+                                if (dst_branch_in_id == op_src->getId()) {
                                     if (!net_branch->addRoute(pe_src->getId(), pe_dst->getId())) {
                                         return i;
                                     }
-                                    //printf("1 %d %d\n",pe_src->getId(),pe_dst->getId());
                                     pe_src->setOperator(op_src, threadID);
                                     pe_dst->setOperator(op_dst, threadID);
 
                                 } else {
                                     pe_src_port_a = pe_src->getId() * 2;
                                     pe_src_port_b = (pe_src->getId() * 2) + 1;
-                                    if (op_dst->getSrcA() == op_dst->getSrcB() && pe_src->getOut(threadID) != -1) {
+                                    if (dst_src_a_id == dst_src_b_id && pe_src->getOut(threadID) != -1) {
                                         pe_dst_port_in = (pe_dst->getId() * 2) + 1;
-                                    } else if (op_dst->getSrcA() == op_src->getId())
+                                    } else if (dst_src_a_id == op_src->getId())
                                         pe_dst_port_in = pe_dst->getId() * 2;
-                                    else if (op_dst->getSrcB() == op_src->getId())
+                                    else if (dst_src_b_id == op_src->getId())
                                         pe_dst_port_in = (pe_dst->getId() * 2) + 1;
                                     else {
                                         return i;
                                     }
-                                    
                                     if (pe_src->getOut(threadID) == PORT_A) {
                                         if (!net->addRoute(pe_src_port_a, pe_dst_port_in)) {
                                             return i;
-                                        }else{
-                                            //printf("%d %d\n",pe_src_port_a,pe_dst_port_in);
                                         }
                                     } else if (pe_src->getOut(threadID) == PORT_B) {
                                         if (!net->addRoute(pe_src_port_b, pe_dst_port_in)) {
                                             return i;
-                                        }else{
-                                             //printf("%d %d\n",pe_src_port_b,pe_dst_port_in);
                                         }
                                     } else {
                                         if (!net->addRoute(pe_src_port_a, pe_dst_port_in)) {
@@ -237,11 +238,9 @@ int Scheduler::placeAndRoute(std::vector<int> &mapping, int threadID) {
                                                 return i;
                                             } else {
                                                 pe_src->setOut(PORT_B, threadID);
-                                                //printf("%d %d\n",pe_src_port_b,pe_dst_port_in);
                                             }
                                         } else {
                                             pe_src->setOut(PORT_A, threadID);
-                                            //printf("%d %d\n",pe_src_port_a,pe_dst_port_in);
                                         }
                                     }
                                     pe_src->setOperator(op_src, threadID);

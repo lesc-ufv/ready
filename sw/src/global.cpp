@@ -1,7 +1,3 @@
-//
-// Created by lucas on 23/01/19.
-//
-
 #include <ready/global.h>
 
 int Global::idx = 0;

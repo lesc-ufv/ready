@@ -24,15 +24,15 @@ find_library(LIB_OPAE_ASE NAMES opae-c-ase REQUIRED)
 find_library(LIB_UUID NAMES uuid REQUIRED)
 find_library(LIB_MPF NAMES MPF REQUIRED)
 find_library(LIB_FDAM NAMES fdam REQUIRED)
+find_library(LIB_JSONCPP NAMES jsoncpp REQUIRED)
 find_library(LIB_READY NAMES ready REQUIRED)
 find_library(LIB_READY_ASE NAMES ready_ase REQUIRED)
-find_library(LIB_JSONCPP NAMES jsoncpp REQUIRED)
 
 file(GLOB CPP_SRCS *.cpp)
 file(GLOB H_SRCS *.h)
 
-add_executable(chebyshev_harp ${CPP_SRCS} ${H_SRCS})
-add_executable(chebyshev_ase ${CPP_SRCS} ${H_SRCS})
+add_executable(chebyshev_harp ${CPP_SRCS} ${READY_SRCS} ${H_SRCS})
+add_executable(chebyshev_ase ${CPP_SRCS} ${READY_SRCS} ${H_SRCS})
 
 target_link_libraries(chebyshev_harp ${LIB_READY} ${LIB_FDAM} ${LIB_OPAE} ${LIB_UUID} ${LIB_MPF} ${LIB_JSONCPP})
 target_link_libraries(chebyshev_ase ${LIB_READY_ASE} ${LIB_FDAM} ${LIB_OPAE_ASE} ${LIB_UUID} ${LIB_MPF} ${LIB_JSONCPP})

@@ -11,22 +11,22 @@ module swicth_conf_control_branch_24_1 #
   output [24-1:0] swicth_conf_out
 );
 
-  wire [1-1:0] net_pc_max [0:7-1];
+  wire [1-1:0] net_pc_max [0:8-1];
   wire [1-1:0] net_pc_max_mem;
   wire net_pc_max_we;
-  wire [1-1:0] net_pc_loop [0:7-1];
+  wire [1-1:0] net_pc_loop [0:8-1];
   wire [1-1:0] net_pc_loop_mem;
   wire net_pc_loop_we;
-  wire [1-1:0] net_pc_out [0:7-1];
+  wire [1-1:0] net_pc_out [0:8-1];
   wire [1-1:0] net_conf_mem_raddr;
   wire net_mem_we;
   wire [1-1:0] net_mem_waddr;
   wire [24-1:0] net_mem_din;
   wire [24-1:0] net_mem_dout;
   wire [3-1:0] thread_id;
-  wire [7-1:0] thread_id_dec;
+  wire [8-1:0] thread_id_dec;
   wire [3-1:0] thread_idx;
-  wire [7-1:0] thread_idx_dec;
+  wire [8-1:0] thread_idx_dec;
   genvar genv;
   assign thread_idx_dec = 1 << thread_idx;
   assign thread_id_dec = 1 << thread_id;
@@ -51,7 +51,7 @@ module swicth_conf_control_branch_24_1 #
   );
 
 
-  generate for(genv=0; genv<7; genv=genv+1) begin : pc_inst
+  generate for(genv=0; genv<8; genv=genv+1) begin : pc_inst
 
     program_counter_1
     pc
@@ -68,7 +68,7 @@ module swicth_conf_control_branch_24_1 #
   endgenerate
 
 
-  mux7x1
+  mux8x1
   #(
     .WIDTH(1)
   )
@@ -82,7 +82,8 @@ module swicth_conf_control_branch_24_1 #
     .in3(net_pc_out[3]),
     .in4(net_pc_out[4]),
     .in5(net_pc_out[5]),
-    .in6(net_pc_out[6])
+    .in6(net_pc_out[6]),
+    .in7(net_pc_out[7])
   );
 
 
@@ -103,7 +104,7 @@ module swicth_conf_control_branch_24_1 #
   );
 
 
-  generate for(genv=0; genv<7; genv=genv+1) begin : pc_max_inst
+  generate for(genv=0; genv<8; genv=genv+1) begin : pc_max_inst
 
     reg_pipe
     #(
@@ -123,7 +124,7 @@ module swicth_conf_control_branch_24_1 #
   endgenerate
 
 
-  generate for(genv=0; genv<7; genv=genv+1) begin : pc_loop_inst
+  generate for(genv=0; genv<8; genv=genv+1) begin : pc_loop_inst
 
     reg_pipe
     #(
@@ -143,7 +144,7 @@ module swicth_conf_control_branch_24_1 #
   endgenerate
 
 
-  thread_counter_7
+  thread_counter_8
   thread_counter
   (
     .clk(clk),

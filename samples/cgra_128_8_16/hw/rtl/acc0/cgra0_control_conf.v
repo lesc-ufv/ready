@@ -30,7 +30,7 @@ module cgra0_control_conf
   reg send_conf;
   reg [32-1:0] conf_counter;
   reg [4-1:0] conf_counter_cl;
-  reg [9-1:0] wait_counter;
+  reg [10-1:0] wait_counter;
 
 
   initial begin
@@ -106,7 +106,7 @@ module cgra0_control_conf
         end
         FSM_WAIT_ALL_CONF_FINISH: begin
           wait_counter <= wait_counter + 1;
-          if(wait_counter > 130) begin
+          if(wait_counter > 258) begin
             fsm_conf_ctrl <= FSM_INIT_CONF_DONE;
           end 
         end

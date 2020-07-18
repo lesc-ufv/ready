@@ -26,7 +26,6 @@ SI:$FPGA_BBB_CCI_SRC/BBB_ccip_async/hw/sim/ccip_async_sim_addenda.txt
 ../rtl/acc0/cgra0_pe_in.v
 ../rtl/acc0/cgra0_pe_out.v
 ../rtl/acc0/cgra0_top.v
-../rtl/acc_mnt/fdam_dsm_controller.v
 ../rtl/acc_mnt/fdam_accelerator_0.v
 ../rtl/acc_mnt/fdam_acc_management.v
 ../rtl/acc_mnt/fdam_acc_user_0.v
@@ -37,9 +36,9 @@ SI:$FPGA_BBB_CCI_SRC/BBB_ccip_async/hw/sim/ccip_async_sim_addenda.txt
 ../rtl/acc_mnt/fdam_arbiter_controller_wr_req_8.v
 ../rtl/acc_mnt/fdam_arbiter_controller_wr_req_tree_9.v
 ../rtl/acc_mnt/fdam_conf_receiver.v
+../rtl/acc_mnt/fdam_dsm_controller.v
 ../rtl/acc_mnt/fdam_input_queue_controller.v
 ../rtl/acc_mnt/fdam_output_queue_controller.v
-../rtl/common/mux2x1.v
 ../rtl/common/acc_counter.v
 ../rtl/common/arbiter.v
 ../rtl/common/dispath_data.v
@@ -47,10 +46,10 @@ SI:$FPGA_BBB_CCI_SRC/BBB_ccip_async/hw/sim/ccip_async_sim_addenda.txt
 ../rtl/common/fifo.v
 ../rtl/common/ignore_counter.v
 ../rtl/common/memory.v
-../rtl/common/mux7x1.v
+../rtl/common/mux2x1.v
 ../rtl/common/mux8x1.v
-../rtl/common/omega256x256_8_0_1.v
-../rtl/common/omega_branch128x128_8_0_1.v
+../rtl/common/omega256x256_8_1_1.v
+../rtl/common/omega_branch128x128_8_1_1.v
 ../rtl/common/priority_encoder.v
 ../rtl/common/program_counter_1.v
 ../rtl/common/reg_pipe.v
@@ -72,7 +71,7 @@ SI:$FPGA_BBB_CCI_SRC/BBB_ccip_async/hw/sim/ccip_async_sim_addenda.txt
 ../rtl/common/swicth_conf_reader_24_1.v
 ../rtl/common/swicth_conf_reader_branch_24_1.v
 ../rtl/common/switch_box8x8.v
-../rtl/common/thread_counter_7.v
+../rtl/common/thread_counter_8.v
 ../rtl/base/app_afu.sv
 ../rtl/base/cci_afu_with_mpf.sv
 ../rtl/base/csr_mgr.sv

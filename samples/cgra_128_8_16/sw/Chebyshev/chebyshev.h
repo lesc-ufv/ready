@@ -1,9 +1,5 @@
-//
-// Created by lucas on 22/05/19.
-//
-
-#ifndef CHEBYSHEV_CHEBYSHEV_H
-#define CHEBYSHEV_CHEBYSHEV_H
+#ifndef CHEBYSHEV_H
+#define CHEBYSHEV_H
 
 #include <chrono>
 #include <cstdio>
@@ -16,7 +12,7 @@ using namespace std;
 using namespace std::chrono;
 
 #define DATA_SIZE (1 << 6)
-#define NUM_THREAD (8)
+#define NUM_THREAD (1)
 #define SAMPLES (1)
 
 int chebyshev(int idx);
@@ -24,6 +20,8 @@ int chebyshev(int idx);
 int chebyshev_openmp(int idx);
 
 int chebyshev_cgra(int idx, int copies);
+
+void chebyshev_dataflow_cpu();
 
 DataFlow *createDataFlow(int id, int copies);
 

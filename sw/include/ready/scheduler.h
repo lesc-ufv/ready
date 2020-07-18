@@ -1,6 +1,7 @@
 #ifndef CGRASCHEDULER_SCHELUDER_H
 #define CGRASCHEDULER_SCHELUDER_H
 
+#include <map>
 #include <queue>
 #include <ready/data_flow.h>
 #include <ready/cgra_arch.h>

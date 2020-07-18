@@ -20,8 +20,8 @@ bool Cgra::loadCgraProgram(cgra_program_t cp) {
     return true;
 }
 
-bool Cgra::loadCgraProgram(string filePath) {
-    return readProgramFile(std::move(filePath));
+bool Cgra::loadCgraProgram(const std::string &filePath) {
+    return readProgramFile(filePath);
 }
 
 bool Cgra::setCgraProgramInputStreamByID(int dataFlowID, int inputStreamID, const void *inputStreamData, size_t size) {
@@ -39,9 +39,7 @@ bool Cgra::setCgraProgramInputStreamByID(int dataFlowID, int inputStreamID, cons
     return false;
 }
 
-bool
-Cgra::setCgraProgramInputStreamByName(const std::string dataFlowName, int inputStreamID, const void *inputStreamData,
-                                      size_t size) {
+bool Cgra::setCgraProgramInputStreamByName(const std::string &dataFlowName, int inputStreamID, const void *inputStreamData, size_t size) {
     int queue_id;
     for (const auto &it:Cgra::cgra_program->input_map) {
         if (dataFlowName == std::get<3>(it.first) && inputStreamID == std::get<2>(it.first)) {
@@ -74,7 +72,7 @@ bool Cgra::setCgraProgramOutputStreamByID(int dataFlowID, int outputStreamID, vo
 }
 
 bool
-Cgra::setCgraProgramOutputStreamByName(const std::string dataFlowName, int outputStreamID, const void *outputStreamData,
+Cgra::setCgraProgramOutputStreamByName(const std::string& dataFlowName, int outputStreamID, const void *outputStreamData,
                                        size_t size) {
     int queue_id;
     for (const auto &it:Cgra::cgra_program->output_map) {
@@ -91,7 +89,7 @@ Cgra::setCgraProgramOutputStreamByName(const std::string dataFlowName, int outpu
     return false;
 }
 
-bool Cgra::readProgramFile(std::string filePath) {
+bool Cgra::readProgramFile(const std::string &filePath) {
 
     unsigned short input_map_size;
     unsigned short output_map_size;
@@ -244,8 +242,7 @@ void Cgra::syncExecute(long waitTime) {
     cp->cgra_intial_conf.qtd_conf = static_cast<unsigned int>(cp->initial_conf.size());
     size_t cgra_intial_conf_bytes = sizeof(cgra_intial_conf_t);
     size_t conf_bytes = cp->cgra_intial_conf.qtd_conf * sizeof(initial_conf_t);
-//  printf("INITIAL CONF SIZE: %d\n",cgra_intial_conf_bytes);
-//  printf("CONF SIZE: %d\n",conf_bytes);
+
     auto cgra_intial_conf_bytes_align = static_cast<size_t >((std::ceil(cgra_intial_conf_bytes / 64.0)) * 64.0);
     auto conf_bytes_align = static_cast<size_t>((std::ceil(conf_bytes / 64.0)) * 64.0);
 
@@ -388,29 +385,7 @@ std::map<int, int> Cgra::makeListPe(int num_pe, int num_pe_in, int num_pe_out) {
     for (int j = num_pe - num_pe_out; j < num_pe; ++j) {
         pelist[j] = PE_OUT;
     }
-    /*
-    srand(3);
-    for (int k = 0; k < num_pe_in; ++k) {
-        bool repeat = true;
-        while (repeat) {
-            int pe = (int)random() % num_pe;
-            if(pelist[pe] == PE_BASIC){
-                pelist[pe] = PE_IN;
-                repeat = false;
-            }
-        }
-    }
-    for (int l = 0; l < num_pe_out; ++l) {
-        bool repeat = true;
-        while (repeat) {
-            int pe = (int)random() % num_pe;
-            if(pelist[pe] == PE_BASIC){
-                pelist[pe] = PE_OUT;
-                repeat = false;
-            }
-        }
-    }
-     */
+
     return pelist;
 }
 

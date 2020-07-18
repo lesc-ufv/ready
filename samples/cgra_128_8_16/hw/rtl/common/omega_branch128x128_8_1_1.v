@@ -1,4 +1,4 @@
-module omega_branch128x128_8_0_1 #
+module omega_branch128x128_8_1_1 #
 (
   parameter WIDTH = 16,
   parameter PIPE_EXTRA = 0
@@ -266,14 +266,16 @@ module omega_branch128x128_8_0_1 #
   output [WIDTH-1:0] out127
 );
 
-  wire [1152-1:0] conf_out;
+  wire [1536-1:0] conf_out;
   wire [WIDTH-1:0] in_reg_wire_0 [0:128-1];
   wire [WIDTH-1:0] in_reg_wire_1 [0:128-1];
   wire [WIDTH-1:0] in_reg_wire_2 [0:128-1];
   wire [WIDTH-1:0] in_reg_wire_3 [0:128-1];
   wire [WIDTH-1:0] in_reg_wire_4 [0:128-1];
   wire [WIDTH-1:0] in_reg_wire_5 [0:128-1];
-  wire [64-1:0] net_conf_bus [0:48-1];
+  wire [WIDTH-1:0] in_reg_wire_6 [0:128-1];
+  wire [WIDTH-1:0] in_reg_wire_7 [0:128-1];
+  wire [64-1:0] net_conf_bus [0:64-1];
 
   reg_pipe
   #(
@@ -1712,6 +1714,486 @@ module omega_branch128x128_8_0_1 #
     .en_pc_net(en),
     .conf_bus_in(net_conf_bus[47]),
     .swicth_conf_out(conf_out[1151:1128])
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(1),
+    .DATA_WIDTH(64)
+  )
+  net_conf_bus_reg48
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(1'b1),
+    .in(net_conf_bus[47]),
+    .out(net_conf_bus[48])
+  );
+
+
+  swicth_conf_control_branch_24_1
+  #(
+    .SWICTH_NUMBER(49),
+    .STAGE(PIPE_EXTRA + 4)
+  )
+  swicth_conf_control_48
+  (
+    .clk(clk),
+    .rst(rst),
+    .en_pc_net(en),
+    .conf_bus_in(net_conf_bus[48]),
+    .swicth_conf_out(conf_out[1175:1152])
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(1),
+    .DATA_WIDTH(64)
+  )
+  net_conf_bus_reg49
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(1'b1),
+    .in(net_conf_bus[48]),
+    .out(net_conf_bus[49])
+  );
+
+
+  swicth_conf_control_branch_24_1
+  #(
+    .SWICTH_NUMBER(50),
+    .STAGE(PIPE_EXTRA + 4)
+  )
+  swicth_conf_control_49
+  (
+    .clk(clk),
+    .rst(rst),
+    .en_pc_net(en),
+    .conf_bus_in(net_conf_bus[49]),
+    .swicth_conf_out(conf_out[1199:1176])
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(1),
+    .DATA_WIDTH(64)
+  )
+  net_conf_bus_reg50
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(1'b1),
+    .in(net_conf_bus[49]),
+    .out(net_conf_bus[50])
+  );
+
+
+  swicth_conf_control_branch_24_1
+  #(
+    .SWICTH_NUMBER(51),
+    .STAGE(PIPE_EXTRA + 4)
+  )
+  swicth_conf_control_50
+  (
+    .clk(clk),
+    .rst(rst),
+    .en_pc_net(en),
+    .conf_bus_in(net_conf_bus[50]),
+    .swicth_conf_out(conf_out[1223:1200])
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(1),
+    .DATA_WIDTH(64)
+  )
+  net_conf_bus_reg51
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(1'b1),
+    .in(net_conf_bus[50]),
+    .out(net_conf_bus[51])
+  );
+
+
+  swicth_conf_control_branch_24_1
+  #(
+    .SWICTH_NUMBER(52),
+    .STAGE(PIPE_EXTRA + 4)
+  )
+  swicth_conf_control_51
+  (
+    .clk(clk),
+    .rst(rst),
+    .en_pc_net(en),
+    .conf_bus_in(net_conf_bus[51]),
+    .swicth_conf_out(conf_out[1247:1224])
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(1),
+    .DATA_WIDTH(64)
+  )
+  net_conf_bus_reg52
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(1'b1),
+    .in(net_conf_bus[51]),
+    .out(net_conf_bus[52])
+  );
+
+
+  swicth_conf_control_branch_24_1
+  #(
+    .SWICTH_NUMBER(53),
+    .STAGE(PIPE_EXTRA + 4)
+  )
+  swicth_conf_control_52
+  (
+    .clk(clk),
+    .rst(rst),
+    .en_pc_net(en),
+    .conf_bus_in(net_conf_bus[52]),
+    .swicth_conf_out(conf_out[1271:1248])
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(1),
+    .DATA_WIDTH(64)
+  )
+  net_conf_bus_reg53
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(1'b1),
+    .in(net_conf_bus[52]),
+    .out(net_conf_bus[53])
+  );
+
+
+  swicth_conf_control_branch_24_1
+  #(
+    .SWICTH_NUMBER(54),
+    .STAGE(PIPE_EXTRA + 4)
+  )
+  swicth_conf_control_53
+  (
+    .clk(clk),
+    .rst(rst),
+    .en_pc_net(en),
+    .conf_bus_in(net_conf_bus[53]),
+    .swicth_conf_out(conf_out[1295:1272])
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(1),
+    .DATA_WIDTH(64)
+  )
+  net_conf_bus_reg54
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(1'b1),
+    .in(net_conf_bus[53]),
+    .out(net_conf_bus[54])
+  );
+
+
+  swicth_conf_control_branch_24_1
+  #(
+    .SWICTH_NUMBER(55),
+    .STAGE(PIPE_EXTRA + 4)
+  )
+  swicth_conf_control_54
+  (
+    .clk(clk),
+    .rst(rst),
+    .en_pc_net(en),
+    .conf_bus_in(net_conf_bus[54]),
+    .swicth_conf_out(conf_out[1319:1296])
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(1),
+    .DATA_WIDTH(64)
+  )
+  net_conf_bus_reg55
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(1'b1),
+    .in(net_conf_bus[54]),
+    .out(net_conf_bus[55])
+  );
+
+
+  swicth_conf_control_branch_24_1
+  #(
+    .SWICTH_NUMBER(56),
+    .STAGE(PIPE_EXTRA + 4)
+  )
+  swicth_conf_control_55
+  (
+    .clk(clk),
+    .rst(rst),
+    .en_pc_net(en),
+    .conf_bus_in(net_conf_bus[55]),
+    .swicth_conf_out(conf_out[1343:1320])
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(1),
+    .DATA_WIDTH(64)
+  )
+  net_conf_bus_reg56
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(1'b1),
+    .in(net_conf_bus[55]),
+    .out(net_conf_bus[56])
+  );
+
+
+  swicth_conf_control_branch_24_1
+  #(
+    .SWICTH_NUMBER(57),
+    .STAGE(PIPE_EXTRA + 4)
+  )
+  swicth_conf_control_56
+  (
+    .clk(clk),
+    .rst(rst),
+    .en_pc_net(en),
+    .conf_bus_in(net_conf_bus[56]),
+    .swicth_conf_out(conf_out[1367:1344])
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(1),
+    .DATA_WIDTH(64)
+  )
+  net_conf_bus_reg57
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(1'b1),
+    .in(net_conf_bus[56]),
+    .out(net_conf_bus[57])
+  );
+
+
+  swicth_conf_control_branch_24_1
+  #(
+    .SWICTH_NUMBER(58),
+    .STAGE(PIPE_EXTRA + 4)
+  )
+  swicth_conf_control_57
+  (
+    .clk(clk),
+    .rst(rst),
+    .en_pc_net(en),
+    .conf_bus_in(net_conf_bus[57]),
+    .swicth_conf_out(conf_out[1391:1368])
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(1),
+    .DATA_WIDTH(64)
+  )
+  net_conf_bus_reg58
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(1'b1),
+    .in(net_conf_bus[57]),
+    .out(net_conf_bus[58])
+  );
+
+
+  swicth_conf_control_branch_24_1
+  #(
+    .SWICTH_NUMBER(59),
+    .STAGE(PIPE_EXTRA + 4)
+  )
+  swicth_conf_control_58
+  (
+    .clk(clk),
+    .rst(rst),
+    .en_pc_net(en),
+    .conf_bus_in(net_conf_bus[58]),
+    .swicth_conf_out(conf_out[1415:1392])
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(1),
+    .DATA_WIDTH(64)
+  )
+  net_conf_bus_reg59
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(1'b1),
+    .in(net_conf_bus[58]),
+    .out(net_conf_bus[59])
+  );
+
+
+  swicth_conf_control_branch_24_1
+  #(
+    .SWICTH_NUMBER(60),
+    .STAGE(PIPE_EXTRA + 4)
+  )
+  swicth_conf_control_59
+  (
+    .clk(clk),
+    .rst(rst),
+    .en_pc_net(en),
+    .conf_bus_in(net_conf_bus[59]),
+    .swicth_conf_out(conf_out[1439:1416])
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(1),
+    .DATA_WIDTH(64)
+  )
+  net_conf_bus_reg60
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(1'b1),
+    .in(net_conf_bus[59]),
+    .out(net_conf_bus[60])
+  );
+
+
+  swicth_conf_control_branch_24_1
+  #(
+    .SWICTH_NUMBER(61),
+    .STAGE(PIPE_EXTRA + 4)
+  )
+  swicth_conf_control_60
+  (
+    .clk(clk),
+    .rst(rst),
+    .en_pc_net(en),
+    .conf_bus_in(net_conf_bus[60]),
+    .swicth_conf_out(conf_out[1463:1440])
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(1),
+    .DATA_WIDTH(64)
+  )
+  net_conf_bus_reg61
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(1'b1),
+    .in(net_conf_bus[60]),
+    .out(net_conf_bus[61])
+  );
+
+
+  swicth_conf_control_branch_24_1
+  #(
+    .SWICTH_NUMBER(62),
+    .STAGE(PIPE_EXTRA + 4)
+  )
+  swicth_conf_control_61
+  (
+    .clk(clk),
+    .rst(rst),
+    .en_pc_net(en),
+    .conf_bus_in(net_conf_bus[61]),
+    .swicth_conf_out(conf_out[1487:1464])
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(1),
+    .DATA_WIDTH(64)
+  )
+  net_conf_bus_reg62
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(1'b1),
+    .in(net_conf_bus[61]),
+    .out(net_conf_bus[62])
+  );
+
+
+  swicth_conf_control_branch_24_1
+  #(
+    .SWICTH_NUMBER(63),
+    .STAGE(PIPE_EXTRA + 4)
+  )
+  swicth_conf_control_62
+  (
+    .clk(clk),
+    .rst(rst),
+    .en_pc_net(en),
+    .conf_bus_in(net_conf_bus[62]),
+    .swicth_conf_out(conf_out[1511:1488])
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(1),
+    .DATA_WIDTH(64)
+  )
+  net_conf_bus_reg63
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(1'b1),
+    .in(net_conf_bus[62]),
+    .out(net_conf_bus[63])
+  );
+
+
+  swicth_conf_control_branch_24_1
+  #(
+    .SWICTH_NUMBER(64),
+    .STAGE(PIPE_EXTRA + 4)
+  )
+  swicth_conf_control_63
+  (
+    .clk(clk),
+    .rst(rst),
+    .en_pc_net(en),
+    .conf_bus_in(net_conf_bus[63]),
+    .swicth_conf_out(conf_out[1535:1512])
   );
 
 
@@ -7486,7 +7968,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[0]),
-    .out(out0)
+    .out(in_reg_wire_6[0])
   );
 
 
@@ -7501,7 +7983,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[1]),
-    .out(out8)
+    .out(in_reg_wire_6[1])
   );
 
 
@@ -7516,7 +7998,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[2]),
-    .out(out16)
+    .out(in_reg_wire_6[2])
   );
 
 
@@ -7531,7 +8013,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[3]),
-    .out(out24)
+    .out(in_reg_wire_6[3])
   );
 
 
@@ -7546,7 +8028,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[4]),
-    .out(out32)
+    .out(in_reg_wire_6[4])
   );
 
 
@@ -7561,7 +8043,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[5]),
-    .out(out40)
+    .out(in_reg_wire_6[5])
   );
 
 
@@ -7576,7 +8058,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[6]),
-    .out(out48)
+    .out(in_reg_wire_6[6])
   );
 
 
@@ -7591,7 +8073,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[7]),
-    .out(out56)
+    .out(in_reg_wire_6[7])
   );
 
 
@@ -7606,7 +8088,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[8]),
-    .out(out64)
+    .out(in_reg_wire_6[8])
   );
 
 
@@ -7621,7 +8103,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[9]),
-    .out(out72)
+    .out(in_reg_wire_6[9])
   );
 
 
@@ -7636,7 +8118,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[10]),
-    .out(out80)
+    .out(in_reg_wire_6[10])
   );
 
 
@@ -7651,7 +8133,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[11]),
-    .out(out88)
+    .out(in_reg_wire_6[11])
   );
 
 
@@ -7666,7 +8148,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[12]),
-    .out(out96)
+    .out(in_reg_wire_6[12])
   );
 
 
@@ -7681,7 +8163,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[13]),
-    .out(out104)
+    .out(in_reg_wire_6[13])
   );
 
 
@@ -7696,7 +8178,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[14]),
-    .out(out112)
+    .out(in_reg_wire_6[14])
   );
 
 
@@ -7711,7 +8193,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[15]),
-    .out(out120)
+    .out(in_reg_wire_6[15])
   );
 
 
@@ -7726,7 +8208,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[16]),
-    .out(out1)
+    .out(in_reg_wire_6[16])
   );
 
 
@@ -7741,7 +8223,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[17]),
-    .out(out9)
+    .out(in_reg_wire_6[17])
   );
 
 
@@ -7756,7 +8238,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[18]),
-    .out(out17)
+    .out(in_reg_wire_6[18])
   );
 
 
@@ -7771,7 +8253,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[19]),
-    .out(out25)
+    .out(in_reg_wire_6[19])
   );
 
 
@@ -7786,7 +8268,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[20]),
-    .out(out33)
+    .out(in_reg_wire_6[20])
   );
 
 
@@ -7801,7 +8283,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[21]),
-    .out(out41)
+    .out(in_reg_wire_6[21])
   );
 
 
@@ -7816,7 +8298,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[22]),
-    .out(out49)
+    .out(in_reg_wire_6[22])
   );
 
 
@@ -7831,7 +8313,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[23]),
-    .out(out57)
+    .out(in_reg_wire_6[23])
   );
 
 
@@ -7846,7 +8328,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[24]),
-    .out(out65)
+    .out(in_reg_wire_6[24])
   );
 
 
@@ -7861,7 +8343,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[25]),
-    .out(out73)
+    .out(in_reg_wire_6[25])
   );
 
 
@@ -7876,7 +8358,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[26]),
-    .out(out81)
+    .out(in_reg_wire_6[26])
   );
 
 
@@ -7891,7 +8373,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[27]),
-    .out(out89)
+    .out(in_reg_wire_6[27])
   );
 
 
@@ -7906,7 +8388,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[28]),
-    .out(out97)
+    .out(in_reg_wire_6[28])
   );
 
 
@@ -7921,7 +8403,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[29]),
-    .out(out105)
+    .out(in_reg_wire_6[29])
   );
 
 
@@ -7936,7 +8418,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[30]),
-    .out(out113)
+    .out(in_reg_wire_6[30])
   );
 
 
@@ -7951,7 +8433,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[31]),
-    .out(out121)
+    .out(in_reg_wire_6[31])
   );
 
 
@@ -7966,7 +8448,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[32]),
-    .out(out2)
+    .out(in_reg_wire_6[32])
   );
 
 
@@ -7981,7 +8463,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[33]),
-    .out(out10)
+    .out(in_reg_wire_6[33])
   );
 
 
@@ -7996,7 +8478,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[34]),
-    .out(out18)
+    .out(in_reg_wire_6[34])
   );
 
 
@@ -8011,7 +8493,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[35]),
-    .out(out26)
+    .out(in_reg_wire_6[35])
   );
 
 
@@ -8026,7 +8508,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[36]),
-    .out(out34)
+    .out(in_reg_wire_6[36])
   );
 
 
@@ -8041,7 +8523,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[37]),
-    .out(out42)
+    .out(in_reg_wire_6[37])
   );
 
 
@@ -8056,7 +8538,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[38]),
-    .out(out50)
+    .out(in_reg_wire_6[38])
   );
 
 
@@ -8071,7 +8553,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[39]),
-    .out(out58)
+    .out(in_reg_wire_6[39])
   );
 
 
@@ -8086,7 +8568,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[40]),
-    .out(out66)
+    .out(in_reg_wire_6[40])
   );
 
 
@@ -8101,7 +8583,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[41]),
-    .out(out74)
+    .out(in_reg_wire_6[41])
   );
 
 
@@ -8116,7 +8598,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[42]),
-    .out(out82)
+    .out(in_reg_wire_6[42])
   );
 
 
@@ -8131,7 +8613,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[43]),
-    .out(out90)
+    .out(in_reg_wire_6[43])
   );
 
 
@@ -8146,7 +8628,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[44]),
-    .out(out98)
+    .out(in_reg_wire_6[44])
   );
 
 
@@ -8161,7 +8643,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[45]),
-    .out(out106)
+    .out(in_reg_wire_6[45])
   );
 
 
@@ -8176,7 +8658,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[46]),
-    .out(out114)
+    .out(in_reg_wire_6[46])
   );
 
 
@@ -8191,7 +8673,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[47]),
-    .out(out122)
+    .out(in_reg_wire_6[47])
   );
 
 
@@ -8206,7 +8688,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[48]),
-    .out(out3)
+    .out(in_reg_wire_6[48])
   );
 
 
@@ -8221,7 +8703,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[49]),
-    .out(out11)
+    .out(in_reg_wire_6[49])
   );
 
 
@@ -8236,7 +8718,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[50]),
-    .out(out19)
+    .out(in_reg_wire_6[50])
   );
 
 
@@ -8251,7 +8733,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[51]),
-    .out(out27)
+    .out(in_reg_wire_6[51])
   );
 
 
@@ -8266,7 +8748,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[52]),
-    .out(out35)
+    .out(in_reg_wire_6[52])
   );
 
 
@@ -8281,7 +8763,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[53]),
-    .out(out43)
+    .out(in_reg_wire_6[53])
   );
 
 
@@ -8296,7 +8778,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[54]),
-    .out(out51)
+    .out(in_reg_wire_6[54])
   );
 
 
@@ -8311,7 +8793,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[55]),
-    .out(out59)
+    .out(in_reg_wire_6[55])
   );
 
 
@@ -8326,7 +8808,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[56]),
-    .out(out67)
+    .out(in_reg_wire_6[56])
   );
 
 
@@ -8341,7 +8823,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[57]),
-    .out(out75)
+    .out(in_reg_wire_6[57])
   );
 
 
@@ -8356,7 +8838,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[58]),
-    .out(out83)
+    .out(in_reg_wire_6[58])
   );
 
 
@@ -8371,7 +8853,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[59]),
-    .out(out91)
+    .out(in_reg_wire_6[59])
   );
 
 
@@ -8386,7 +8868,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[60]),
-    .out(out99)
+    .out(in_reg_wire_6[60])
   );
 
 
@@ -8401,7 +8883,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[61]),
-    .out(out107)
+    .out(in_reg_wire_6[61])
   );
 
 
@@ -8416,7 +8898,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[62]),
-    .out(out115)
+    .out(in_reg_wire_6[62])
   );
 
 
@@ -8431,7 +8913,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[63]),
-    .out(out123)
+    .out(in_reg_wire_6[63])
   );
 
 
@@ -8446,7 +8928,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[64]),
-    .out(out4)
+    .out(in_reg_wire_6[64])
   );
 
 
@@ -8461,7 +8943,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[65]),
-    .out(out12)
+    .out(in_reg_wire_6[65])
   );
 
 
@@ -8476,7 +8958,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[66]),
-    .out(out20)
+    .out(in_reg_wire_6[66])
   );
 
 
@@ -8491,7 +8973,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[67]),
-    .out(out28)
+    .out(in_reg_wire_6[67])
   );
 
 
@@ -8506,7 +8988,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[68]),
-    .out(out36)
+    .out(in_reg_wire_6[68])
   );
 
 
@@ -8521,7 +9003,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[69]),
-    .out(out44)
+    .out(in_reg_wire_6[69])
   );
 
 
@@ -8536,7 +9018,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[70]),
-    .out(out52)
+    .out(in_reg_wire_6[70])
   );
 
 
@@ -8551,7 +9033,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[71]),
-    .out(out60)
+    .out(in_reg_wire_6[71])
   );
 
 
@@ -8566,7 +9048,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[72]),
-    .out(out68)
+    .out(in_reg_wire_6[72])
   );
 
 
@@ -8581,7 +9063,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[73]),
-    .out(out76)
+    .out(in_reg_wire_6[73])
   );
 
 
@@ -8596,7 +9078,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[74]),
-    .out(out84)
+    .out(in_reg_wire_6[74])
   );
 
 
@@ -8611,7 +9093,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[75]),
-    .out(out92)
+    .out(in_reg_wire_6[75])
   );
 
 
@@ -8626,7 +9108,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[76]),
-    .out(out100)
+    .out(in_reg_wire_6[76])
   );
 
 
@@ -8641,7 +9123,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[77]),
-    .out(out108)
+    .out(in_reg_wire_6[77])
   );
 
 
@@ -8656,7 +9138,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[78]),
-    .out(out116)
+    .out(in_reg_wire_6[78])
   );
 
 
@@ -8671,7 +9153,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[79]),
-    .out(out124)
+    .out(in_reg_wire_6[79])
   );
 
 
@@ -8686,7 +9168,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[80]),
-    .out(out5)
+    .out(in_reg_wire_6[80])
   );
 
 
@@ -8701,7 +9183,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[81]),
-    .out(out13)
+    .out(in_reg_wire_6[81])
   );
 
 
@@ -8716,7 +9198,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[82]),
-    .out(out21)
+    .out(in_reg_wire_6[82])
   );
 
 
@@ -8731,7 +9213,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[83]),
-    .out(out29)
+    .out(in_reg_wire_6[83])
   );
 
 
@@ -8746,7 +9228,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[84]),
-    .out(out37)
+    .out(in_reg_wire_6[84])
   );
 
 
@@ -8761,7 +9243,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[85]),
-    .out(out45)
+    .out(in_reg_wire_6[85])
   );
 
 
@@ -8776,7 +9258,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[86]),
-    .out(out53)
+    .out(in_reg_wire_6[86])
   );
 
 
@@ -8791,7 +9273,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[87]),
-    .out(out61)
+    .out(in_reg_wire_6[87])
   );
 
 
@@ -8806,7 +9288,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[88]),
-    .out(out69)
+    .out(in_reg_wire_6[88])
   );
 
 
@@ -8821,7 +9303,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[89]),
-    .out(out77)
+    .out(in_reg_wire_6[89])
   );
 
 
@@ -8836,7 +9318,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[90]),
-    .out(out85)
+    .out(in_reg_wire_6[90])
   );
 
 
@@ -8851,7 +9333,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[91]),
-    .out(out93)
+    .out(in_reg_wire_6[91])
   );
 
 
@@ -8866,7 +9348,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[92]),
-    .out(out101)
+    .out(in_reg_wire_6[92])
   );
 
 
@@ -8881,7 +9363,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[93]),
-    .out(out109)
+    .out(in_reg_wire_6[93])
   );
 
 
@@ -8896,7 +9378,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[94]),
-    .out(out117)
+    .out(in_reg_wire_6[94])
   );
 
 
@@ -8911,7 +9393,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[95]),
-    .out(out125)
+    .out(in_reg_wire_6[95])
   );
 
 
@@ -8926,7 +9408,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[96]),
-    .out(out6)
+    .out(in_reg_wire_6[96])
   );
 
 
@@ -8941,7 +9423,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[97]),
-    .out(out14)
+    .out(in_reg_wire_6[97])
   );
 
 
@@ -8956,7 +9438,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[98]),
-    .out(out22)
+    .out(in_reg_wire_6[98])
   );
 
 
@@ -8971,7 +9453,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[99]),
-    .out(out30)
+    .out(in_reg_wire_6[99])
   );
 
 
@@ -8986,7 +9468,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[100]),
-    .out(out38)
+    .out(in_reg_wire_6[100])
   );
 
 
@@ -9001,7 +9483,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[101]),
-    .out(out46)
+    .out(in_reg_wire_6[101])
   );
 
 
@@ -9016,7 +9498,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[102]),
-    .out(out54)
+    .out(in_reg_wire_6[102])
   );
 
 
@@ -9031,7 +9513,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[103]),
-    .out(out62)
+    .out(in_reg_wire_6[103])
   );
 
 
@@ -9046,7 +9528,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[104]),
-    .out(out70)
+    .out(in_reg_wire_6[104])
   );
 
 
@@ -9061,7 +9543,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[105]),
-    .out(out78)
+    .out(in_reg_wire_6[105])
   );
 
 
@@ -9076,7 +9558,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[106]),
-    .out(out86)
+    .out(in_reg_wire_6[106])
   );
 
 
@@ -9091,7 +9573,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[107]),
-    .out(out94)
+    .out(in_reg_wire_6[107])
   );
 
 
@@ -9106,7 +9588,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[108]),
-    .out(out102)
+    .out(in_reg_wire_6[108])
   );
 
 
@@ -9121,7 +9603,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[109]),
-    .out(out110)
+    .out(in_reg_wire_6[109])
   );
 
 
@@ -9136,7 +9618,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[110]),
-    .out(out118)
+    .out(in_reg_wire_6[110])
   );
 
 
@@ -9151,7 +9633,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[111]),
-    .out(out126)
+    .out(in_reg_wire_6[111])
   );
 
 
@@ -9166,7 +9648,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[112]),
-    .out(out7)
+    .out(in_reg_wire_6[112])
   );
 
 
@@ -9181,7 +9663,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[113]),
-    .out(out15)
+    .out(in_reg_wire_6[113])
   );
 
 
@@ -9196,7 +9678,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[114]),
-    .out(out23)
+    .out(in_reg_wire_6[114])
   );
 
 
@@ -9211,7 +9693,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[115]),
-    .out(out31)
+    .out(in_reg_wire_6[115])
   );
 
 
@@ -9226,7 +9708,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[116]),
-    .out(out39)
+    .out(in_reg_wire_6[116])
   );
 
 
@@ -9241,7 +9723,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[117]),
-    .out(out47)
+    .out(in_reg_wire_6[117])
   );
 
 
@@ -9256,7 +9738,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[118]),
-    .out(out55)
+    .out(in_reg_wire_6[118])
   );
 
 
@@ -9271,7 +9753,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[119]),
-    .out(out63)
+    .out(in_reg_wire_6[119])
   );
 
 
@@ -9286,7 +9768,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[120]),
-    .out(out71)
+    .out(in_reg_wire_6[120])
   );
 
 
@@ -9301,7 +9783,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[121]),
-    .out(out79)
+    .out(in_reg_wire_6[121])
   );
 
 
@@ -9316,7 +9798,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[122]),
-    .out(out87)
+    .out(in_reg_wire_6[122])
   );
 
 
@@ -9331,7 +9813,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[123]),
-    .out(out95)
+    .out(in_reg_wire_6[123])
   );
 
 
@@ -9346,7 +9828,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[124]),
-    .out(out103)
+    .out(in_reg_wire_6[124])
   );
 
 
@@ -9361,7 +9843,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[125]),
-    .out(out111)
+    .out(in_reg_wire_6[125])
   );
 
 
@@ -9376,7 +9858,7 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[126]),
-    .out(out119)
+    .out(in_reg_wire_6[126])
   );
 
 
@@ -9391,6 +9873,1926 @@ module omega_branch128x128_8_0_1 #
     .rst(1'b0),
     .en(en),
     .in(in_reg_wire_5[127]),
+    .out(in_reg_wire_6[127])
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_0
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[0]),
+    .out(out0)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_1
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[1]),
+    .out(out8)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_2
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[2]),
+    .out(out16)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_3
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[3]),
+    .out(out24)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_4
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[4]),
+    .out(out32)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_5
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[5]),
+    .out(out40)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_6
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[6]),
+    .out(out48)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_7
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[7]),
+    .out(out56)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_8
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[8]),
+    .out(out64)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_9
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[9]),
+    .out(out72)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_10
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[10]),
+    .out(out80)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_11
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[11]),
+    .out(out88)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_12
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[12]),
+    .out(out96)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_13
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[13]),
+    .out(out104)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_14
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[14]),
+    .out(out112)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_15
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[15]),
+    .out(out120)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_16
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[16]),
+    .out(out1)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_17
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[17]),
+    .out(out9)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_18
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[18]),
+    .out(out17)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_19
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[19]),
+    .out(out25)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_20
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[20]),
+    .out(out33)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_21
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[21]),
+    .out(out41)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_22
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[22]),
+    .out(out49)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_23
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[23]),
+    .out(out57)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_24
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[24]),
+    .out(out65)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_25
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[25]),
+    .out(out73)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_26
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[26]),
+    .out(out81)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_27
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[27]),
+    .out(out89)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_28
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[28]),
+    .out(out97)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_29
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[29]),
+    .out(out105)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_30
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[30]),
+    .out(out113)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_31
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[31]),
+    .out(out121)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_32
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[32]),
+    .out(out2)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_33
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[33]),
+    .out(out10)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_34
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[34]),
+    .out(out18)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_35
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[35]),
+    .out(out26)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_36
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[36]),
+    .out(out34)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_37
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[37]),
+    .out(out42)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_38
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[38]),
+    .out(out50)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_39
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[39]),
+    .out(out58)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_40
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[40]),
+    .out(out66)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_41
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[41]),
+    .out(out74)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_42
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[42]),
+    .out(out82)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_43
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[43]),
+    .out(out90)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_44
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[44]),
+    .out(out98)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_45
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[45]),
+    .out(out106)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_46
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[46]),
+    .out(out114)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_47
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[47]),
+    .out(out122)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_48
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[48]),
+    .out(out3)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_49
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[49]),
+    .out(out11)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_50
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[50]),
+    .out(out19)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_51
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[51]),
+    .out(out27)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_52
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[52]),
+    .out(out35)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_53
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[53]),
+    .out(out43)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_54
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[54]),
+    .out(out51)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_55
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[55]),
+    .out(out59)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_56
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[56]),
+    .out(out67)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_57
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[57]),
+    .out(out75)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_58
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[58]),
+    .out(out83)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_59
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[59]),
+    .out(out91)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_60
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[60]),
+    .out(out99)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_61
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[61]),
+    .out(out107)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_62
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[62]),
+    .out(out115)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_63
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[63]),
+    .out(out123)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_64
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[64]),
+    .out(out4)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_65
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[65]),
+    .out(out12)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_66
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[66]),
+    .out(out20)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_67
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[67]),
+    .out(out28)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_68
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[68]),
+    .out(out36)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_69
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[69]),
+    .out(out44)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_70
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[70]),
+    .out(out52)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_71
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[71]),
+    .out(out60)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_72
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[72]),
+    .out(out68)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_73
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[73]),
+    .out(out76)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_74
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[74]),
+    .out(out84)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_75
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[75]),
+    .out(out92)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_76
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[76]),
+    .out(out100)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_77
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[77]),
+    .out(out108)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_78
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[78]),
+    .out(out116)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_79
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[79]),
+    .out(out124)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_80
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[80]),
+    .out(out5)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_81
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[81]),
+    .out(out13)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_82
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[82]),
+    .out(out21)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_83
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[83]),
+    .out(out29)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_84
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[84]),
+    .out(out37)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_85
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[85]),
+    .out(out45)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_86
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[86]),
+    .out(out53)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_87
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[87]),
+    .out(out61)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_88
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[88]),
+    .out(out69)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_89
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[89]),
+    .out(out77)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_90
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[90]),
+    .out(out85)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_91
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[91]),
+    .out(out93)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_92
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[92]),
+    .out(out101)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_93
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[93]),
+    .out(out109)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_94
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[94]),
+    .out(out117)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_95
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[95]),
+    .out(out125)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_96
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[96]),
+    .out(out6)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_97
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[97]),
+    .out(out14)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_98
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[98]),
+    .out(out22)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_99
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[99]),
+    .out(out30)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_100
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[100]),
+    .out(out38)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_101
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[101]),
+    .out(out46)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_102
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[102]),
+    .out(out54)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_103
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[103]),
+    .out(out62)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_104
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[104]),
+    .out(out70)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_105
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[105]),
+    .out(out78)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_106
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[106]),
+    .out(out86)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_107
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[107]),
+    .out(out94)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_108
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[108]),
+    .out(out102)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_109
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[109]),
+    .out(out110)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_110
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[110]),
+    .out(out118)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_111
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[111]),
+    .out(out126)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_112
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[112]),
+    .out(out7)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_113
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[113]),
+    .out(out15)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_114
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[114]),
+    .out(out23)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_115
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[115]),
+    .out(out31)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_116
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[116]),
+    .out(out39)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_117
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[117]),
+    .out(out47)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_118
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[118]),
+    .out(out55)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_119
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[119]),
+    .out(out63)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_120
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[120]),
+    .out(out71)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_121
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[121]),
+    .out(out79)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_122
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[122]),
+    .out(out87)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_123
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[123]),
+    .out(out95)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_124
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[124]),
+    .out(out103)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_125
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[125]),
+    .out(out111)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_126
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[126]),
+    .out(out119)
+  );
+
+
+  reg_pipe
+  #(
+    .NUM_STAGES(PIPE_EXTRA + 1),
+    .DATA_WIDTH(WIDTH)
+  )
+  reg_in_4_127
+  (
+    .clk(clk),
+    .rst(1'b0),
+    .en(en),
+    .in(in_reg_wire_7[127]),
     .out(out127)
   );
 
@@ -10640,6 +13042,422 @@ module omega_branch128x128_8_0_1 #
     .out5(in_reg_wire_5[125]),
     .out6(in_reg_wire_5[126]),
     .out7(in_reg_wire_5[127])
+  );
+
+
+  switch_box8x8
+  #(
+    .WIDTH(WIDTH)
+  )
+  sw_3_0
+  (
+    .sel(conf_out[1175:1152]),
+    .in0(in_reg_wire_6[0]),
+    .in1(in_reg_wire_6[16]),
+    .in2(in_reg_wire_6[32]),
+    .in3(in_reg_wire_6[48]),
+    .in4(in_reg_wire_6[64]),
+    .in5(in_reg_wire_6[80]),
+    .in6(in_reg_wire_6[96]),
+    .in7(in_reg_wire_6[112]),
+    .out0(in_reg_wire_7[0]),
+    .out1(in_reg_wire_7[1]),
+    .out2(in_reg_wire_7[2]),
+    .out3(in_reg_wire_7[3]),
+    .out4(in_reg_wire_7[4]),
+    .out5(in_reg_wire_7[5]),
+    .out6(in_reg_wire_7[6]),
+    .out7(in_reg_wire_7[7])
+  );
+
+
+  switch_box8x8
+  #(
+    .WIDTH(WIDTH)
+  )
+  sw_3_1
+  (
+    .sel(conf_out[1199:1176]),
+    .in0(in_reg_wire_6[1]),
+    .in1(in_reg_wire_6[17]),
+    .in2(in_reg_wire_6[33]),
+    .in3(in_reg_wire_6[49]),
+    .in4(in_reg_wire_6[65]),
+    .in5(in_reg_wire_6[81]),
+    .in6(in_reg_wire_6[97]),
+    .in7(in_reg_wire_6[113]),
+    .out0(in_reg_wire_7[8]),
+    .out1(in_reg_wire_7[9]),
+    .out2(in_reg_wire_7[10]),
+    .out3(in_reg_wire_7[11]),
+    .out4(in_reg_wire_7[12]),
+    .out5(in_reg_wire_7[13]),
+    .out6(in_reg_wire_7[14]),
+    .out7(in_reg_wire_7[15])
+  );
+
+
+  switch_box8x8
+  #(
+    .WIDTH(WIDTH)
+  )
+  sw_3_2
+  (
+    .sel(conf_out[1223:1200]),
+    .in0(in_reg_wire_6[2]),
+    .in1(in_reg_wire_6[18]),
+    .in2(in_reg_wire_6[34]),
+    .in3(in_reg_wire_6[50]),
+    .in4(in_reg_wire_6[66]),
+    .in5(in_reg_wire_6[82]),
+    .in6(in_reg_wire_6[98]),
+    .in7(in_reg_wire_6[114]),
+    .out0(in_reg_wire_7[16]),
+    .out1(in_reg_wire_7[17]),
+    .out2(in_reg_wire_7[18]),
+    .out3(in_reg_wire_7[19]),
+    .out4(in_reg_wire_7[20]),
+    .out5(in_reg_wire_7[21]),
+    .out6(in_reg_wire_7[22]),
+    .out7(in_reg_wire_7[23])
+  );
+
+
+  switch_box8x8
+  #(
+    .WIDTH(WIDTH)
+  )
+  sw_3_3
+  (
+    .sel(conf_out[1247:1224]),
+    .in0(in_reg_wire_6[3]),
+    .in1(in_reg_wire_6[19]),
+    .in2(in_reg_wire_6[35]),
+    .in3(in_reg_wire_6[51]),
+    .in4(in_reg_wire_6[67]),
+    .in5(in_reg_wire_6[83]),
+    .in6(in_reg_wire_6[99]),
+    .in7(in_reg_wire_6[115]),
+    .out0(in_reg_wire_7[24]),
+    .out1(in_reg_wire_7[25]),
+    .out2(in_reg_wire_7[26]),
+    .out3(in_reg_wire_7[27]),
+    .out4(in_reg_wire_7[28]),
+    .out5(in_reg_wire_7[29]),
+    .out6(in_reg_wire_7[30]),
+    .out7(in_reg_wire_7[31])
+  );
+
+
+  switch_box8x8
+  #(
+    .WIDTH(WIDTH)
+  )
+  sw_3_4
+  (
+    .sel(conf_out[1271:1248]),
+    .in0(in_reg_wire_6[4]),
+    .in1(in_reg_wire_6[20]),
+    .in2(in_reg_wire_6[36]),
+    .in3(in_reg_wire_6[52]),
+    .in4(in_reg_wire_6[68]),
+    .in5(in_reg_wire_6[84]),
+    .in6(in_reg_wire_6[100]),
+    .in7(in_reg_wire_6[116]),
+    .out0(in_reg_wire_7[32]),
+    .out1(in_reg_wire_7[33]),
+    .out2(in_reg_wire_7[34]),
+    .out3(in_reg_wire_7[35]),
+    .out4(in_reg_wire_7[36]),
+    .out5(in_reg_wire_7[37]),
+    .out6(in_reg_wire_7[38]),
+    .out7(in_reg_wire_7[39])
+  );
+
+
+  switch_box8x8
+  #(
+    .WIDTH(WIDTH)
+  )
+  sw_3_5
+  (
+    .sel(conf_out[1295:1272]),
+    .in0(in_reg_wire_6[5]),
+    .in1(in_reg_wire_6[21]),
+    .in2(in_reg_wire_6[37]),
+    .in3(in_reg_wire_6[53]),
+    .in4(in_reg_wire_6[69]),
+    .in5(in_reg_wire_6[85]),
+    .in6(in_reg_wire_6[101]),
+    .in7(in_reg_wire_6[117]),
+    .out0(in_reg_wire_7[40]),
+    .out1(in_reg_wire_7[41]),
+    .out2(in_reg_wire_7[42]),
+    .out3(in_reg_wire_7[43]),
+    .out4(in_reg_wire_7[44]),
+    .out5(in_reg_wire_7[45]),
+    .out6(in_reg_wire_7[46]),
+    .out7(in_reg_wire_7[47])
+  );
+
+
+  switch_box8x8
+  #(
+    .WIDTH(WIDTH)
+  )
+  sw_3_6
+  (
+    .sel(conf_out[1319:1296]),
+    .in0(in_reg_wire_6[6]),
+    .in1(in_reg_wire_6[22]),
+    .in2(in_reg_wire_6[38]),
+    .in3(in_reg_wire_6[54]),
+    .in4(in_reg_wire_6[70]),
+    .in5(in_reg_wire_6[86]),
+    .in6(in_reg_wire_6[102]),
+    .in7(in_reg_wire_6[118]),
+    .out0(in_reg_wire_7[48]),
+    .out1(in_reg_wire_7[49]),
+    .out2(in_reg_wire_7[50]),
+    .out3(in_reg_wire_7[51]),
+    .out4(in_reg_wire_7[52]),
+    .out5(in_reg_wire_7[53]),
+    .out6(in_reg_wire_7[54]),
+    .out7(in_reg_wire_7[55])
+  );
+
+
+  switch_box8x8
+  #(
+    .WIDTH(WIDTH)
+  )
+  sw_3_7
+  (
+    .sel(conf_out[1343:1320]),
+    .in0(in_reg_wire_6[7]),
+    .in1(in_reg_wire_6[23]),
+    .in2(in_reg_wire_6[39]),
+    .in3(in_reg_wire_6[55]),
+    .in4(in_reg_wire_6[71]),
+    .in5(in_reg_wire_6[87]),
+    .in6(in_reg_wire_6[103]),
+    .in7(in_reg_wire_6[119]),
+    .out0(in_reg_wire_7[56]),
+    .out1(in_reg_wire_7[57]),
+    .out2(in_reg_wire_7[58]),
+    .out3(in_reg_wire_7[59]),
+    .out4(in_reg_wire_7[60]),
+    .out5(in_reg_wire_7[61]),
+    .out6(in_reg_wire_7[62]),
+    .out7(in_reg_wire_7[63])
+  );
+
+
+  switch_box8x8
+  #(
+    .WIDTH(WIDTH)
+  )
+  sw_3_8
+  (
+    .sel(conf_out[1367:1344]),
+    .in0(in_reg_wire_6[8]),
+    .in1(in_reg_wire_6[24]),
+    .in2(in_reg_wire_6[40]),
+    .in3(in_reg_wire_6[56]),
+    .in4(in_reg_wire_6[72]),
+    .in5(in_reg_wire_6[88]),
+    .in6(in_reg_wire_6[104]),
+    .in7(in_reg_wire_6[120]),
+    .out0(in_reg_wire_7[64]),
+    .out1(in_reg_wire_7[65]),
+    .out2(in_reg_wire_7[66]),
+    .out3(in_reg_wire_7[67]),
+    .out4(in_reg_wire_7[68]),
+    .out5(in_reg_wire_7[69]),
+    .out6(in_reg_wire_7[70]),
+    .out7(in_reg_wire_7[71])
+  );
+
+
+  switch_box8x8
+  #(
+    .WIDTH(WIDTH)
+  )
+  sw_3_9
+  (
+    .sel(conf_out[1391:1368]),
+    .in0(in_reg_wire_6[9]),
+    .in1(in_reg_wire_6[25]),
+    .in2(in_reg_wire_6[41]),
+    .in3(in_reg_wire_6[57]),
+    .in4(in_reg_wire_6[73]),
+    .in5(in_reg_wire_6[89]),
+    .in6(in_reg_wire_6[105]),
+    .in7(in_reg_wire_6[121]),
+    .out0(in_reg_wire_7[72]),
+    .out1(in_reg_wire_7[73]),
+    .out2(in_reg_wire_7[74]),
+    .out3(in_reg_wire_7[75]),
+    .out4(in_reg_wire_7[76]),
+    .out5(in_reg_wire_7[77]),
+    .out6(in_reg_wire_7[78]),
+    .out7(in_reg_wire_7[79])
+  );
+
+
+  switch_box8x8
+  #(
+    .WIDTH(WIDTH)
+  )
+  sw_3_10
+  (
+    .sel(conf_out[1415:1392]),
+    .in0(in_reg_wire_6[10]),
+    .in1(in_reg_wire_6[26]),
+    .in2(in_reg_wire_6[42]),
+    .in3(in_reg_wire_6[58]),
+    .in4(in_reg_wire_6[74]),
+    .in5(in_reg_wire_6[90]),
+    .in6(in_reg_wire_6[106]),
+    .in7(in_reg_wire_6[122]),
+    .out0(in_reg_wire_7[80]),
+    .out1(in_reg_wire_7[81]),
+    .out2(in_reg_wire_7[82]),
+    .out3(in_reg_wire_7[83]),
+    .out4(in_reg_wire_7[84]),
+    .out5(in_reg_wire_7[85]),
+    .out6(in_reg_wire_7[86]),
+    .out7(in_reg_wire_7[87])
+  );
+
+
+  switch_box8x8
+  #(
+    .WIDTH(WIDTH)
+  )
+  sw_3_11
+  (
+    .sel(conf_out[1439:1416]),
+    .in0(in_reg_wire_6[11]),
+    .in1(in_reg_wire_6[27]),
+    .in2(in_reg_wire_6[43]),
+    .in3(in_reg_wire_6[59]),
+    .in4(in_reg_wire_6[75]),
+    .in5(in_reg_wire_6[91]),
+    .in6(in_reg_wire_6[107]),
+    .in7(in_reg_wire_6[123]),
+    .out0(in_reg_wire_7[88]),
+    .out1(in_reg_wire_7[89]),
+    .out2(in_reg_wire_7[90]),
+    .out3(in_reg_wire_7[91]),
+    .out4(in_reg_wire_7[92]),
+    .out5(in_reg_wire_7[93]),
+    .out6(in_reg_wire_7[94]),
+    .out7(in_reg_wire_7[95])
+  );
+
+
+  switch_box8x8
+  #(
+    .WIDTH(WIDTH)
+  )
+  sw_3_12
+  (
+    .sel(conf_out[1463:1440]),
+    .in0(in_reg_wire_6[12]),
+    .in1(in_reg_wire_6[28]),
+    .in2(in_reg_wire_6[44]),
+    .in3(in_reg_wire_6[60]),
+    .in4(in_reg_wire_6[76]),
+    .in5(in_reg_wire_6[92]),
+    .in6(in_reg_wire_6[108]),
+    .in7(in_reg_wire_6[124]),
+    .out0(in_reg_wire_7[96]),
+    .out1(in_reg_wire_7[97]),
+    .out2(in_reg_wire_7[98]),
+    .out3(in_reg_wire_7[99]),
+    .out4(in_reg_wire_7[100]),
+    .out5(in_reg_wire_7[101]),
+    .out6(in_reg_wire_7[102]),
+    .out7(in_reg_wire_7[103])
+  );
+
+
+  switch_box8x8
+  #(
+    .WIDTH(WIDTH)
+  )
+  sw_3_13
+  (
+    .sel(conf_out[1487:1464]),
+    .in0(in_reg_wire_6[13]),
+    .in1(in_reg_wire_6[29]),
+    .in2(in_reg_wire_6[45]),
+    .in3(in_reg_wire_6[61]),
+    .in4(in_reg_wire_6[77]),
+    .in5(in_reg_wire_6[93]),
+    .in6(in_reg_wire_6[109]),
+    .in7(in_reg_wire_6[125]),
+    .out0(in_reg_wire_7[104]),
+    .out1(in_reg_wire_7[105]),
+    .out2(in_reg_wire_7[106]),
+    .out3(in_reg_wire_7[107]),
+    .out4(in_reg_wire_7[108]),
+    .out5(in_reg_wire_7[109]),
+    .out6(in_reg_wire_7[110]),
+    .out7(in_reg_wire_7[111])
+  );
+
+
+  switch_box8x8
+  #(
+    .WIDTH(WIDTH)
+  )
+  sw_3_14
+  (
+    .sel(conf_out[1511:1488]),
+    .in0(in_reg_wire_6[14]),
+    .in1(in_reg_wire_6[30]),
+    .in2(in_reg_wire_6[46]),
+    .in3(in_reg_wire_6[62]),
+    .in4(in_reg_wire_6[78]),
+    .in5(in_reg_wire_6[94]),
+    .in6(in_reg_wire_6[110]),
+    .in7(in_reg_wire_6[126]),
+    .out0(in_reg_wire_7[112]),
+    .out1(in_reg_wire_7[113]),
+    .out2(in_reg_wire_7[114]),
+    .out3(in_reg_wire_7[115]),
+    .out4(in_reg_wire_7[116]),
+    .out5(in_reg_wire_7[117]),
+    .out6(in_reg_wire_7[118]),
+    .out7(in_reg_wire_7[119])
+  );
+
+
+  switch_box8x8
+  #(
+    .WIDTH(WIDTH)
+  )
+  sw_3_15
+  (
+    .sel(conf_out[1535:1512]),
+    .in0(in_reg_wire_6[15]),
+    .in1(in_reg_wire_6[31]),
+    .in2(in_reg_wire_6[47]),
+    .in3(in_reg_wire_6[63]),
+    .in4(in_reg_wire_6[79]),
+    .in5(in_reg_wire_6[95]),
+    .in6(in_reg_wire_6[111]),
+    .in7(in_reg_wire_6[127]),
+    .out0(in_reg_wire_7[120]),
+    .out1(in_reg_wire_7[121]),
+    .out2(in_reg_wire_7[122]),
+    .out3(in_reg_wire_7[123]),
+    .out4(in_reg_wire_7[124]),
+    .out5(in_reg_wire_7[125]),
+    .out6(in_reg_wire_7[126]),
+    .out7(in_reg_wire_7[127])
   );
 
 endmodule

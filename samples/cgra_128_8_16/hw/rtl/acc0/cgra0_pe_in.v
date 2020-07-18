@@ -51,12 +51,12 @@ module cgra0_pe_in #
   wire qtd_we_high;
   wire [32-1:0] qtd_mem_high;
   wire [3-1:0] thread_id;
-  wire [7-1:0] thread_id_dec;
+  wire [8-1:0] thread_id_dec;
   wire [3-1:0] thread_idx;
   wire [3-1:0] thread_idx_p;
   wire [3-1:0] thread_idx_pp;
   wire [3-1:0] thread_idx_pppp;
-  wire [7-1:0] thread_idx_dec;
+  wire [8-1:0] thread_idx_dec;
   wire [1-1:0] conf_wr_addr;
   wire [16-1:0] conf_wr_data;
   wire conf_wr_en;
@@ -66,10 +66,10 @@ module cgra0_pe_in #
   wire [16-1:0] inst_mem_out;
   wire branch_in_alu;
   wire branch_out_alu;
-  wire [1-1:0] pc_max [0:7-1];
-  wire [1-1:0] pc_loop [0:7-1];
-  wire [16-1:0] ignore [0:7-1];
-  wire [1-1:0] pc_out [0:7-1];
+  wire [1-1:0] pc_max [0:8-1];
+  wire [1-1:0] pc_loop [0:8-1];
+  wire [16-1:0] ignore [0:8-1];
+  wire [1-1:0] pc_out [0:8-1];
   wire [1-1:0] mux_pc_out;
   wire [16-1:0] reg_alu_in_a_out;
   wire [16-1:0] reg_alu_in_b_out;
@@ -78,11 +78,11 @@ module cgra0_pe_in #
   wire [7-1:0] mux_rf_const_waddr_out;
   wire [16-1:0] mux_a_out;
   wire ignore_end_counter;
-  wire [7-1:0] ignore_end_counters;
-  wire [7-1:0] thread_idx_dec_p;
-  wire [32-1:0] qtd_low [0:7-1];
-  wire [32-1:0] qtd_high [0:7-1];
-  wire [7-1:0] qtd_end_counters;
+  wire [8-1:0] ignore_end_counters;
+  wire [8-1:0] thread_idx_dec_p;
+  wire [32-1:0] qtd_low [0:8-1];
+  wire [32-1:0] qtd_high [0:8-1];
+  wire [8-1:0] qtd_end_counters;
 
   assign fifo_re = fifo_re_inst_dec & ignore_end_counter & en;
 
@@ -102,7 +102,7 @@ module cgra0_pe_in #
   reg_pipe
   #(
     .NUM_STAGES(1),
-    .DATA_WIDTH(7)
+    .DATA_WIDTH(8)
   )
   reg_thread_idx_dec_ppp
   (
@@ -114,7 +114,7 @@ module cgra0_pe_in #
   );
 
 
-  generate for(genv=0; genv<7; genv=genv+1) begin : ignore_reg_inst
+  generate for(genv=0; genv<8; genv=genv+1) begin : ignore_reg_inst
 
     reg_pipe
     #(
@@ -134,7 +134,7 @@ module cgra0_pe_in #
   endgenerate
 
 
-  generate for(genv=0; genv<7; genv=genv+1) begin : ignore_counter_inst
+  generate for(genv=0; genv<8; genv=genv+1) begin : ignore_counter_inst
 
     ignore_counter
     #(
@@ -153,7 +153,7 @@ module cgra0_pe_in #
   endgenerate
 
 
-  generate for(genv=0; genv<7; genv=genv+1) begin : qtd_low_reg_inst
+  generate for(genv=0; genv<8; genv=genv+1) begin : qtd_low_reg_inst
 
     reg_pipe
     #(
@@ -173,7 +173,7 @@ module cgra0_pe_in #
   endgenerate
 
 
-  generate for(genv=0; genv<7; genv=genv+1) begin : qtd_high_reg_inst
+  generate for(genv=0; genv<8; genv=genv+1) begin : qtd_high_reg_inst
 
     reg_pipe
     #(
@@ -193,7 +193,7 @@ module cgra0_pe_in #
   endgenerate
 
 
-  generate for(genv=0; genv<7; genv=genv+1) begin : qtd_counter_inst
+  generate for(genv=0; genv<8; genv=genv+1) begin : qtd_counter_inst
 
     ignore_counter
     #(
@@ -212,7 +212,7 @@ module cgra0_pe_in #
   endgenerate
 
 
-  mux7x1
+  mux8x1
   #(
     .WIDTH(1)
   )
@@ -226,13 +226,14 @@ module cgra0_pe_in #
     .in3(ignore_end_counters[3] & ~qtd_end_counters[3]),
     .in4(ignore_end_counters[4] & ~qtd_end_counters[4]),
     .in5(ignore_end_counters[5] & ~qtd_end_counters[5]),
-    .in6(ignore_end_counters[6] & ~qtd_end_counters[6])
+    .in6(ignore_end_counters[6] & ~qtd_end_counters[6]),
+    .in7(ignore_end_counters[7] & ~qtd_end_counters[7])
   );
 
   assign thread_idx_dec = 1 << thread_idx;
   assign thread_id_dec = 1 << thread_id;
 
-  generate for(genv=0; genv<7; genv=genv+1) begin : pc_max_reg_inst
+  generate for(genv=0; genv<8; genv=genv+1) begin : pc_max_reg_inst
 
     reg_pipe
     #(
@@ -252,7 +253,7 @@ module cgra0_pe_in #
   endgenerate
 
 
-  generate for(genv=0; genv<7; genv=genv+1) begin : pc_loop_reg_inst
+  generate for(genv=0; genv<8; genv=genv+1) begin : pc_loop_reg_inst
 
     reg_pipe
     #(
@@ -272,7 +273,7 @@ module cgra0_pe_in #
   endgenerate
 
 
-  mux7x1
+  mux8x1
   #(
     .WIDTH(1)
   )
@@ -286,11 +287,12 @@ module cgra0_pe_in #
     .in3(pc_out[3]),
     .in4(pc_out[4]),
     .in5(pc_out[5]),
-    .in6(pc_out[6])
+    .in6(pc_out[6]),
+    .in7(pc_out[7])
   );
 
 
-  generate for(genv=0; genv<7; genv=genv+1) begin : pc_inst
+  generate for(genv=0; genv<8; genv=genv+1) begin : pc_inst
 
     program_counter_1
     pc
@@ -680,7 +682,7 @@ module cgra0_pe_in #
   );
 
 
-  thread_counter_7
+  thread_counter_8
   thread_counter
   (
     .clk(clk),

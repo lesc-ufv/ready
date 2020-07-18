@@ -17,7 +17,7 @@ using namespace std::chrono;
 #define DATA_SIZE (1 << 6)
 #define NUM_THREAD (8)
 #define SAMPLES (1)
-#define TAPS 63
+#define TAPS 4
 
 
 int fir(int idx, unsigned short *coef, int taps);

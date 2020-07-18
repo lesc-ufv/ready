@@ -1,17 +1,25 @@
-//
-// Created by lucas on 18/01/19.
-//
-
-#ifndef MAIN_PASSA_H
-#define MAIN_PASSA_H
-
+#ifndef PASSA_H
+#define PASSA_H
 
 #include <ready/operator.h>
 #include <ready/data_flow_defs.h>
+#include <ready/params.h>
 
 class PassA : public Operator {
 public:
     explicit PassA(int id) : Operator(id, OP_PASS_A, OP_BASIC,"pass_a") {}
+
+    static Operator * create(Params params) { 
+        return new PassA(params.id);
+    }
+    
+    void compute() override {
+        if (Operator::getSrcA()) {
+            auto v = Operator::getSrcA()->getVal();
+            Operator::setVal(v);
+        }
+    }
+    
 };
 
-#endif //MAIN_PASSA_H
+#endif //PASSA_H

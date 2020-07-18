@@ -5,9 +5,8 @@ DataFlow::DataFlow(int id, std::string name) :
     name(std::move(name)),
     num_op_in(0),
     num_op_out(0),
-    num_op(0) {
-        
-}
+    num_op(0),
+    num_level(0){ }
 
 DataFlow::~DataFlow() {
     DataFlow::op_array.clear();
@@ -39,7 +38,26 @@ Operator *DataFlow::removeOperator(int op_id) {
 }
 
 void DataFlow::compute() {
-
+    
+    auto n = DataFlow::getNumLevel();
+    unsigned int allIsEnd = 0;
+    while (allIsEnd != DataFlow::getNumOpIn()) {
+        allIsEnd = 0;
+        for (int i = 0; i <= n; ++i) {
+            for (auto item:DataFlow::getOpArray()) {
+                auto op = item.second;
+                if (op->getLevel() == i) {
+                    op->compute();
+                    if (op->getType() == OP_IN && op->getIsEnd()) {
+                        allIsEnd++;
+                    }
+                }
+            }
+            if (allIsEnd == DataFlow::getNumOpIn()) {
+                break;
+            }
+        }
+    }
 }
 
 const std::map<int, Operator *> &DataFlow::getOpArray() const {
@@ -53,21 +71,22 @@ Operator *DataFlow::getOp(int id) {
     return nullptr;
 }
 
-void DataFlow::toDot(std::string fileNamePath) {
+void DataFlow::toDOT(std::string fileNamePath) {
     std::ofstream myfile;
     myfile.open(fileNamePath);
     myfile << "digraph " << DataFlow::name << "{" << std::endl;
     for (auto op:DataFlow::op_array) {
+        
         if (op.second->getType() == OP_IN) {
-            myfile << " " << op.first << " [ label = IN" << op.second->getId() << " ]" << std::endl;
+            myfile << " " << op.first << " [ label = input" << op.second->getId() << " ]" << std::endl;
         } else if (op.second->getType() == OP_OUT) {
-            myfile << " " << op.first << " [ label = OUT" << op.second->getId() << " ]" << std::endl;
+            myfile << " " << op.first << " [ label = output" << op.second->getId() << " ]" << std::endl;
         } else if (op.second->getType() == OP_IMMEDIATE) {
             myfile << " " << op.first;
             myfile << " [ label = " << op_label[op.second->getOpCode()] << "i";
-            myfile << ", VALUE = " << op.second->getConstant();
+            myfile << ", VALUE = " << op.second->getConst();
             myfile << "]" << std::endl;
-            myfile << " \"" << op.first << "." << op.second->getConstant() << "\"[ label = " << op.second->getConstant()
+            myfile << " \"" << op.first << "." << op.second->getConst() << "\"[ label = " << op.second->getConst()
                    << " ]" << std::endl;
 
         } else {
@@ -77,10 +96,10 @@ void DataFlow::toDot(std::string fileNamePath) {
     }
     for (auto op:DataFlow::op_array) {
         if (op.second->getType() == OP_IMMEDIATE) {
-            myfile << " \"" << op.first << "." << op.second->getConstant() << "\" -> " << op.first << std::endl;
+            myfile << " \"" << op.first << "." << op.second->getConst() << "\" -> " << op.first << std::endl;
         }
         for (auto op_dst:op.second->getDst()) {
-            myfile << " " << op.first << " -> " << op_dst << std::endl;
+            myfile << " " << op.first << " -> " << op_dst->getId() << std::endl;
         }
     }
     myfile << "}" << std::endl;
@@ -104,7 +123,7 @@ void DataFlow::toJSON(const std::string &fileNamePath) {
         for (auto item:DataFlow::op_array) {
             cnt++;
             auto op = item.second;
-            sprintf(buf, str_node, op->getId(), op->getLabel().c_str(),op->getConstant()); 
+            sprintf(buf, str_node, op->getId(), op->getLabel().c_str(),op->getConst()); 
             if (op->getId() > max_id) {
                 max_id = op->getId();
             }
@@ -115,14 +134,13 @@ void DataFlow::toJSON(const std::string &fileNamePath) {
         int port;
         for (auto item:DataFlow::op_array) {
             auto op = item.second;
-            for (auto neighbor_id:op->getDst()) {
-                auto neighbor = DataFlow::op_array[neighbor_id];
+            for (auto neighbor:op->getDst()) {
                 cnt++;
                 port = 1;
-                if(neighbor->getSrcA() == op->getId()){
+                if(neighbor->getSrcA()->getId() == op->getId()){
                     port = 0;
                 }
-                sprintf(buf, str_edge, id_edges++, op->getId(), neighbor_id, port);
+                sprintf(buf, str_edge, id_edges++, op->getId(), neighbor->getId(), port);
                 if (cnt < numEdge)
                     myfile << buf << "," << std::endl;
                 else
@@ -162,7 +180,8 @@ void DataFlow::fromJSON(const std::string &fileNamePath){
         int opcode = map_op[label]["opcode"].asInt();
         int type = map_op[label]["type"].asInt();
         int constant = e["data"]["value"].asInt();
-        auto op = new Operator(id, opcode, type, label, constant);
+        auto params = Params(id,constant,nullptr,0);
+        auto op = OperatorFactory::Get()->CreateOperator(label,params);
         DataFlow::addOperator(op);
     }
   }
@@ -185,51 +204,56 @@ void DataFlow::connect(Operator *src, Operator *dst, int dstPort) {
     DataFlow::addOperator(dst);
     DataFlow::graph[src->getId()].push_back(dst->getId());
 
-    src->getDst().push_back(dst->getId());
+    src->getDst().push_back(dst);
 
     if (dstPort == PORT_A) {
-        dst->setSrcA(src->getId());
+        dst->setSrcA(src);
     } else if (dstPort == PORT_B) {
-        dst->setSrcB(src->getId());
+        dst->setSrcB(src);
     } else if (dstPort == PORT_BRANCH) {
-        dst->setBranchIn(src->getId());
+        dst->setBranchIn(src);
     }
     DataFlow::updateOpLevel();
 }
 
 void DataFlow::updateOpLevel() {
-    std::queue<int> q;
-    int parent;
-    for (auto op:DataFlow::op_array) {
-        if (op.second->getType() == OP_IN) {
-            q.push(op.first);
-            while (!q.empty()) {
-                parent = q.front();
-                q.pop();
-                for (auto child:DataFlow::graph[parent]) {
-                    int lp = DataFlow::op_array[parent]->getLevel();
-                    int lc = DataFlow::op_array[child]->getLevel();
-                    if (lp >= lc) {
-                        DataFlow::op_array[child]->setLevel(lp + 1);
+        std::queue<int> q;
+        int parent;
+        for (auto op:DataFlow::op_array) {
+            if (op.second->getType() == OP_IN) {
+                q.push(op.first);
+                while (!q.empty()) {
+                    parent = q.front();
+                    q.pop();
+                    for (auto child:DataFlow::graph[parent]) {
+                        int lp = DataFlow::op_array[parent]->getLevel();
+                        int lc = DataFlow::op_array[child]->getLevel();
+                        if (lp >= lc) {
+                            DataFlow::op_array[child]->setLevel(lp + 1);
+                        }
+                        q.push(child);
                     }
-                    q.push(child);
                 }
             }
         }
-    }
-    for (auto op:DataFlow::op_array) {
-        if (op.second->getType() == OP_IN) {
-            int level = 0;
-            for (auto child:DataFlow::graph[op.first]) {
-                if (DataFlow::op_array[child]->getLevel() > level) {
-                    level = DataFlow::op_array[child]->getLevel();
+        for (auto op:DataFlow::op_array) {
+            if (op.second->getType() == OP_IN) {
+                int level = 0;
+                for (auto child:DataFlow::graph[op.first]) {
+                    if (DataFlow::op_array[child]->getLevel() > level) {
+                        level = DataFlow::op_array[child]->getLevel();
+                    }
                 }
+                if (level > 0)
+                    level = level - 1;
+                op.second->setLevel(level);
             }
-            if (level > 0)
-                level = level - 1;
-            op.second->setLevel(level);
         }
-    }
+        for (auto op:DataFlow::op_array) {
+            if (op.second->getLevel() > DataFlow::num_level) {
+                DataFlow::num_level = op.second->getLevel();
+            }
+        }
 }
 
 
@@ -267,4 +291,7 @@ int DataFlow::getNumEdges() const {
         num_edges+=v.second.size();
     }
     return num_edges;
+}
+int DataFlow::getNumLevel() const{
+    return DataFlow::num_level;
 }

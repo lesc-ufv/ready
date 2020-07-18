@@ -4419,7 +4419,7 @@ module cgra0_top
   );
 
 
-  omega256x256_8_0_1
+  omega256x256_8_1_1
   #(
     .WIDTH(16),
     .PIPE_EXTRA(0)
@@ -4945,7 +4945,7 @@ module cgra0_top
   );
 
 
-  omega_branch128x128_8_0_1
+  omega_branch128x128_8_1_1
   #(
     .WIDTH(1),
     .PIPE_EXTRA(0)

@@ -4,9 +4,9 @@ Operator::Operator(int id, int op_code, int type, std::string label) :
     id(id),
     opCode(op_code),
     type(type),
-    srcA(-1),
-    srcB(-1),
-    branchIn(-1),
+    srcA(nullptr),
+    srcB(nullptr),
+    branchIn(nullptr),
     constant(0),
     level(0),
     dataFlowId(-1),
@@ -18,13 +18,14 @@ Operator::Operator(int id, int op_code, int type, std::string label, int constan
     id(id),
     opCode(op_code),
     type(type),
-    srcA(-1),
-    srcB(-1),
-    branchIn(-1),
+    srcA(nullptr),
+    srcB(nullptr),
+    branchIn(nullptr),
     constant(constant),
     level(0),
     dataFlowId(-1),
-    label(std::move(label)) {
+    label(std::move(label)),
+    isEnd(false){
         
     }
 
@@ -33,7 +34,7 @@ Operator::~Operator() {
 }
 
 int Operator::getId() const {
-    return id;
+    return Operator::id;
 }
 
 void Operator::setId(int id) {
@@ -49,7 +50,7 @@ void Operator::setOpCode(int op_code) {
 }
 
 int Operator::getType() const {
-    return type;
+    return Operator::type;
 }
 
 void Operator::setType(int type) {
@@ -57,38 +58,38 @@ void Operator::setType(int type) {
 }
 
 int Operator::getVal() const {
-    return val;
+    return Operator::val;
 }
 
 void Operator::setVal(int val) {
     Operator::val = val;
 }
 
-std::vector<int> &Operator::getDst() {
+std::vector<Operator *> &Operator::getDst() {
     return Operator::dst;
 }
 
-int Operator::getSrcA() const {
-    return srcA;
+Operator * Operator::getSrcA() const {
+    return Operator::srcA;
 }
 
-void Operator::setSrcA(int srcA) {
+void Operator::setSrcA(Operator * srcA) {
     Operator::srcA = srcA;
 }
 
-int Operator::getSrcB() const {
-    return srcB;
+Operator * Operator::getSrcB() const {
+    return Operator::srcB;
 }
 
-void Operator::setSrcB(int srcB) {
+void Operator::setSrcB(Operator * srcB) {
     Operator::srcB = srcB;
 }
 
-int Operator::getConstant() const {
+int Operator::getConst() const {
     return constant;
 }
 
-void Operator::setConstant(int constant) {
+void Operator::setConst(int constant) {
     Operator::constant = constant;
 }
 
@@ -100,11 +101,11 @@ int Operator::getLevel() {
     return Operator::level;
 }
 
-int Operator::getBranchIn() const {
-    return branchIn;
+Operator* Operator::getBranchIn() const {
+    return Operator::branchIn;
 }
 
-void Operator::setBranchIn(int branchIn) {
+void Operator::setBranchIn(Operator* branchIn) {
     Operator::branchIn = branchIn;
 }
 
@@ -128,6 +129,14 @@ int Operator::getPortBranch() {
     return PORT_BRANCH;
 }
 const std::string &Operator::getLabel() const {
-    return label;
+    return Operator::label;
+}
+
+int Operator::getIsEnd()const{
+    return Operator::isEnd;
+}
+    
+void Operator::setIsEnd(bool isEnd){
+    Operator::isEnd= isEnd;
 }
 

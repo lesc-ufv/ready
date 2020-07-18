@@ -1,9 +1,8 @@
-#ifndef CGRASCHEDULER_OPERATOR_H
-#define CGRASCHEDULER_OPERATOR_H
+#ifndef OPERATOR_H
+#define OPERATOR_H
 
 #include <vector>
 #include <string>
-
 #include <ready/cgra_arch_defs.h>
 
 class Operator {
@@ -15,12 +14,13 @@ private:
     int type;
     int val;
     int constant;
-    int srcA;
-    int srcB;
-    int branchIn;
-    std::vector<int> dst;
+    Operator *srcA;
+    Operator *srcB;
+    Operator *branchIn;
+    std::vector<Operator *> dst;
     int dataFlowId;
     std::string label;
+    bool isEnd;
 
 public:
     Operator(int id, int op_code, int type, std::string label);
@@ -45,25 +45,23 @@ public:
 
     void setVal(int val);
 
-    int getSrcA() const;
+    Operator *getSrcA() const;
 
-    void setSrcA(int srcA);
+    void setSrcA(Operator *srcA);
 
-    int getSrcB() const;
+    Operator * getSrcB() const;
 
-    void setSrcB(int srcB);
+    void setSrcB(Operator *srcB);
 
-    int getBranchIn() const;
+    Operator * getBranchIn() const;
 
-    void setBranchIn(int branchIn);
+    void setBranchIn(Operator * branchIn);
 
-    std::vector<int> &getDst();
+    std::vector<Operator *> &getDst();
 
-    //virtual void compute() = 0;
+    int getConst() const;
 
-    int getConstant() const;
-
-    void setConstant(int constant);
+    void setConst(int constant);
 
     void setLevel(int level);
 
@@ -80,8 +78,12 @@ public:
     int getPortBranch();
     
     const std::string &getLabel() const;
-
+    
+    virtual void compute() = 0;
+    
+    int getIsEnd()const;
+    
+    void setIsEnd(bool isEnd);
 };
 
-
-#endif //CGRASCHEDULER_OPERATOR_H
+#endif //OPERATOR_H

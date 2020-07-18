@@ -111,7 +111,7 @@ initial_conf_t PEArch::getConstConf(int threadID) {
     conf.pe_constant_conf.pe_id = static_cast<unsigned long>(PEArch::id) + 1;
     conf.pe_constant_conf.thread_id = static_cast<unsigned long>(threadID);
     conf.pe_constant_conf.const_addr = static_cast<unsigned long>(constAddr);
-    conf.pe_constant_conf.constant = static_cast<unsigned long>(PEArch::opThreads[threadID]->getConstant());
+    conf.pe_constant_conf.constant = static_cast<unsigned long>(PEArch::opThreads[threadID]->getConst());
 
     return conf;
 }

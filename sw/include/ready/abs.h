@@ -1,16 +1,28 @@
-//
-// Created by lucas on 18/01/19.
-//
-
-#ifndef MAIN_ABS_H
-#define MAIN_ABS_H
+#ifndef ABS_H
+#define ABS_H
 
 #include <ready/operator.h>
 #include <ready/data_flow_defs.h>
+#include <ready/params.h>
 
 class Abs : public Operator {
 public:
-    explicit Abs(int id) : Operator(id, OP_ABS, OP_BASIC,"abs") {}
+    
+    explicit Abs(int id) : Operator(id, OP_ABS, OP_BASIC, "abs") {}
+    
+    static Operator * create(Params params) { 
+        return new Abs(params.id);
+    }
+    
+    void compute(){
+        if (Operator::getSrcA()) {
+            auto v = abs(Operator::getSrcA()->getVal());
+            Operator::setVal(v);
+        } else if (Operator::getSrcB()) {
+            auto v = abs(Operator::getSrcB()->getVal());
+            Operator::setVal(v);
+        }
+    }
 };
 
-#endif //MAIN_ABS_H
+#endif //ABS_H

@@ -30,7 +30,6 @@ bool PathFinder::pathFinder(int start, int target, std::map<int, std::vector<int
                 queue_path.push(newpath);
             }
         }
-
     }
 
 

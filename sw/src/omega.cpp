@@ -14,9 +14,7 @@ Omega::Omega(int size, int radix, int num_extra_stagies) : size(size), radix(rad
             Omega::used_route[std::pair<int, int>(sw_src, sw_dst_aux)] = false;
         }
     }
-
     Omega::createSwitchGraph();
-
 }
 
 Omega::~Omega() {
@@ -151,7 +149,6 @@ void Omega::createRouteTable() {
             PathFinder::pathFinder(sw_src, sw_dst_aux, Omega::graph, Omega::route_table[key_sw]);
         }
     }
-
 }
 
 void Omega::printRouteTable() {

@@ -2,7 +2,7 @@
 #define CGRA_DEFS_H
 
 #include <vector>
-#include <map>
+#include<map>
 
 typedef enum cgra_conf_type_t {
     CGRA_CONF_SET_PE_INSTRUCTION = 1,

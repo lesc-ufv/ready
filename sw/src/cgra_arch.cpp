@@ -137,7 +137,6 @@ void CgraArch::reset(int threadID) {
     }
 }
 
-
 void CgraArch::writeCgraProgram(const std::string &filePath) {
 
     std::vector<unsigned short> hearder;
@@ -186,7 +185,6 @@ void CgraArch::writeCgraProgram(const std::string &filePath) {
         myfile.write((char *) &it.first.second, sizeof(int));
         myfile.write((char *) &it.second, sizeof(int));
     }
-    
     myfile.close();
 }
 
@@ -300,29 +298,6 @@ std::map<int, int> CgraArch::makeListPe(int num_pe, int num_pe_in, int num_pe_ou
     for (int j = num_pe - num_pe_out; j < num_pe; ++j) {
         pelist[j] = PE_OUT;
     }
-    /*
-    srand(3);
-    for (int k = 0; k < num_pe_in; ++k) {
-        bool repeat = true;
-        while (repeat) {
-            int pe = (int)random() % num_pe;
-            if(pelist[pe] == PE_BASIC){
-                pelist[pe] = PE_IN;
-                repeat = false;
-            }
-        }
-    }
-    for (int l = 0; l < num_pe_out; ++l) {
-        bool repeat = true;
-        while (repeat) {
-            int pe = (int)random() % num_pe;
-            if(pelist[pe] == PE_BASIC){
-                pelist[pe] = PE_OUT;
-                repeat = false;
-            }
-        }
-    }
-     */
     return pelist;
 }
 

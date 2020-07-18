@@ -1,6 +1,7 @@
 #ifndef CGRA_H
 #define CGRA_H
 
+#include <map>
 #include <chrono>
 #include <cstdint>
 #include <cstring>
@@ -27,7 +28,7 @@ private:
 
     int intlog(double x, double base);
 
-    bool readProgramFile(std::string filePath);
+    bool readProgramFile(const std::string &filePath);
 
     std::map<int, int> makeListPe(int num_pe, int num_pe_in, int num_pe_out);
 
@@ -40,18 +41,17 @@ public:
 
     ~Cgra();
 
-    bool loadCgraProgram(std::string filePath);
+    bool loadCgraProgram(const std::string &filePath);
 
     bool loadCgraProgram(cgra_program_t cp);
 
     bool setCgraProgramInputStreamByID(int dataFlowID, int inputStreamID, const void *inputStreamData, size_t size);
 
-    bool setCgraProgramInputStreamByName(std::string dataFlowName, int inputStreamID, const void *inputStreamData,
-                                         size_t size);
+    bool setCgraProgramInputStreamByName(const std::string &dataFlowName, int inputStreamID, const void *inputStreamData, size_t size);
 
     bool setCgraProgramOutputStreamByID(int dataFlowID, int outputStreamID, void *outputStreamData, size_t size);
 
-    bool setCgraProgramOutputStreamByName(std::string dataFlowName, int outputStreamID, const void *outputStreamData,
+    bool setCgraProgramOutputStreamByName(const std::string &dataFlowName, int outputStreamID, const void *outputStreamData,
                                           size_t size);
 
     void syncExecute(long waitTime);

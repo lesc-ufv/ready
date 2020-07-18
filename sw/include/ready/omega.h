@@ -2,7 +2,7 @@
 #define CGRASCHEDULER_OMEGA_H
 
 #include <cmath>
-#include <map>
+#include<map>
 #include <vector>
 #include <ready/path_finder.h>
 #include <ready/switch.h>
