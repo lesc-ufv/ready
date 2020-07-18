@@ -191,11 +191,11 @@ DataFlow *createDataFlow(int id, int copies, unsigned short *coef, int taps) {
 
     in_cp.reserve(copies);
     for (int j = 0; j < copies; ++j) {
-        in_cp.push_back(new InputStream(idx++));
+        in_cp.push_back(new InputStream(idx++,nullptr,0));
     }
     out_cp.reserve(copies);
     for (int j = 0; j < copies; ++j) {
-        out_cp.push_back(new OutputStream(idx++));
+        out_cp.push_back(new OutputStream(idx++,nullptr,0));
     }
     for (int j = 0; j < copies; ++j) {
         Operator *op, *op1, *op2;
@@ -221,7 +221,7 @@ DataFlow *createDataFlow(int id, int copies, unsigned short *coef, int taps) {
         df->connect(op1, out_cp[j], out_cp[j]->getPortA());
     }
 
-    df->toDot("fir.dot");
+    df->toDOT("fir.dot");
     return df;
 
 }

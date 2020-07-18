@@ -174,8 +174,8 @@ DataFlow *createDataFlow(int id, int copies) {
     std::vector<Operator *> in;
     std::vector<Operator *> out;
     for (int i = 0; i < copies; ++i) {
-        in.push_back(new InputStream(idx++, nullptr));
-        out.push_back(new OutputStream(idx++, nullptr));
+        in.push_back(new InputStream(idx++, nullptr,0));
+        out.push_back(new OutputStream(idx++, nullptr,0));
     }
     for (int i = 0; i < copies; ++i) {
 
@@ -221,35 +221,31 @@ DataFlow *createDataFlow(int id, int copies) {
 
 void chebyshev_dataflow_cpu() {
 
-    std::vector<int> data_in[1] = {{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
-    std::vector<int> data_out[1];
+    int data_in[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    int data_out[10];
 
     auto dataFlow = createDataFlow(0, 1);
 
     auto in = reinterpret_cast<InputStream *>(dataFlow->getOp(0));
     auto out = reinterpret_cast<OutputStream *>(dataFlow->getOp(1));
-    in->setData(&data_in[0]);
-    out->setData(&data_out[0]);
+    
+    in->setData(&data_in[0],10);
+    out->setData(&data_out[0],10);
 
     dataFlow->compute();
 
     dataFlow->toJSON("chebyshev.json");
     dataFlow->toDOT("chebyshev.dot");
 
-    for (const auto &dv:data_in) {
-        for (auto v:dv) {
-            cout << v << " ";
-        }
-        cout << endl;
+    for (auto v:data_in) {
+       cout << v << " ";
     }
     cout << endl;
-    for (const auto &dv:data_out) {
-        for (auto v:dv) {
-            cout << v << " ";
-        }
-        cout << endl;
+    
+    for (auto v:data_out) {
+       cout << v << " ";
     }
-    cout << endl;
+        cout << endl;
 
     delete dataFlow;
 }

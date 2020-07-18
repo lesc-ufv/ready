@@ -232,14 +232,14 @@ DataFlow *createDataFlow(int id, int copies) {
     std::vector<Operator *> i6_n7;
     std::vector<Operator *> o0_n34;
     for (int i = 0; i < copies; ++i) {
-        i0_n1.push_back(new InputStream(idx++));//0
-        i1_n2.push_back(new InputStream(idx++));//1
-        i2_n3.push_back(new InputStream(idx++));//2
-        i3_n4.push_back(new InputStream(idx++));//3
-        i4_n5.push_back(new InputStream(idx++));//4
-        i5_n6.push_back(new InputStream(idx++));//5
-        i6_n7.push_back(new InputStream(idx++));//6
-        o0_n34.push_back(new OutputStream(idx++));//7
+        i0_n1.push_back(new InputStream(idx++,nullptr,0));//0
+        i1_n2.push_back(new InputStream(idx++,nullptr,0));//1
+        i2_n3.push_back(new InputStream(idx++,nullptr,0));//2
+        i3_n4.push_back(new InputStream(idx++,nullptr,0));//3
+        i4_n5.push_back(new InputStream(idx++,nullptr,0));//4
+        i5_n6.push_back(new InputStream(idx++,nullptr,0));//5
+        i6_n7.push_back(new InputStream(idx++,nullptr,0));//6
+        o0_n34.push_back(new OutputStream(idx++,nullptr,0));//7
     }
     for (int j = 0; j < copies; ++j) {
         auto reg1 = new PassA(idx++);//8

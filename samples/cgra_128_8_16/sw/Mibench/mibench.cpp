@@ -182,10 +182,10 @@ DataFlow *createDataFlow(int id, int copies) {
     std::vector<Operator *> in3;
     std::vector<Operator *> out;
     for (int i = 0; i < copies; ++i) {
-        in1.push_back(new InputStream(idx++));
-        in2.push_back(new InputStream(idx++));
-        in3.push_back(new InputStream(idx++));
-        out.push_back(new OutputStream(idx++));
+        in1.push_back(new InputStream(idx++,nullptr,0));
+        in2.push_back(new InputStream(idx++,nullptr,0));
+        in3.push_back(new InputStream(idx++,nullptr,0));
+        out.push_back(new OutputStream(idx++,nullptr,0));
     }
     for (int i = 0; i < copies; ++i) {
         auto reg1 = new PassA(idx++);

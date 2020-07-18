@@ -259,9 +259,9 @@ DataFlow *createDataFlow(int id, int copies) {
 
     for (int i = 0; i < 9; ++i) {
         if (i != 4)
-            inputs[i] = new InputStream(idx++);
+            inputs[i] = new InputStream(idx++,nullptr,0);
     }
-    output[0] = new OutputStream(idx++);
+    output[0] = new OutputStream(idx++,nullptr,0);
 
     for (int i = 0; i < 9; ++i) {
         if (i == 4) {

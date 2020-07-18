@@ -162,8 +162,8 @@ DataFlow *createDataFlow(int id, int copies) {
     Operator *inA[copies];
     Operator *out[copies];
     for (int i = 0; i < copies; ++i) {
-        inA[i] = new InputStream(idx++);
-        out[i] = new OutputStream(idx++);
+        inA[i] = new InputStream(idx++,nullptr,0);
+        out[i] = new OutputStream(idx++,nullptr,0);
     }
     for (int i = 0; i < copies; ++i) {
         df->connect(inA[i], out[i], out[i]->getPortA());

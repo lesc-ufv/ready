@@ -224,7 +224,7 @@ DataFlow *createDataFlow(int id, int num_clusters, int num_dim) {
         }
         inputs.reserve(static_cast<unsigned long>(num_dim));
         for (int i = 0; i < num_dim; ++i) {
-            inputs.push_back(new InputStream(idx++));
+            inputs.push_back(new InputStream(idx++,nullptr,0));
         }
         outId = idx++;
         for (int j = 0; j < num_clusters; ++j) {
@@ -320,15 +320,15 @@ DataFlow *createDataFlow(int id, int num_clusters, int num_dim) {
             df->connect(sltEnd, muxEnd, muxEnd->getPortBranch());
             df->connect(mux_reduz.front(), muxEnd, muxEnd->getPortA());
             df->connect(reg1, muxEnd, muxEnd->getPortB());
-            auto out = new OutputStream(outId);
+            auto out = new OutputStream(outId,nullptr,0);
             df->connect(muxEnd, out, out->getPortA());
         } else {
-            auto out = new OutputStream(outId);
+            auto out = new OutputStream(outId,nullptr,0);
             df->connect(mux_reduz.front(), out, out->getPortA());
         }
     } else {
-        auto in = new InputStream(idx++);
-        auto out = new OutputStream(idx++);
+        auto in = new InputStream(idx++,nullptr,0);
+        auto out = new OutputStream(idx++,nullptr,0);
         auto reg = new PassBi(idx, 0);
         df->connect(in, out, out->getPortB());
         df->connect(reg, out, out->getPortA());

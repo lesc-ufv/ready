@@ -191,10 +191,10 @@ DataFlow *createDataFlow(int id, int copies) {
     std::vector<Operator *> o0_n36;
 
     for (int i = 0; i < copies; ++i) {
-        i0_n1.push_back(new InputStream(idx++));//0
-        i1_n2.push_back(new InputStream(idx++));//1
-        i2_n3.push_back(new InputStream(idx++));//2
-        o0_n36.push_back(new OutputStream(idx++));//3
+        i0_n1.push_back(new InputStream(idx++,nullptr,0));//0
+        i1_n2.push_back(new InputStream(idx++,nullptr,0));//1
+        i2_n3.push_back(new InputStream(idx++,nullptr,0));//2
+        o0_n36.push_back(new OutputStream(idx++,nullptr,0));//3
     }
     for (int i = 0; i < copies; ++i) {
 

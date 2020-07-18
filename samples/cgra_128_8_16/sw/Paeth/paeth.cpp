@@ -206,10 +206,10 @@ DataFlow *createDataFlow(int id, int copies) {
     Operator *inC[2];
     Operator *out[2];
     for (int i = 0; i < copies; ++i) {
-        inA[i] = new InputStream(idx++);
-        inB[i] = new InputStream(idx++);
-        inC[i] = new InputStream(idx++);
-        out[i] = new OutputStream(idx++);
+        inA[i] = new InputStream(idx++,nullptr,0);
+        inB[i] = new InputStream(idx++,nullptr,0);
+        inC[i] = new InputStream(idx++,nullptr,0);
+        out[i] = new OutputStream(idx++,nullptr,0);
     }
     for (int i = 0; i < copies; ++i) {
         auto sub1 = new Sub(idx++);
