@@ -18,7 +18,7 @@ CgraArch::CgraArch(int id, int num_pe, int num_pe_in, int num_pe_out, int net_ra
     }
 
     auto pe_list = CgraArch::makeListPe(num_pe, num_pe_in, num_pe_out);
-    
+
     int inId = 0;
     int outId = 0;
     for (auto p:pe_list) {
@@ -155,7 +155,7 @@ void CgraArch::writeCgraProgram(const std::string &filePath) {
     hearder.push_back(static_cast<unsigned short>(CgraArch::cgra_program.input_map.size()));
     hearder.push_back(static_cast<unsigned short>(CgraArch::cgra_program.output_map.size()));
     hearder.push_back(static_cast<unsigned short>(CgraArch::cgra_program.map_pe_to_op.size()));
-   
+
     myfile.open(filePath);
     myfile.write((char *) &hearder[0], hearder.size() * sizeof(unsigned short));
     myfile.write((char *) &CgraArch::cgra_program.cgra_intial_conf, sizeof(cgra_intial_conf_t));
@@ -234,7 +234,7 @@ void CgraArch::makeProgram() {
                 CgraArch::cgra_program.initial_conf.push_back(pe->getConf(j));
                 CgraArch::cgra_program.initial_conf.push_back(pe->getPcMaxConf(j));
                 CgraArch::cgra_program.initial_conf.push_back(pe->getPcLoopConf(j));
-                CgraArch::cgra_program.map_pe_to_op[std::pair<int, int>(j,pe->getId() + 1)] = op->getId();
+                CgraArch::cgra_program.map_pe_to_op[std::pair<int, int>(j, pe->getId() + 1)] = op->getId();
 
                 int inId = CgraArch::pe_in_map[pe->getId()];
                 int outId = CgraArch::pe_out_map[pe->getId()];

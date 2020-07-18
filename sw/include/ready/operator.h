@@ -25,7 +25,7 @@ private:
 public:
     Operator(int id, int op_code, int type, std::string label);
 
-    Operator(int id, int op_code, int type,  std::string label, int constant);
+    Operator(int id, int op_code, int type, std::string label, int constant);
 
     ~Operator();
 
@@ -49,13 +49,13 @@ public:
 
     void setSrcA(Operator *srcA);
 
-    Operator * getSrcB() const;
+    Operator *getSrcB() const;
 
     void setSrcB(Operator *srcB);
 
-    Operator * getBranchIn() const;
+    Operator *getBranchIn() const;
 
-    void setBranchIn(Operator * branchIn);
+    void setBranchIn(Operator *branchIn);
 
     std::vector<Operator *> &getDst();
 
@@ -74,15 +74,15 @@ public:
     int getPortA();
 
     int getPortB();
-    
+
     int getPortBranch();
-    
+
     const std::string &getLabel() const;
-    
+
     virtual void compute() = 0;
-    
-    int getIsEnd()const;
-    
+
+    int getIsEnd() const;
+
     void setIsEnd(bool isEnd);
 };
 

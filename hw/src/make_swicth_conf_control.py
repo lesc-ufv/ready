@@ -1,13 +1,11 @@
-from math import ceil, log
-
-from make_swicth_conf_reader import make_swicth_conf_reader
-from veriloggen import *
-
 from make_cgra_counter import make_thread_counter
 from make_memory import make_memory
 from make_mux import make_mux
 from make_program_counter import make_program_counter
 from make_reg_pipe import make_reg_pipe
+from make_swicth_conf_reader import make_swicth_conf_reader
+from math import ceil, log
+from veriloggen import *
 
 
 def make_swicth_conf_control(num_thread, swicth_conf_width, conf_net_depth, is_net_branch):

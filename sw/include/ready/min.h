@@ -7,12 +7,12 @@
 
 class Min : public Operator {
 public:
-    explicit Min(int id) : Operator(id, OP_MIN, OP_BASIC,"min") {}
-    
-    static Operator * create(Params params) { 
+    explicit Min(int id) : Operator(id, OP_MIN, OP_BASIC, "min") {}
+
+    static Operator *create(Params params) {
         return new Min(params.id);
     }
-    
+
     void compute() override {
         if (Operator::getSrcA() && Operator::getSrcB()) {
             if (Operator::getSrcA()->getVal() < Operator::getSrcB()->getVal()) {
@@ -30,10 +30,10 @@ class Mini : public Operator {
 public:
     Mini(int id, int constant) : Operator(id, OP_MIN, OP_IMMEDIATE, "mini", constant) {}
 
-    static Operator * create(Params params) { 
-        return new Mini(params.id,params.constant);
+    static Operator *create(Params params) {
+        return new Mini(params.id, params.constant);
     }
-    
+
     void compute() override {
         if (Operator::getSrcA()) {
             if (Operator::getSrcA()->getVal() < Operator::getConst()) {

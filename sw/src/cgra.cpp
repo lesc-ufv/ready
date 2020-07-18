@@ -39,7 +39,9 @@ bool Cgra::setCgraProgramInputStreamByID(int dataFlowID, int inputStreamID, cons
     return false;
 }
 
-bool Cgra::setCgraProgramInputStreamByName(const std::string &dataFlowName, int inputStreamID, const void *inputStreamData, size_t size) {
+bool
+Cgra::setCgraProgramInputStreamByName(const std::string &dataFlowName, int inputStreamID, const void *inputStreamData,
+                                      size_t size) {
     int queue_id;
     for (const auto &it:Cgra::cgra_program->input_map) {
         if (dataFlowName == std::get<3>(it.first) && inputStreamID == std::get<2>(it.first)) {
@@ -72,7 +74,8 @@ bool Cgra::setCgraProgramOutputStreamByID(int dataFlowID, int outputStreamID, vo
 }
 
 bool
-Cgra::setCgraProgramOutputStreamByName(const std::string& dataFlowName, int outputStreamID, const void *outputStreamData,
+Cgra::setCgraProgramOutputStreamByName(const std::string &dataFlowName, int outputStreamID,
+                                       const void *outputStreamData,
                                        size_t size) {
     int queue_id;
     for (const auto &it:Cgra::cgra_program->output_map) {
@@ -148,7 +151,7 @@ bool Cgra::readProgramFile(const std::string &filePath) {
             myfile.read((char *) &threadID, sizeof(int));
             myfile.read((char *) &id_pe, sizeof(int));
             myfile.read((char *) &id_op, sizeof(int));
-            Cgra::cgra_program->map_pe_to_op[std::pair<int, int>(threadID,id_pe)] = id_op;
+            Cgra::cgra_program->map_pe_to_op[std::pair<int, int>(threadID, id_pe)] = id_op;
         }
         myfile.close();
     } else {

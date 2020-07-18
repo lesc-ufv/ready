@@ -15,7 +15,7 @@
 using namespace std;
 using namespace std::chrono;
 
-#define DATA_SIZE (1 << 5)
+#define DATA_SIZE (1 << 26)
 #define NUM_THREAD (8)
 #define SAMPLES (1)
 

@@ -7,14 +7,14 @@
 
 class Abs : public Operator {
 public:
-    
+
     explicit Abs(int id) : Operator(id, OP_ABS, OP_BASIC, "abs") {}
-    
-    static Operator * create(Params params) { 
+
+    static Operator *create(Params params) {
         return new Abs(params.id);
     }
-    
-    void compute(){
+
+    void compute() {
         if (Operator::getSrcA()) {
             auto v = abs(Operator::getSrcA()->getVal());
             Operator::setVal(v);

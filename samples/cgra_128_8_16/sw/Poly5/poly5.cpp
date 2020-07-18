@@ -4,19 +4,19 @@ int main(int argc, char *argv[]) {
 
     int idx = 0;
     int test = 0;
-     
-    if(argc > 1)
+
+    if (argc > 1)
         test = atoi(argv[1]);
-     
-    if(argc > 2)
+
+    if (argc > 2)
         idx = atoi(argv[2]);
 
-    if(test & 1)
+    if (test & 1)
         poly5(idx);
-    if(test & 2)
+    if (test & 2)
         poly5_openmp(idx);
-    if(test & 4)
-        poly5_cgra(idx,2);
+    if (test & 4)
+        poly5_cgra(idx, 2);
 
     return 0;
 }
@@ -108,7 +108,7 @@ int poly5_openmp(int idx) {
     return v;
 }
 
-int poly5_cgra(int idx,int copies){
+int poly5_cgra(int idx, int copies) {
     auto cgraArch = new CgraArch(0, 128, 8, 8, 8, 1, 2);
     auto cgraHw = new Cgra();
     Scheduler scheduler(cgraArch);
@@ -134,12 +134,12 @@ int poly5_cgra(int idx,int copies){
         cgraArch->getNetBranch(i)->createRouteTable();
         cgraArch->getNet(i)->createRouteTable();
     }
-    
+
     do {
         r = scheduler.scheduling();
         tries++;
     } while (r != SCHEDULE_SUCCESS && tries < 1000);
-    
+
     if (r == SCHEDULE_SUCCESS) {
 
         cgraHw->loadCgraProgram(cgraArch->getCgraProgram());
@@ -157,7 +157,7 @@ int poly5_cgra(int idx,int copies){
             }
         }
         double cgraExecTime = 0;
-        for (int i = 0; i < SAMPLES; i++){
+        for (int i = 0; i < SAMPLES; i++) {
             cgraHw->syncExecute(0);
             cgraExecTime += cgraHw->getTimeExec();
         }

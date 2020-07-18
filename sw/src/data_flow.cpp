@@ -1,12 +1,12 @@
 #include <ready/data_flow.h>
 
-DataFlow::DataFlow(int id, std::string name) : 
-    id(id),
-    name(std::move(name)),
-    num_op_in(0),
-    num_op_out(0),
-    num_op(0),
-    num_level(0){ }
+DataFlow::DataFlow(int id, std::string name) :
+        id(id),
+        name(std::move(name)),
+        num_op_in(0),
+        num_op_out(0),
+        num_op(0),
+        num_level(0) {}
 
 DataFlow::~DataFlow() {
     DataFlow::op_array.clear();
@@ -38,7 +38,7 @@ Operator *DataFlow::removeOperator(int op_id) {
 }
 
 void DataFlow::compute() {
-    
+
     auto n = DataFlow::getNumLevel();
     unsigned int allIsEnd = 0;
     while (allIsEnd != DataFlow::getNumOpIn()) {
@@ -76,7 +76,7 @@ void DataFlow::toDOT(std::string fileNamePath) {
     myfile.open(fileNamePath);
     myfile << "digraph " << DataFlow::name << "{" << std::endl;
     for (auto op:DataFlow::op_array) {
-        
+
         if (op.second->getType() == OP_IN) {
             myfile << " " << op.first << " [ label = input" << op.second->getId() << " ]" << std::endl;
         } else if (op.second->getType() == OP_OUT) {
@@ -107,95 +107,95 @@ void DataFlow::toDOT(std::string fileNamePath) {
 }
 
 void DataFlow::toJSON(const std::string &fileNamePath) {
-        std::ofstream myfile;
-        myfile.open(fileNamePath);
-        myfile << "[" << std::endl;
-        
-        char str_node[] = R"({"data":{"id":%d,"type":"%s","value":%d},"group":"nodes"})";
-        char str_edge[] = R"({"data":{"id":%d,"source":%d,"target":%d, "port":%d},"group":"edges"})";
-        
-        char buf[256];
-        int numOp = DataFlow::getNumOp();
-        int numEdge = DataFlow::getNumEdges();
-        int cnt = 0;
-        int max_id = 0;
-        int id_edges = 0;
-        for (auto item:DataFlow::op_array) {
+    std::ofstream myfile;
+    myfile.open(fileNamePath);
+    myfile << "[" << std::endl;
+
+    char str_node[] = R"({"data":{"id":%d,"type":"%s","value":%d},"group":"nodes"})";
+    char str_edge[] = R"({"data":{"id":%d,"source":%d,"target":%d, "port":%d},"group":"edges"})";
+
+    char buf[256];
+    int numOp = DataFlow::getNumOp();
+    int numEdge = DataFlow::getNumEdges();
+    int cnt = 0;
+    int max_id = 0;
+    int id_edges = 0;
+    for (auto item:DataFlow::op_array) {
+        cnt++;
+        auto op = item.second;
+        sprintf(buf, str_node, op->getId(), op->getLabel().c_str(), op->getConst());
+        if (op->getId() > max_id) {
+            max_id = op->getId();
+        }
+        myfile << buf << "," << std::endl;
+    }
+    id_edges = max_id + 1;
+    cnt = 0;
+    int port;
+    for (auto item:DataFlow::op_array) {
+        auto op = item.second;
+        for (auto neighbor:op->getDst()) {
             cnt++;
-            auto op = item.second;
-            sprintf(buf, str_node, op->getId(), op->getLabel().c_str(),op->getConst()); 
-            if (op->getId() > max_id) {
-                max_id = op->getId();
+            port = 1;
+            if (neighbor->getSrcA()->getId() == op->getId()) {
+                port = 0;
             }
-            myfile << buf << "," << std::endl;
+            sprintf(buf, str_edge, id_edges++, op->getId(), neighbor->getId(), port);
+            if (cnt < numEdge)
+                myfile << buf << "," << std::endl;
+            else
+                myfile << buf << std::endl;
         }
-        id_edges = max_id + 1;
-        cnt = 0;
-        int port;
-        for (auto item:DataFlow::op_array) {
-            auto op = item.second;
-            for (auto neighbor:op->getDst()) {
-                cnt++;
-                port = 1;
-                if(neighbor->getSrcA()->getId() == op->getId()){
-                    port = 0;
-                }
-                sprintf(buf, str_edge, id_edges++, op->getId(), neighbor->getId(), port);
-                if (cnt < numEdge)
-                    myfile << buf << "," << std::endl;
-                else
-                    myfile << buf << std::endl;
-            }
-        }
-        myfile << "]";
-        myfile.close();
+    }
+    myfile << "]";
+    myfile.close();
 }
 
-void DataFlow::fromJSON(const std::string &fileNamePath){
-  Json::Value df;
-  Json::Value map_op;
-  
-  const auto str_map_op_length = static_cast<int>(str_map_op.length());
-  
-  std::ifstream ifs;
-  ifs.open(fileNamePath);
-  
-  Json::CharReaderBuilder builder;
-  JSONCPP_STRING errs;
-  
-  if (!parseFromStream(builder, ifs, &df, &errs)) {
-    std::cout << errs << std::endl;
-    return;
-  }
-  const std::unique_ptr<Json::CharReader> reader(builder.newCharReader());
-  if (!reader->parse(str_map_op.c_str(), str_map_op.c_str() + str_map_op_length, &map_op, &errs)) {
-      std::cout << errs << std::endl;
-      return;
-  }
-    
-  for(auto e:df){
-    if(e["group"] == "nodes"){
-        int id = e["data"]["id"].asInt();
-        std::string label = e["data"]["type"].asString();
-        int opcode = map_op[label]["opcode"].asInt();
-        int type = map_op[label]["type"].asInt();
-        int constant = e["data"]["value"].asInt();
-        auto params = Params(id,constant,nullptr,0);
-        auto op = OperatorFactory::Get()->CreateOperator(label,params);
-        DataFlow::addOperator(op);
+void DataFlow::fromJSON(const std::string &fileNamePath) {
+    Json::Value df;
+    Json::Value map_op;
+
+    const auto str_map_op_length = static_cast<int>(str_map_op.length());
+
+    std::ifstream ifs;
+    ifs.open(fileNamePath);
+
+    Json::CharReaderBuilder builder;
+    JSONCPP_STRING errs;
+
+    if (!parseFromStream(builder, ifs, &df, &errs)) {
+        std::cout << errs << std::endl;
+        return;
     }
-  }
-  for(auto e:df){
-    if(e["group"] == "edges"){
-        auto src =  e["data"]["source"].asInt();
-        auto dst = e["data"]["target"].asInt();
-        auto port = e["data"]["port"].asInt();
-        auto op_src = DataFlow::op_array[src];
-        auto op_dst = DataFlow::op_array[dst];
-        DataFlow::connect(op_src,op_dst,port);   
+    const std::unique_ptr<Json::CharReader> reader(builder.newCharReader());
+    if (!reader->parse(str_map_op.c_str(), str_map_op.c_str() + str_map_op_length, &map_op, &errs)) {
+        std::cout << errs << std::endl;
+        return;
     }
-  }
-  
+
+    for (auto e:df) {
+        if (e["group"] == "nodes") {
+            int id = e["data"]["id"].asInt();
+            std::string label = e["data"]["type"].asString();
+            int opcode = map_op[label]["opcode"].asInt();
+            int type = map_op[label]["type"].asInt();
+            int constant = e["data"]["value"].asInt();
+            auto params = Params(id, constant, nullptr, 0);
+            auto op = OperatorFactory::Get()->CreateOperator(label, params);
+            DataFlow::addOperator(op);
+        }
+    }
+    for (auto e:df) {
+        if (e["group"] == "edges") {
+            auto src = e["data"]["source"].asInt();
+            auto dst = e["data"]["target"].asInt();
+            auto port = e["data"]["port"].asInt();
+            auto op_src = DataFlow::op_array[src];
+            auto op_dst = DataFlow::op_array[dst];
+            DataFlow::connect(op_src, op_dst, port);
+        }
+    }
+
 }
 
 void DataFlow::connect(Operator *src, Operator *dst, int dstPort) {
@@ -217,43 +217,43 @@ void DataFlow::connect(Operator *src, Operator *dst, int dstPort) {
 }
 
 void DataFlow::updateOpLevel() {
-        std::queue<int> q;
-        int parent;
-        for (auto op:DataFlow::op_array) {
-            if (op.second->getType() == OP_IN) {
-                q.push(op.first);
-                while (!q.empty()) {
-                    parent = q.front();
-                    q.pop();
-                    for (auto child:DataFlow::graph[parent]) {
-                        int lp = DataFlow::op_array[parent]->getLevel();
-                        int lc = DataFlow::op_array[child]->getLevel();
-                        if (lp >= lc) {
-                            DataFlow::op_array[child]->setLevel(lp + 1);
-                        }
-                        q.push(child);
+    std::queue<int> q;
+    int parent;
+    for (auto op:DataFlow::op_array) {
+        if (op.second->getType() == OP_IN) {
+            q.push(op.first);
+            while (!q.empty()) {
+                parent = q.front();
+                q.pop();
+                for (auto child:DataFlow::graph[parent]) {
+                    int lp = DataFlow::op_array[parent]->getLevel();
+                    int lc = DataFlow::op_array[child]->getLevel();
+                    if (lp >= lc) {
+                        DataFlow::op_array[child]->setLevel(lp + 1);
                     }
+                    q.push(child);
                 }
             }
         }
-        for (auto op:DataFlow::op_array) {
-            if (op.second->getType() == OP_IN) {
-                int level = 0;
-                for (auto child:DataFlow::graph[op.first]) {
-                    if (DataFlow::op_array[child]->getLevel() > level) {
-                        level = DataFlow::op_array[child]->getLevel();
-                    }
+    }
+    for (auto op:DataFlow::op_array) {
+        if (op.second->getType() == OP_IN) {
+            int level = 0;
+            for (auto child:DataFlow::graph[op.first]) {
+                if (DataFlow::op_array[child]->getLevel() > level) {
+                    level = DataFlow::op_array[child]->getLevel();
                 }
-                if (level > 0)
-                    level = level - 1;
-                op.second->setLevel(level);
             }
+            if (level > 0)
+                level = level - 1;
+            op.second->setLevel(level);
         }
-        for (auto op:DataFlow::op_array) {
-            if (op.second->getLevel() > DataFlow::num_level) {
-                DataFlow::num_level = op.second->getLevel();
-            }
+    }
+    for (auto op:DataFlow::op_array) {
+        if (op.second->getLevel() > DataFlow::num_level) {
+            DataFlow::num_level = op.second->getLevel();
         }
+    }
 }
 
 
@@ -287,11 +287,12 @@ void DataFlow::setId(int id) {
 
 int DataFlow::getNumEdges() const {
     int num_edges = 0;
-    for(const auto &v:DataFlow::graph){
-        num_edges+=v.second.size();
+    for (const auto &v:DataFlow::graph) {
+        num_edges += v.second.size();
     }
     return num_edges;
 }
-int DataFlow::getNumLevel() const{
+
+int DataFlow::getNumLevel() const {
     return DataFlow::num_level;
 }

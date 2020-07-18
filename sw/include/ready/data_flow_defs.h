@@ -244,5 +244,4 @@ const std::string str_map_op = " \
 }";
 
 
-
 #endif //CGRASCHEDULER_DATAFLOWDEFS_H

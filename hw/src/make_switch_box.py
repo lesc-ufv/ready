@@ -1,8 +1,6 @@
-from math import ceil, log
-
-from veriloggen import Module
-
 from make_mux import make_mux
+from math import ceil, log
+from veriloggen import Module
 
 
 def make_swicth_box(num_in, num_out):

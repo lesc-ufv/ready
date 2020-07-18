@@ -13,10 +13,10 @@ int main(int argc, char *argv[]) {
     auto df = new DataFlow(0, "test");
     auto in0 = new InputStream(0, &data_in_cpu0[0], 10);
     auto out0 = new OutputStream(8, &data_out_cpu0[0], 10);
-    auto addi = new Addi(2,10);
+    auto addi = new Addi(2, 10);
 
-    df->connect(in0,addi,addi->getPortA());
-    df->connect(addi,out0,out0->getPortA());
+    df->connect(in0, addi, addi->getPortA());
+    df->connect(addi, out0, out0->getPortA());
 
     df->toDOT("teste.dot");
     df->compute();

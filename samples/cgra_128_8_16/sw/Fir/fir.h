@@ -14,7 +14,7 @@
 using namespace std;
 using namespace std::chrono;
 
-#define DATA_SIZE (1 << 6)
+#define DATA_SIZE (1 << 23)
 #define NUM_THREAD (8)
 #define SAMPLES (1)
 #define TAPS 4
@@ -24,7 +24,7 @@ int fir(int idx, unsigned short *coef, int taps);
 
 int fir_openmp(int idx, unsigned short *coef, int taps);
 
-int fir_cgra(int idx, int copies, unsigned short *coef,int taps);
+int fir_cgra(int idx, int copies, unsigned short *coef, int taps);
 
 DataFlow *createDataFlow(int id, int copies, unsigned short *coef, int taps);
 

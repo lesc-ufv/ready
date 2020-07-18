@@ -1,10 +1,9 @@
 import os
 import shutil
 import traceback
-
-from utils import *
 from make_acc_management import make_acc_management
 from make_cgra_accelerator import make_cgra_accelerator
+from utils import *
 
 try:
     READY_BASEDIR = os.environ['READY_BASEDIR']

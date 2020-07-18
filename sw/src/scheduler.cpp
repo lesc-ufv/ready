@@ -2,8 +2,8 @@
 
 Scheduler::Scheduler(CgraArch *cgra) : cgraArch(cgra) {
     int num_thread = Scheduler::cgraArch->getNumThreads();
-    for(int i = 0; i < num_thread; i++){
-         Scheduler::cgraArch->reset(i);
+    for (int i = 0; i < num_thread; i++) {
+        Scheduler::cgraArch->reset(i);
     }
 }
 
@@ -32,7 +32,7 @@ CgraArch *Scheduler::getCgra() {
 
 int Scheduler::scheduling() {
 
-  for (const auto &df : Scheduler::dataflows) {
+    for (const auto &df : Scheduler::dataflows) {
         int r = mapAndRoute(df.first);
         if (r != SCHEDULE_SUCCESS) {
             return r;
@@ -63,7 +63,7 @@ int Scheduler::mapAndRoute(int threadID) {
     int swapness[pes.size()];
     int i = 0;
     int group = Scheduler::dataflow_group[Scheduler::dataflows[threadID]->getId()];
-    std::vector<int>pe_list_aux;
+    std::vector<int> pe_list_aux;
     random_selector<> selector{};
 
     if (Scheduler::data_flow_mapping.find(group) != Scheduler::data_flow_mapping.end()) {
@@ -79,27 +79,27 @@ int Scheduler::mapAndRoute(int threadID) {
             if (op.second->getType() == OP_IN) {
                 pe_list_aux.clear();
                 for (auto p:pes) {
-                    if(solution[p.first] == -1 && p.second->getType() == PE_IN){
+                    if (solution[p.first] == -1 && p.second->getType() == PE_IN) {
                         pe_list_aux.push_back(p.first);
                     }
                 }
             } else if (op.second->getType() == OP_OUT) {
                 pe_list_aux.clear();
                 for (auto p:pes) {
-                    if(solution[p.first] == -1 && p.second->getType() == PE_OUT){
+                    if (solution[p.first] == -1 && p.second->getType() == PE_OUT) {
                         pe_list_aux.push_back(p.first);
                     }
                 }
             } else {
                 pe_list_aux.clear();
                 for (auto p:pes) {
-                    if(solution[p.first] == -1 && p.second->getType() == PE_BASIC){
+                    if (solution[p.first] == -1 && p.second->getType() == PE_BASIC) {
                         pe_list_aux.push_back(p.first);
                     }
                 }
-                if(pe_list_aux.empty()){
+                if (pe_list_aux.empty()) {
                     for (auto p:pes) {
-                        if(solution[p.first] == -1){
+                        if (solution[p.first] == -1) {
                             pe_list_aux.push_back(p.first);
                         }
                     }
@@ -192,16 +192,16 @@ int Scheduler::placeAndRoute(std::vector<int> &mapping, int threadID) {
                     } else {
                         for (auto op_dst:op_src->getDst()) {
                             pe_dst = Scheduler::cgraArch->getPE(mapping_op[op_dst->getId()]);
-                            int dst_branch_in_id  = -1;
+                            int dst_branch_in_id = -1;
                             int dst_src_a_id = -1;
                             int dst_src_b_id = -1;
-                            if(op_dst->getBranchIn()){
+                            if (op_dst->getBranchIn()) {
                                 dst_branch_in_id = op_dst->getBranchIn()->getId();
                             }
-                            if(op_dst->getSrcA()){
+                            if (op_dst->getSrcA()) {
                                 dst_src_a_id = op_dst->getSrcA()->getId();
                             }
-                            if(op_dst->getSrcB()){
+                            if (op_dst->getSrcB()) {
                                 dst_src_b_id = op_dst->getSrcB()->getId();
                             }
                             if (pe_dst) {
@@ -266,8 +266,8 @@ void Scheduler::reset() {
     Scheduler::data_flow_mapping.clear();
 }
 
-std::vector<int> Scheduler::getMapping(int dataFlowId, int threadID){
+std::vector<int> Scheduler::getMapping(int dataFlowId, int threadID) {
     int group = Scheduler::dataflow_group[Scheduler::dataflows[threadID]->getId()];
-    return  Scheduler::data_flow_mapping[group];
+    return Scheduler::data_flow_mapping[group];
 }
 

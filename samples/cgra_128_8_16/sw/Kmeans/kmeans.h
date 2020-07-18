@@ -15,11 +15,11 @@
 using namespace std;
 using namespace std::chrono;
 
-#define DATA_SIZE (1 << 6)
+#define DATA_SIZE (1 << 23)
 #define NUM_THREAD (8)
 #define SAMPLES (1)
 
-#define NUM_CLUSTERS 2
+#define NUM_CLUSTERS 4
 #define NUM_DIM 4
 
 int kmeans(int idx, int num_clusters, int num_dim);
@@ -30,9 +30,10 @@ int kmeans_cgra(int idx, int num_clusters, int num_dim);
 
 bool compare(Operator *a, Operator *b);
 
-DataFlow *createDataFlow(int id,int num_clusters, int num_dim);
+DataFlow *createDataFlow(int id, int num_clusters, int num_dim);
 
-void helpKmeansUpdateConstants(cgra_program_t *cgra_program, int thread, unsigned short *constants, int num_clusters, int num_dim);
+void helpKmeansUpdateConstants(cgra_program_t *cgra_program, int thread, unsigned short *constants, int num_clusters,
+                               int num_dim);
 
 int main(int argc, char *argv[]);
 

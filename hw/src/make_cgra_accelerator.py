@@ -1,19 +1,18 @@
-from veriloggen import *
-from math import log, ceil
-
-from make_dispath_data import make_dispath_data
-from make_fecth_data import make_fecth_data
 from make_cgra import make_cgra
 from make_control_conf import make_control_conf
 from make_control_exec import make_control_exec
+from make_dispath_data import make_dispath_data
+from make_fecth_data import make_fecth_data
+from math import log, ceil
+from veriloggen import *
 
 
-def make_cgra_accelerator(cgra_id, num_pe, num_pe_io_in, num_pe_io_out, data_width, net_radix, extra_stagies,                        mem_conf_depth):
-    
-    num_stages = int(ceil(log((num_pe*2), net_radix)) + extra_stagies)
-    num_swicth_stages = int(ceil((num_pe*2) / net_radix))
+def make_cgra_accelerator(cgra_id, num_pe, num_pe_io_in, num_pe_io_out, data_width, net_radix, extra_stagies,
+                          mem_conf_depth):
+    num_stages = int(ceil(log((num_pe * 2), net_radix)) + extra_stagies)
+    num_swicth_stages = int(ceil((num_pe * 2) / net_radix))
     num_swicth_total = num_stages * num_swicth_stages
-    
+
     num_cicle_wait_conf_finish = (num_swicth_total + num_pe + 2)
     conf_bus_width = 64
 

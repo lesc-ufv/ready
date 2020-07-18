@@ -7,12 +7,12 @@
 
 class Beq : public Operator {
 public:
-    explicit Beq(int id) : Operator(id, OP_BEQ, OP_BASIC,"beq") {}
+    explicit Beq(int id) : Operator(id, OP_BEQ, OP_BASIC, "beq") {}
 
-    static Operator * create(Params params) { 
+    static Operator *create(Params params) {
         return new Beq(params.id);
     }
-    
+
     void compute() override {
         if (Operator::getSrcA() && Operator::getSrcB()) {
             auto v = Operator::getSrcA()->getVal() == Operator::getSrcB()->getVal() ? 1 : 0;
@@ -25,8 +25,8 @@ class Beqi : public Operator {
 public:
     Beqi(int id, int constant) : Operator(id, OP_BEQ, OP_IMMEDIATE, "beqi", constant) {}
 
-    static Operator * create(Params params) { 
-        return new Beqi(params.id,params.constant);
+    static Operator *create(Params params) {
+        return new Beqi(params.id, params.constant);
     }
 
     void compute() override {

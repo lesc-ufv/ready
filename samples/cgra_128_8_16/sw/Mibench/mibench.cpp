@@ -4,18 +4,18 @@ int main(int argc, char *argv[]) {
 
     int idx = 0;
     int test = 0;
-     
-    if(argc > 1)
+
+    if (argc > 1)
         test = atoi(argv[1]);
-     
-    if(argc > 2)
+
+    if (argc > 2)
         idx = atoi(argv[2]);
 
-    if(test & 1)
+    if (test & 1)
         mibench(idx);
-    if(test & 2)
+    if (test & 2)
         mibench_openmp(idx);
-    if(test & 4)
+    if (test & 4)
         mibench_cgra(idx, 2);
 
     return 0;
@@ -126,12 +126,12 @@ int mibench_cgra(int idx, int copies) {
         cgraArch->getNetBranch(i)->createRouteTable();
         cgraArch->getNet(i)->createRouteTable();
     }
-    
+
     do {
         r = scheduler.scheduling();
         tries++;
     } while (r != SCHEDULE_SUCCESS && tries < 1000);
-    
+
     if (r == SCHEDULE_SUCCESS) {
 
         cgraHw->loadCgraProgram(cgraArch->getCgraProgram());
@@ -149,7 +149,7 @@ int mibench_cgra(int idx, int copies) {
             }
         }
         double cgraExecTime = 0;
-        for (int i = 0; i < SAMPLES; i++){
+        for (int i = 0; i < SAMPLES; i++) {
             cgraHw->syncExecute(0);
             cgraExecTime += cgraHw->getTimeExec();
         }

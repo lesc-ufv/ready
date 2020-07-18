@@ -27,30 +27,30 @@
 #include <ready/sub.h>
 #include <ready/xor.h>
 
-typedef Operator* (*pfnCreate_t)(Params); // function pointer type
+typedef Operator *(*pfnCreate_t)(Params); // function pointer type
 
-class OperatorFactory
-{
+class OperatorFactory {
 private:
     OperatorFactory();
-    OperatorFactory(const OperatorFactory &) { }
+
+    OperatorFactory(const OperatorFactory &) {}
+
     OperatorFactory &operator=(const OperatorFactory &) { return *this; }
-    
+
     typedef std::unordered_map<std::string, pfnCreate_t> FactoryMap;
     FactoryMap m_FactoryMap;
-    
+
 public:
     ~OperatorFactory() { m_FactoryMap.clear(); }
 
-    static OperatorFactory *Get()
-    {
+    static OperatorFactory *Get() {
         static OperatorFactory instance;
         return &instance;
     }
 
-    void Register(const std::string &operatorName,pfnCreate_t pfnCreate );
-    
-    Operator* CreateOperator(const std::string &operatorName, Params &params);
+    void Register(const std::string &operatorName, pfnCreate_t pfnCreate);
+
+    Operator *CreateOperator(const std::string &operatorName, Params &params);
 };
 
 #endif //CGRASCHEDULER_OPERATOR_H

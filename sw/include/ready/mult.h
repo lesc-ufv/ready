@@ -9,10 +9,10 @@ class Mult : public Operator {
 public:
     explicit Mult(int id) : Operator(id, OP_MULT, OP_BASIC, "mult") {}
 
-    static Operator * create(Params params) { 
+    static Operator *create(Params params) {
         return new Mult(params.id);
     }
-    
+
     void compute() override {
         if (Operator::getSrcA() && Operator::getSrcB()) {
             auto v = Operator::getSrcA()->getVal() * Operator::getSrcB()->getVal();
@@ -24,11 +24,11 @@ public:
 class Multi : public Operator {
 public:
     Multi(int id, int constant) : Operator(id, OP_MULT, OP_IMMEDIATE, "multi", constant) {}
-    
-    static Operator * create(Params params) { 
-        return new Multi(params.id,params.constant);
+
+    static Operator *create(Params params) {
+        return new Multi(params.id, params.constant);
     }
-    
+
     void compute() override {
         if (Operator::getSrcA()) {
             auto v = Operator::getSrcA()->getVal() * Operator::getConst();

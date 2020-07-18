@@ -12,37 +12,36 @@ private:
     int index;
     int *data;
     int size;
- 
+
 public:
-    explicit InputStream(int id, int *data, int size) : Operator(id, OP_PASS_A, OP_IN,"input"),
-                                                        index(0),                                            data(data),
-                                                        size(size){}
-        
-    static Operator * create(Params params) { 
-        return new InputStream(params.id,params.data,params.size);
+    explicit InputStream(int id, int *data, int size) : Operator(id, OP_PASS_A, OP_IN, "input"),
+                                                        index(0), data(data),
+                                                        size(size) {}
+
+    static Operator *create(Params params) {
+        return new InputStream(params.id, params.data, params.size);
     }
-    
-    void setData(int *data,int size){
+
+    void setData(int *data, int size) {
         InputStream::data = data;
         InputStream::size = size;
     }
-    
-    void reset(){
+
+    void reset() {
         InputStream::index = 0;
         Operator::setIsEnd(false);
     }
 
     void compute() override {
-        if(data){
+        if (data) {
             if (InputStream::index < InputStream::size) {
                 auto v = InputStream::data[InputStream::index++];
                 Operator::setVal(v);
             } else {
                 Operator::setIsEnd(true);
             }
-        }
-        else{
-            Operator::setIsEnd(true);    
+        } else {
+            Operator::setIsEnd(true);
         }
     }
 };

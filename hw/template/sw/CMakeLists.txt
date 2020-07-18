@@ -22,4 +22,4 @@ add_executable(main_ase ${CPP_SRCS} ${H_SRCS})
 add_executable(main ${CPP_SRCS} ${H_SRCS})
 
 target_link_libraries(main_ase ${LIB_READY_ASE} ${LIB_FDAM} ${LIB_OPAE_ASE} ${LIB_UUID} ${LIB_MPF} ${LIB_JSONCPP})
-target_link_libraries(main ${LIB_READY} ${LIB_FDAM}  ${LIB_OPAE} ${LIB_UUID} ${LIB_MPF} ${LIB_JSONCPP})
+target_link_libraries(main ${LIB_READY} ${LIB_FDAM} ${LIB_OPAE} ${LIB_UUID} ${LIB_MPF} ${LIB_JSONCPP})

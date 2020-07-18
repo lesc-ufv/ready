@@ -8,11 +8,11 @@
 class PassB : public Operator {
 public:
     explicit PassB(int id) : Operator(id, OP_PASS_B, OP_BASIC, "pass_b") {}
-    
-    static Operator * create(Params params) { 
+
+    static Operator *create(Params params) {
         return new PassB(params.id);
     }
-    
+
     void compute() override {
         if (Operator::getSrcB()) {
             auto v = Operator::getSrcB()->getVal();
@@ -25,10 +25,10 @@ class PassBi : public Operator {
 public:
     explicit PassBi(int id, int constant) : Operator(id, OP_PASS_B, OP_IMMEDIATE, "pass_bi", constant) {}
 
-    static Operator * create(Params params) { 
-        return new PassBi(params.id,params.constant);
+    static Operator *create(Params params) {
+        return new PassBi(params.id, params.constant);
     }
-    
+
     void compute() override {
         auto v = Operator::getConst();
         Operator::setVal(v);

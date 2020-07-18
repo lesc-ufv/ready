@@ -4,19 +4,19 @@ int main(int argc, char *argv[]) {
 
     int idx = 0;
     int test = 0;
-     
-    if(argc > 1)
+
+    if (argc > 1)
         test = atoi(argv[1]);
-     
-    if(argc > 2)
+
+    if (argc > 2)
         idx = atoi(argv[2]);
-    
-    if(test & 1)
+
+    if (test & 1)
         loopback(idx);
-    if(test & 2)
+    if (test & 2)
         loopback_openmp(idx);
-    if(test & 4)
-        loopback_cgra(idx, 2);
+    if (test & 4)
+        loopback_cgra(idx, 8);
 
     return 0;
 }
@@ -71,8 +71,8 @@ int loopback_openmp(int idx) {
     duration<double> diff = {};
     for (int i = 0; i < SAMPLES; i++) {
         s = high_resolution_clock::now();
-	#pragma omp parallel
-	#pragma omp for
+#pragma omp parallel
+#pragma omp for
         for (int k = 0; k < DATA_SIZE; ++k) {
             out[k] = a[k];
         }
@@ -80,7 +80,7 @@ int loopback_openmp(int idx) {
     }
     double cpuExecTime = (diff.count() * 1000) / SAMPLES;
 
-    printf("Time(ms) CPU %d Thread: %5.2lf\n",NUM_THREAD, cpuExecTime);
+    printf("Time(ms) CPU %d Thread: %5.2lf\n", NUM_THREAD, cpuExecTime);
 
     int v = out[idx];
 
@@ -96,7 +96,7 @@ int loopback_cgra(int idx, int copies) {
     Scheduler scheduler(cgraArch);
     std::vector<DataFlow *> dfs;
     unsigned short *a, *out;
-    int r = 0, v = 0,tries = 0;
+    int r = 0, v = 0, tries = 0;
 
     a = new unsigned short[DATA_SIZE];
     out = new unsigned short[DATA_SIZE];
@@ -112,12 +112,12 @@ int loopback_cgra(int idx, int copies) {
         cgraArch->getNetBranch(i)->createRouteTable();
         cgraArch->getNet(i)->createRouteTable();
     }
-    
+
     do {
         r = scheduler.scheduling();
         tries++;
     } while (r != SCHEDULE_SUCCESS && tries < 1000);
-    
+
     if (r == SCHEDULE_SUCCESS) {
 
         cgraHw->loadCgraProgram(cgraArch->getCgraProgram());
@@ -133,7 +133,7 @@ int loopback_cgra(int idx, int copies) {
             }
         }
         double cgraExecTime = 0;
-        for (int i = 0; i < SAMPLES; i++){
+        for (int i = 0; i < SAMPLES; i++) {
             cgraHw->syncExecute(0);
             cgraExecTime += cgraHw->getTimeExec();
         }

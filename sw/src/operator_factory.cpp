@@ -1,7 +1,7 @@
 #include <ready/operator_factory.h>
 
-OperatorFactory::OperatorFactory(){
-    
+OperatorFactory::OperatorFactory() {
+
     Register("abs", &Abs::create);
     Register("add", &Add::create);
     Register("addi", &Addi::create);
@@ -40,13 +40,13 @@ OperatorFactory::OperatorFactory(){
     Register("slti", &Slti::create);
 }
 
-void OperatorFactory::Register(const std::string &operatorName, pfnCreate_t pfnCreate){
+void OperatorFactory::Register(const std::string &operatorName, pfnCreate_t pfnCreate) {
     m_FactoryMap[operatorName] = pfnCreate;
 }
 
-Operator *OperatorFactory::CreateOperator(const std::string &operatorName, Params &params){
+Operator *OperatorFactory::CreateOperator(const std::string &operatorName, Params &params) {
     auto it = m_FactoryMap.find(operatorName);
-    if( it != m_FactoryMap.end() )
+    if (it != m_FactoryMap.end())
         return it->second(params);
     return nullptr;
 }

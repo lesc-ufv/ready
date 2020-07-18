@@ -9,10 +9,10 @@ class Sub : public Operator {
 public:
     explicit Sub(int id) : Operator(id, OP_SUB, OP_BASIC, "sub") {}
 
-    static Operator * create(Params params) { 
+    static Operator *create(Params params) {
         return new Sub(params.id);
     }
-    
+
     void compute() override {
         if (Operator::getSrcA() && Operator::getSrcB()) {
             auto v = Operator::getSrcA()->getVal() - Operator::getSrcB()->getVal();
@@ -24,11 +24,11 @@ public:
 class Subi : public Operator {
 public:
     Subi(int id, int constant) : Operator(id, OP_SUB, OP_IMMEDIATE, "subi", constant) {}
-    
-    static Operator * create(Params params) { 
-        return new Subi(params.id,params.constant);
+
+    static Operator *create(Params params) {
+        return new Subi(params.id, params.constant);
     }
-    
+
     void compute() override {
         if (Operator::getSrcA()) {
             auto v = Operator::getSrcA()->getVal() - Operator::getConst();

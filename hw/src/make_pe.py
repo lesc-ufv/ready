@@ -1,12 +1,10 @@
-from math import ceil, log
-
-from veriloggen import *
-
-from make_cgra_counter import make_thread_counter, make_ignore_counter
-from make_mux import make_mux
 from make_alu import make_alu
+from make_cgra_counter import make_thread_counter, make_ignore_counter
 from make_conf_reader_pe import make_conf_reader_pe
 from make_inst_decode import make_inst_decode
+from make_mux import make_mux
+from math import ceil, log
+from veriloggen import *
 
 
 def make_pe(cgra_id, type, num_thread, pc, memory, reg_pipe, data_width, conf_depth):

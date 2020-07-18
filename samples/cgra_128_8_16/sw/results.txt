@@ -1,45 +1,48 @@
 Run Chebyshev ...
-Time(ms) CPU 1 Thread: 77.93
-Time(ms) CPU 8 Thread: 17.88
-Time(ms) CGRA: 42.47
+Time(ms) CPU 1 Thread: 79.99
+Time(ms) CPU 8 Thread: 18.24
+Time(ms) CGRA: 42.44
 Run Fir ...
-Time(ms) 1 Thread: 359.29
-Time(ms) 8 Thread: 89.07
-Time(ms) CGRA: 42.46
+Time(ms) CPU 1 Thread: 555.82
+Time(ms) CPU 8 Thread: 98.62
+Time(ms) CGRA: 42.17
 Run Kmeans ...
-Time(ms) 1 Thread: 317.27
-Time(ms) 8 Thread: 94.92
-Time(ms) CGRA: 42.40
+Time(ms) CPU 1 Thread: 265.85
+Time(ms) CPU 8 Thread: 55.05
+Time(ms) CGRA: 42.53
 Run Mibench ...
-Time(ms) 1 Thread: 17.75
-Time(ms) 8 Thread:  4.36
-Time(ms) CGRA: 42.48
+Time(ms) CPU 1 Thread: 17.78
+Time(ms) CPU 8 Thread:  3.89
+Time(ms) CGRA: 42.55
 Run Paeth ...
-Time(ms) 1 Thread: 40.65
-Time(ms) 8 Thread: 11.51
-Time(ms) CGRA: 42.52
+Time(ms) CPU 1 Thread: 40.64
+Time(ms) CPU 8 Thread:  7.79
+Time(ms) CGRA: 42.25
 Run Poly5 ...
-Time(ms) 1 Thread: 65.17
-Time(ms) 8 Thread:  9.82
-Time(ms) CGRA: 42.56
+Time(ms) CPU 1 Thread: 65.36
+Time(ms) CPU 8 Thread: 11.01
+Time(ms) CGRA: 42.19
 Run Poly6 ...
-Time(ms) 1 Thread: 45.59
-Time(ms) 8 Thread:  8.06
-Time(ms) CGRA: 42.66
+Time(ms) CPU 1 Thread: 47.87
+Time(ms) CPU 8 Thread:  9.48
+Time(ms) CGRA: 42.20
 Run Poly8 ...
-Time(ms) 1 Thread: 24.15
-Time(ms) 8 Thread:  7.66
-Time(ms) CGRA: 42.45
+Time(ms) CPU 1 Thread: 19.02
+Time(ms) CPU 8 Thread:  8.62
+Time(ms) CGRA: 42.48
 Run Qspline ...
-Time(ms) 1 Thread: 17.18
-Time(ms) 8 Thread:  6.37
-Time(ms) CGRA: 42.41
+Time(ms) CPU 1 Thread: 10.62
+Time(ms) CPU 8 Thread:  4.65
+Time(ms) CGRA: 42.70
 Run Sgfilter ...
-Time(ms) 1 Thread: 59.16
-Time(ms) 8 Thread: 26.26
-Time(ms) CGRA: 43.77
+Time(ms) CPU 1 Thread: 73.05
+Time(ms) CPU 8 Thread: 25.16
+Time(ms) CGRA: 56.15
 Run SobelFilter ...
-Time(ms) 1 Thread: 12.02
-Time(ms) 8 Thread: 22.45
-Time(ms) CGRA: 42.18
-
+Time(ms) CPU 1 Thread: 258.49
+Time(ms) CPU 8 Thread: 80.96
+Time(ms) CGRA: 42.41
+Run Loopback ...
+Time(ms) CPU 1 Thread: 25.77
+Time(ms) CPU 8 Thread: 25.82
+Time(ms) CGRA: 42.54

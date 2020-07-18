@@ -129,10 +129,10 @@ def make_pe_list(num_pe, num_pe_in, num_pe_out):
     for i in range(num_pe_in):
         pelist[i] = 1
 
-    for i in range(num_pe_in,num_pe-num_pe_out):
+    for i in range(num_pe_in, num_pe - num_pe_out):
         pelist[i] = 0
 
-    for i in range(num_pe-num_pe_out,num_pe):
+    for i in range(num_pe - num_pe_out, num_pe):
         pelist[i] = 2
 
     return pelist

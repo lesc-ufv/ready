@@ -1,13 +1,11 @@
-from math import ceil, log
-
-from veriloggen import *
-
 from make_memory import make_memory
-from make_program_counter import make_program_counter
-from make_reg_pipe import make_reg_pipe
-from utils import make_pe_list
 from make_omega import make_omega
 from make_pe import make_pe
+from make_program_counter import make_program_counter
+from make_reg_pipe import make_reg_pipe
+from math import ceil, log
+from utils import make_pe_list
+from veriloggen import *
 
 
 def make_cgra(cgra_id, num_pe, num_pe_in, num_pe_out, data_width, net_radix, extra_stagies, conf_depth):

@@ -1,11 +1,9 @@
-from math import log, ceil
-
-from veriloggen import *
-
 from make_reg_pipe import make_reg_pipe
-from utils import bit_rotate_rigth, bit_rotate_left
 from make_swicth_conf_control import make_swicth_conf_control
 from make_switch_box import make_swicth_box
+from math import log, ceil
+from utils import bit_rotate_rigth, bit_rotate_left
+from veriloggen import *
 
 
 def make_omega(num_thread, size, num_extra_stages, radix, conf_net_depth, is_net_branch, print_status=False):

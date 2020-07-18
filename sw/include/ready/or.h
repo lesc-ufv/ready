@@ -7,12 +7,12 @@
 
 class Or : public Operator {
 public:
-    explicit Or(int id) : Operator(id, OP_OR, OP_BASIC,"or") {}
+    explicit Or(int id) : Operator(id, OP_OR, OP_BASIC, "or") {}
 
-    static Operator * create(Params params) { 
+    static Operator *create(Params params) {
         return new Or(params.id);
     }
-    
+
     void compute() override {
         if (Operator::getSrcA() && Operator::getSrcB()) {
             auto v = Operator::getSrcA()->getVal() | Operator::getSrcB()->getVal();
@@ -23,12 +23,12 @@ public:
 
 class Ori : public Operator {
 public:
-    explicit Ori(int id, int constant) : Operator(id, OP_OR, OP_IMMEDIATE,"ori", constant) {}
-    
-    static Operator * create(Params params) { 
-        return new Ori(params.id,params.constant);
+    explicit Ori(int id, int constant) : Operator(id, OP_OR, OP_IMMEDIATE, "ori", constant) {}
+
+    static Operator *create(Params params) {
+        return new Ori(params.id, params.constant);
     }
-    
+
     void compute() override {
         if (Operator::getSrcA()) {
             auto v = Operator::getSrcA()->getVal() | Operator::getConst();

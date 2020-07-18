@@ -4,18 +4,18 @@ int main(int argc, char *argv[]) {
 
     int idx = 0;
     int test = 0;
-     
-    if(argc > 1)
+
+    if (argc > 1)
         test = atoi(argv[1]);
-     
-    if(argc > 2)
+
+    if (argc > 2)
         idx = atoi(argv[2]);
 
-    if(test & 1)
+    if (test & 1)
         kmeans(idx, NUM_CLUSTERS, NUM_DIM);
-    if(test & 2)
-        kmeans_openmp(idx,NUM_CLUSTERS, NUM_DIM);
-    if(test & 4)
+    if (test & 2)
+        kmeans_openmp(idx, NUM_CLUSTERS, NUM_DIM);
+    if (test & 4)
         kmeans_cgra(idx, NUM_CLUSTERS, NUM_DIM);
 
     return 0;
@@ -136,7 +136,7 @@ int kmeans_cgra(int idx, int num_clusters, int num_dim) {
     Scheduler scheduler(cgraArch);
     std::vector<DataFlow *> dfs;
     unsigned short *data_in, *data_out, *centroids;
-    int r = 0, v = 0,tries = 0;
+    int r = 0, v = 0, tries = 0;
 
     data_in = new unsigned short[DATA_SIZE * num_dim];
     data_out = new unsigned short[DATA_SIZE];
@@ -163,7 +163,7 @@ int kmeans_cgra(int idx, int num_clusters, int num_dim) {
         r = scheduler.scheduling();
         tries++;
     } while (r != SCHEDULE_SUCCESS && tries < 1000);
-    
+
     if (r == SCHEDULE_SUCCESS) {
         cgraHw->loadCgraProgram(cgraArch->getCgraProgram());
         auto data_size = (size_t) (DATA_SIZE / ((NUM_THREAD)));
@@ -180,7 +180,7 @@ int kmeans_cgra(int idx, int num_clusters, int num_dim) {
             k++;
         }
         double cgraExecTime = 0;
-        for (int i = 0; i < SAMPLES; i++){
+        for (int i = 0; i < SAMPLES; i++) {
             cgraHw->syncExecute(0);
             cgraExecTime += cgraHw->getTimeExec();
         }

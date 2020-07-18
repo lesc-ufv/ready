@@ -47,12 +47,15 @@ public:
 
     bool setCgraProgramInputStreamByID(int dataFlowID, int inputStreamID, const void *inputStreamData, size_t size);
 
-    bool setCgraProgramInputStreamByName(const std::string &dataFlowName, int inputStreamID, const void *inputStreamData, size_t size);
+    bool
+    setCgraProgramInputStreamByName(const std::string &dataFlowName, int inputStreamID, const void *inputStreamData,
+                                    size_t size);
 
     bool setCgraProgramOutputStreamByID(int dataFlowID, int outputStreamID, void *outputStreamData, size_t size);
 
-    bool setCgraProgramOutputStreamByName(const std::string &dataFlowName, int outputStreamID, const void *outputStreamData,
-                                          size_t size);
+    bool
+    setCgraProgramOutputStreamByName(const std::string &dataFlowName, int outputStreamID, const void *outputStreamData,
+                                     size_t size);
 
     void syncExecute(long waitTime);
 

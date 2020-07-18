@@ -15,7 +15,7 @@
 using namespace std;
 using namespace std::chrono;
 
-#define DATA_SIZE (1 << 6)
+#define DATA_SIZE (1 << 24)
 #define NUM_THREAD (8)
 #define SAMPLES (1)
 
@@ -23,7 +23,7 @@ int poly5(int idx);
 
 int poly5_openmp(int idx);
 
-int poly5_cgra(int idx,int copies);
+int poly5_cgra(int idx, int copies);
 
 DataFlow *createDataFlow(int id, int copies);
 

@@ -27,6 +27,7 @@ private:
     int num_op_out;
     int num_op;
     int num_level;
+
     void addOperator(Operator *op);
 
 public:
@@ -44,9 +45,9 @@ public:
     Operator *getOp(int id);
 
     void toDOT(std::string fileNamePath);
-    
+
     void toJSON(const std::string &fileNamePath);
-    
+
     void fromJSON(const std::string &fileNamePath);
 
     void connect(Operator *src, Operator *dst, int dstPort);
@@ -68,7 +69,7 @@ public:
     int getNumOp() const;
 
     int getNumEdges() const;
-    
+
     int getNumLevel() const;
 };
 
