@@ -10,11 +10,11 @@
 class InputStream : public Operator {
 private:
     int index;
-    int *data;
+    short *data;
     int size;
 
 public:
-    explicit InputStream(int id, int *data, int size) : Operator(id, OP_PASS_A, OP_IN, "input"),
+    explicit InputStream(int id, short *data, int size) : Operator(id, OP_PASS_A, OP_IN, "input"),
                                                         index(0), data(data),
                                                         size(size) {}
 
@@ -22,9 +22,21 @@ public:
         return new InputStream(params.id, params.data, params.size);
     }
 
-    void setData(int *data, int size) {
+    void setData(short *data, int size) {
         InputStream::data = data;
         InputStream::size = size;
+    }
+
+    ~InputStream(){
+        delete []InputStream::data;
+    }
+
+    short * getData(){
+        return InputStream::data;
+    }
+    
+    int getSize(){
+        return InputStream::size;
     }
 
     void reset() {

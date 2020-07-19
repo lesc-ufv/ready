@@ -190,4 +190,13 @@ typedef struct qtd_conf_t {
     };
 } qtd_conf_t;
 
+typedef struct arch_t{
+    int id;
+    int num_pe;
+    int num_in;
+    int num_out;
+    int net_radix;
+    int net_extra_stagies;
+    int word_size;
+}arch_t;
 #endif //CGRA_DEFS_H

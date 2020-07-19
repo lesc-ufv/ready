@@ -7,6 +7,20 @@ CgraArch::CgraArch(int id, int num_pe, int num_pe_in, int num_pe_out, int net_ra
           net_radix(net_radix),
           num_extra_stage(num_extra_stage),
           word_size(word_size) {
+
+    CgraArch::initialize();
+
+}
+CgraArch::CgraArch(arch_t arch): id(arch.id), num_pe(arch.num_pe),
+                            num_pe_in(arch.num_in),
+                            num_pe_out(arch.num_out),
+                            net_radix(arch.net_radix),
+                            num_extra_stage(arch.net_extra_stagies),
+                            word_size(arch.word_size) {
+    CgraArch::initialize();
+}
+
+void CgraArch::initialize(){
     int num_stages1 = Global::intLog(num_pe * 2, net_radix) + num_extra_stage;
     int num_stages2 = Global::intLog(num_pe, net_radix);
     int stage_extra = num_stages1 - num_stages2;
@@ -301,6 +315,7 @@ std::map<int, int> CgraArch::makeListPe(int num_pe, int num_pe_in, int num_pe_ou
     return pelist;
 }
 
-int CgraArch::getWordSize() {
+int CgraArch::getWordSize() const {
     return CgraArch::word_size;
 }
+

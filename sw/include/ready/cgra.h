@@ -7,7 +7,11 @@
 #include <cstring>
 #include <cmath>
 #include <fstream>
+
 #include <ready/cgra_defs.h>
+#include <ready/input_stream.h>
+#include <ready/output_stream.h>
+
 #include <fdam/acc/acc_management.h>
 
 using namespace std::chrono;
@@ -45,12 +49,16 @@ public:
 
     bool loadCgraProgram(cgra_program_t cp);
 
+    bool setCgraProgramInputStreamByOp(InputStream *op);
+    
     bool setCgraProgramInputStreamByID(int dataFlowID, int inputStreamID, const void *inputStreamData, size_t size);
 
     bool
     setCgraProgramInputStreamByName(const std::string &dataFlowName, int inputStreamID, const void *inputStreamData,
                                     size_t size);
 
+    bool setCgraProgramOutputStreamByOp(OutputStream *op);
+    
     bool setCgraProgramOutputStreamByID(int dataFlowID, int outputStreamID, void *outputStreamData, size_t size);
 
     bool

@@ -50,8 +50,12 @@ private:
 
     std::map<int, int> makeListPe(int num_pe, int num_pe_in, int num_pe_out);
 
+    void initialize();
+
 public:
     CgraArch(int id, int num_pe, int num_pe_in, int num_pe_out, int net_radix, int num_extra_stage, int word_size);
+
+    explicit CgraArch(arch_t arch);
 
     ~CgraArch();
 
@@ -97,7 +101,7 @@ public:
 
     cgra_program_t getCgraProgram();
 
-    int getWordSize();
+    int getWordSize() const;
 
 };
 

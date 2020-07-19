@@ -13,7 +13,6 @@ public:
     static Operator *create(Params params) {
         return new Abs(params.id);
     }
-
     void compute() {
         if (Operator::getSrcA()) {
             auto v = abs(Operator::getSrcA()->getVal());

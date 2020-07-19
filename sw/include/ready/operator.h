@@ -12,7 +12,7 @@ private:
     int level;
     int opCode;
     int type;
-    int val;
+    short val;
     int constant;
     Operator *srcA;
     Operator *srcB;
@@ -41,7 +41,7 @@ public:
 
     void setType(int type);
 
-    int getVal() const;
+    short getVal() const;
 
     void setVal(int val);
 
@@ -65,17 +65,17 @@ public:
 
     void setLevel(int level);
 
-    int getLevel();
+    int getLevel() const;
 
     void setDataFlowId(int dataFlowId);
 
-    int getDataFlowId();
+    int getDataFlowId() const;
 
-    int getPortA();
+    static int getPortA();
 
-    int getPortB();
+    static int getPortB();
 
-    int getPortBranch();
+    static int getPortBranch();
 
     const std::string &getLabel() const;
 

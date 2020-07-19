@@ -24,6 +24,14 @@ bool Cgra::loadCgraProgram(const std::string &filePath) {
     return readProgramFile(filePath);
 }
 
+bool Cgra::setCgraProgramInputStreamByOp(InputStream *op){
+    auto dataFlowID = op->getDataFlowId();
+    auto inputStreamID = op->getId();
+    auto inputStreamData = op->getData();
+    size_t size = op->getSize() * sizeof(inputStreamData[0]);
+    return Cgra::setCgraProgramInputStreamByID(dataFlowID,inputStreamID,inputStreamData,size);
+}
+
 bool Cgra::setCgraProgramInputStreamByID(int dataFlowID, int inputStreamID, const void *inputStreamData, size_t size) {
     int queue_id;
     for (const auto &it:Cgra::cgra_program->input_map) {
@@ -55,6 +63,15 @@ Cgra::setCgraProgramInputStreamByName(const std::string &dataFlowName, int input
     }
 
     return false;
+}
+
+bool Cgra::setCgraProgramOutputStreamByOp(OutputStream *op){
+
+    auto dataFlowID = op->getDataFlowId();
+    auto outputStreamID = op->getId();
+    auto outputStreamData = op->getData();
+    size_t size = op->getSize() * sizeof(outputStreamData[0]);
+    return Cgra::setCgraProgramOutputStreamByID(dataFlowID,outputStreamID,outputStreamData,size);
 }
 
 bool Cgra::setCgraProgramOutputStreamByID(int dataFlowID, int outputStreamID, void *outputStreamData, size_t size) {

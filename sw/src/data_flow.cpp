@@ -9,6 +9,9 @@ DataFlow::DataFlow(int id, std::string name) :
         num_level(0) {}
 
 DataFlow::~DataFlow() {
+    for(auto op:op_array){
+        delete op.second;
+    }
     DataFlow::op_array.clear();
     for (auto g:DataFlow::graph) {
         g.second.clear();
@@ -167,6 +170,7 @@ void DataFlow::fromJSON(const std::string &fileNamePath) {
         std::cout << errs << std::endl;
         return;
     }
+    ifs.close();
     const std::unique_ptr<Json::CharReader> reader(builder.newCharReader());
     if (!reader->parse(str_map_op.c_str(), str_map_op.c_str() + str_map_op_length, &map_op, &errs)) {
         std::cout << errs << std::endl;

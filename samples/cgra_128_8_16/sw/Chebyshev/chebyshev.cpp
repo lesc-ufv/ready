@@ -103,6 +103,7 @@ int chebyshev_cgra(int idx, int copies) {
     auto cgraArch = new CgraArch(0, 128, 8, 8, 8, 1, 2);
     auto cgraHw = new Cgra();
     Scheduler scheduler(cgraArch);
+    
     std::vector<DataFlow *> dfs;
     unsigned short *data_in, *data_out;
     data_in = new unsigned short[DATA_SIZE];

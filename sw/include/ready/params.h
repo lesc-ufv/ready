@@ -5,10 +5,10 @@ class Params {
 public:
     int id;
     int constant;
-    int *data;
+    short *data;
     int size;
 
-    Params(int id) : id(id),
+    explicit Params(int id) : id(id),
                      constant(0),
                      data(nullptr),
                      size(0) {}
@@ -16,14 +16,14 @@ public:
     Params(int id, int constant) : id(id),
                                    constant(constant),
                                    data(nullptr),
-                                   size(size) {}
+                                   size(0) {}
 
-    Params(int id, int constant, int *data, int size) : id(id),
+    Params(int id, int constant, short *data, int size) : id(id),
                                                         constant(constant),
                                                         data(data),
                                                         size(size) {}
 
-    ~Params() {}
+    ~Params() = default;
 };
 
 #endif //PARAMS_H

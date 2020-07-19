@@ -10,6 +10,8 @@ Operator::Operator(int id, int op_code, int type, std::string label) :
         constant(0),
         level(0),
         dataFlowId(-1),
+        val(0),
+        isEnd(false),
         label(std::move(label)) {
 
 }
@@ -25,6 +27,7 @@ Operator::Operator(int id, int op_code, int type, std::string label, int constan
         level(0),
         dataFlowId(-1),
         label(std::move(label)),
+        val(0),
         isEnd(false) {
 
 }
@@ -57,7 +60,7 @@ void Operator::setType(int type) {
     Operator::type = type;
 }
 
-int Operator::getVal() const {
+short Operator::getVal() const {
     return Operator::val;
 }
 
@@ -97,7 +100,7 @@ void Operator::setLevel(int level) {
     Operator::level = level;
 }
 
-int Operator::getLevel() {
+int Operator::getLevel() const {
     return Operator::level;
 }
 
@@ -113,7 +116,7 @@ void Operator::setDataFlowId(int dataFlowId) {
     Operator::dataFlowId = dataFlowId;
 }
 
-int Operator::getDataFlowId() {
+int Operator::getDataFlowId() const {
     return Operator::dataFlowId;
 }
 
