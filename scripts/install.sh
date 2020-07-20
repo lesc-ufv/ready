@@ -67,6 +67,7 @@ cd $CALLPATH
 echo "cleaning up..."
 echo ""
 rm -rf $READY_ROOT/sw/mybuild
+rm -rf $READY_ROOT/cgra_runtime/mybuild
 rm -rf $READY_ROOT/jsoncpp/mybuild
 echo "end of cleaning up!"
 echo ""
@@ -87,11 +88,19 @@ echo ""
 
 echo "installing ready ..."
 echo ""
+
 mkdir $READY_ROOT/sw/mybuild
 cd $READY_ROOT/sw/mybuild
 cmake .. -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR -DCMAKE_PREFIX_PATH=$INSTALL_DIR
 make $JOBS
 $SUDO make install
+
+mkdir $READY_ROOT/cgra_runtime/mybuild
+cd $READY_ROOT/cgra_runtime/mybuild
+cmake .. -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR -DCMAKE_PREFIX_PATH=$INSTALL_DIR
+make $JOBS
+$SUDO make install
+
 echo "end of installing ready"
 echo ""
 

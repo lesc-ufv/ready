@@ -31,8 +31,14 @@ find_library(LIB_READY_ASE NAMES ready_ase REQUIRED)
 file(GLOB CPP_SRCS src/*.cpp)
 file(GLOB H_SRCS include/*.h)
 
-add_executable(cgra_exec_harp ${CPP_SRCS} ${READY_SRCS} ${H_SRCS})
-add_executable(cgra_exec_ase ${CPP_SRCS} ${READY_SRCS} ${H_SRCS})
+add_executable(cgraexec ${CPP_SRCS} ${READY_SRCS} ${H_SRCS})
+add_executable(cgraexec_sim ${CPP_SRCS} ${READY_SRCS} ${H_SRCS})
 
-target_link_libraries(cgra_exec_harp ${LIB_READY} ${LIB_FDAM} ${LIB_OPAE} ${LIB_UUID} ${LIB_MPF} ${LIB_JSONCPP})
-target_link_libraries(cgra_exec_ase ${LIB_READY_ASE} ${LIB_FDAM} ${LIB_OPAE_ASE} ${LIB_UUID} ${LIB_MPF} ${LIB_JSONCPP})
+target_link_libraries(cgraexec ${LIB_READY} ${LIB_FDAM} ${LIB_OPAE} ${LIB_UUID} ${LIB_MPF} ${LIB_JSONCPP})
+target_link_libraries(cgraexec_sim ${LIB_READY_ASE} ${LIB_FDAM} ${LIB_OPAE_ASE} ${LIB_UUID} ${LIB_MPF} ${LIB_JSONCPP})
+
+install(
+    TARGETS cgraexec cgraexec_sim
+    RUNTIME DESTINATION bin
+)
+

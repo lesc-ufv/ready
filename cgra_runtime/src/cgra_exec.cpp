@@ -1,17 +1,54 @@
 #include <cgra_exec.h>
 
-int main(int argc, char *argv[]) {
-
-    std::string s1("../cgra_arch.json");
-    std::string s2("../chebyshev.json");
-    std::string s3("../data.json");
-    std::string s4("../data_out_cpu.json");
-    std::string s5("../data_out_cgra.json");
-
-    exec_dataflow_cpu(s2, s3, s4);
-
-    //exec_dataflow_cgra(s1,s2, s3,s5);
-
+int main(int argc, char **argv) {
+    args::ArgumentParser parser("CGRA runtime program.", "");
+    
+    args::Group group(parser, "All parameters are required:", args::Group::Validators::AllChildGroups);
+    args::Group group1(parser, "This parameter is only necessary for execution in the cgra:", args::Group::Validators::None);
+    
+    args::HelpFlag help(group, "help", "Display this help menu", {'h', "help"});
+    args::ValueFlag<std::string> run(group, "<cpu|cgra>", "Execute the dataflow on CPU or CGRA", {'r',"run"});
+    args::ValueFlag<std::string> arch(group1, "JSON CGRA Architecture File", "File that specifies the CGRA architecture", {'a',"arch"});
+    args::ValueFlag<std::string> df(group, "DataFlow JSON file", "JSON File specifies the DataFlow Graph", {'d',"dataflow"});
+    args::ValueFlag<std::string> input(group, "JSON Input File", "File that specifies the input/output data of dataflow execution", {'i',"in"});
+    args::ValueFlag<std::string> output(group, "JSON Output File", "File to write the output data of execution", {'o',"out"});
+    
+    try
+    {
+        parser.ParseCLI(argc, argv);
+        if(args::get(run) == "cpu"){
+            exec_dataflow_cpu(args::get(df),args::get(input),args::get(output));
+        }else if(args::get(run) == "cgra"){
+            if(arch){
+                exec_dataflow_cgra(args::get(arch),args::get(df),args::get(input),args::get(output));
+            }else{
+              std::cout << "Missing the arch parameter!" << std::endl;
+              std::cout << parser;
+              return 1;
+            }
+        }else{
+            std::cout << "Parameter error: run" << argv[0] << " -h to help!" << std::endl;
+        }
+    
+    }
+    catch (args::Help)
+    {
+        std::cout << parser;
+        return 0;
+    }
+    catch (args::ParseError e)
+    {
+        std::cerr << e.what() << std::endl;
+        std::cerr << parser;
+        return 1;
+    }
+    catch (args::ValidationError e)
+    {
+        std::cerr << e.what() << std::endl;
+        std::cerr << parser;
+        return 1;
+    }
+    
     return 0;
 }
 
