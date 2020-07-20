@@ -222,6 +222,7 @@ DataFlow *createDataFlow(int id, int copies, unsigned short *coef, int taps) {
     }
 
     df->toDOT("fir.dot");
+    df->toJSON("fir.json");
     return df;
 
 }

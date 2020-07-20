@@ -72,6 +72,7 @@ public:
     AccManagement *getAccManagement();
 
     double getTimeExec();
+    
 };
 
 #endif //CGRA_H

@@ -5,6 +5,9 @@
 #include <json/json.h>
 #include <ready/ready.h>
 #include <args.h>
+#include <chrono>
+
+using namespace std::chrono;
 
 int main(int argc, char **args);
 
@@ -18,6 +21,6 @@ std::map<int, std::pair<short *,int>> *read_input_data(std::string &data_file);
 
 std::map<int, std::pair<short *,int>> *read_output_data(std::string &data_file);
 
-void write_output_data(std::string &input_data_file,std::string &output_data_file,std::map<int, std::pair<short *,int>> &data_map);
+void write_output_data(std::string &input_data_file,std::string &output_data_file,std::map<int, std::pair<short *,int>> &data_map, double time_exec);
 
 
