@@ -365,6 +365,8 @@ void Cgra::syncExecute(long waitTime) {
     acc.waitDone(waitTime);
     diff = high_resolution_clock::now() - s;
     Cgra::timeExecCgra = diff.count() * 1000;
+    Cgra::total_clocks = Cgra::accManagement->getTotalClocks();
+    Cgra::cycleTime = Cgra::accManagement->getCycleTime();
     acc.reset();
     for (const auto &it:Cgra::output_queue) {
         auto queue_ptr = (unsigned char *) acc.getOutputQueue((unsigned char) it.first);
@@ -454,4 +456,10 @@ void Cgra::freeProgram(cgra_program_t *cp) {
 
 double Cgra::getTimeExec() {
     return Cgra::timeExecCgra;
+}
+long Cgra::getTotalCycles() {
+    return Cgra::total_clocks;
+}
+double Cgra::getCycleTime() {
+    return Cgra::cycleTime;
 }

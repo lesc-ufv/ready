@@ -21,8 +21,11 @@ class Cgra {
 
 private:
     double timeExecCgra;
+    long total_clocks;
+    double cycleTime;
+    
     // key = Input ID, Value = key = ThreadID value =  ( Pointer Data, Size Data)
-    std::map<int, std::map<int, std::pair<unsigned char *, size_t>>> input_queue;
+    std::map<int, std::map<int, std::pair<unsigned char *, size_t >>> input_queue;
     // key = Output ID, Value = key = ThreadID value =  ( Pointer Data, Size Data)
     std::map<int, std::map<int, std::pair<unsigned char *, size_t >>> output_queue;
 
@@ -73,6 +76,9 @@ public:
 
     double getTimeExec();
     
+    long getTotalCycles();
+    
+    double getCycleTime();
 };
 
 #endif //CGRA_H

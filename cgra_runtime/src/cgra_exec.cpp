@@ -51,31 +51,51 @@ int main(int argc, char **argv) {
 
 int exec_dataflow_cpu(std::string &df_file, std::string &input_data_file, std::string &output_data_file) {
 
+    info_t info{};
+    info.arch = "cpu";
+    info.message = "success";
+    info.config_time = 0;
+    info.scheduling_time = 0;
+    info.exec_time = 0;
+    info.clock_cycles = 0;
+    info.throughput = 0;
+    info.approximate_throughput = 0;
+
     auto df = new DataFlow(0, "dataflow");
     df->fromJSON(df_file);
 
     auto input_map = read_input_data(input_data_file);
     auto output_map = read_output_data(input_data_file);
+    double total_bytes = 0.0;
 
     for (auto dm:*input_map) {
         auto in = reinterpret_cast<InputStream *>(df->getOp(dm.first));
         in->setData(std::get<0>(dm.second), std::get<1>(dm.second));
+        total_bytes += (double) in->getSize() * sizeof(in->getVal());
     }
     for (auto dm:*output_map) {
         auto out = reinterpret_cast<OutputStream *>(df->getOp(dm.first));
         out->setData(std::get<0>(dm.second), std::get<1>(dm.second));
+        total_bytes += (double) out->getSize() * sizeof(out->getVal());
     }
 
     high_resolution_clock::time_point s;
     duration<double> diff{};
     s = high_resolution_clock::now();
-    
+    auto num_clock = clock();
+
     df->compute();
-    
+
+    num_clock = clock()-num_clock;
     diff = high_resolution_clock::now() - s;
     double timeExec  = diff.count();
     
-    write_output_data(input_data_file, output_data_file, *output_map,timeExec);
+    info.exec_time = timeExec;
+    info.throughput = (total_bytes/(1024*1024))/(info.exec_time/1000);
+    info.approximate_throughput = info.throughput;
+    info.clock_cycles = num_clock;
+
+    write_output_data(input_data_file, output_data_file, *output_map,info);
 
     for (auto dm:*input_map) {
         auto ptr = std::get<0>(dm.second);
@@ -96,10 +116,20 @@ int exec_dataflow_cgra(std::string &arch_file,std::string &df_file, std::string 
     auto arch = read_arch_file(arch_file);
     auto cgraArch = new CgraArch(arch);
     auto cgraHw = new Cgra();
+    info_t info{};
+    info.arch = "cgra";
+    info.message = "success";
+    info.config_time = 0;
+    info.scheduling_time = 0;
+    info.exec_time = 0;
+    info.clock_cycles = 0;
+    info.throughput = 0;
+    info.approximate_throughput = 0;
+
     Scheduler scheduler(cgraArch);
     std::vector<DataFlow *> dfs;
     int num_thread = cgraArch->getNumThreads();
-
+    double total_bytes = 0.0;
     auto input_map = read_input_data(input_data_file);
     auto output_map = read_output_data(input_data_file);
 
@@ -110,10 +140,16 @@ int exec_dataflow_cgra(std::string &arch_file,std::string &df_file, std::string 
         scheduler.addDataFlow(df, i, 0);
     }
     int r, tries = 0;
+    high_resolution_clock::time_point s;
+    duration<double> diff{};
+    s = high_resolution_clock::now();
     do {
         r = scheduler.scheduling();
         tries++;
     } while (r != SCHEDULE_SUCCESS && tries < 100);
+
+    diff = high_resolution_clock::now() - s;
+    double scheduling_time  = diff.count();
 
     if (r == SCHEDULE_SUCCESS) {
 
@@ -129,6 +165,7 @@ int exec_dataflow_cgra(std::string &arch_file,std::string &df_file, std::string 
                     size_thread_bytes += (size%num_thread)*sizeof(ptr[0]);
                 }
                 cgraHw->setCgraProgramInputStreamByID(i, dm.first, &ptr[i * size_thread], size_thread_bytes);
+                total_bytes += size_thread_bytes;
             }
         }
         for (auto dm:*output_map) {
@@ -141,13 +178,22 @@ int exec_dataflow_cgra(std::string &arch_file,std::string &df_file, std::string 
                     size_thread_bytes += (size%num_thread)*sizeof(ptr[0]);
                 }
                 cgraHw->setCgraProgramOutputStreamByID(i, dm.first, &ptr[i * size_thread], size_thread_bytes);
+                total_bytes += size_thread_bytes;
             }
         }
+
+        cgraHw->syncExecute(0);
+        info.scheduling_time = scheduling_time;
+        info.clock_cycles = cgraHw->getTotalCycles();
+        info.exec_time = cgraHw->getTimeExec();
+        info.throughput = (total_bytes/(1024*1024))/info.exec_time;
+        info.approximate_throughput = (total_bytes/(1024*1024))/(info.clock_cycles*cgraHw->getCycleTime());
+
+    }else{
+        info.message = "Error: Maximum number of scheduler attempts exceeded!";
     }
 
-    cgraHw->syncExecute(0);
-    
-    write_output_data(input_data_file, output_data_file, *output_map,cgraHw->getTimeExec());
+    write_output_data(input_data_file, output_data_file, *output_map,info);
 
     for (auto dm:*input_map) {
         auto ptr = std::get<0>(dm.second);
@@ -252,7 +298,7 @@ std::map<int, std::pair<short *, int>> *read_output_data(std::string &data_file)
 }
 
 void write_output_data(std::string &input_data_file, std::string &output_data_file,
-                       std::map<int, std::pair<short *, int>> &data_map,double time_exec) {
+                       std::map<int, std::pair<short *, int>> &data_map,const info_t& info) {
 
     Json::Value data;
     std::ifstream ifs;
@@ -277,13 +323,37 @@ void write_output_data(std::string &input_data_file, std::string &output_data_fi
             }
         }
     }
-    
+
+    std::ostringstream exec_time;
+    exec_time << std::fixed << std::setprecision(3);
+    exec_time << info.exec_time << "ms";
+    std::ostringstream config_time;
+    config_time << std::fixed << std::setprecision(3);
+    config_time << info.config_time << "ms";
+    std::ostringstream scheduling_time;
+    scheduling_time << std::fixed<< std::setprecision(3);
+    scheduling_time << info.scheduling_time << "ms";
+    std::ostringstream throughput;
+    throughput << std::fixed<< std::setprecision(3);
+    throughput << info.throughput << "MB/s";
+    std::ostringstream approximate_throughput;
+    approximate_throughput << std::fixed << std::setprecision(3);
+    approximate_throughput << info.approximate_throughput << "MB/s";
+
     data[n]["type"] = Json::Value("info");
-    data[n]["time_exec"] = Json::Value(time_exec);
-    
+    data[n]["arch"] = Json::Value(info.arch);
+    data[n]["message"] = Json::Value(info.message);
+    data[n]["exec_time"] = Json::Value(exec_time.str());
+    data[n]["config_time"] = Json::Value(config_time.str());
+    data[n]["scheduling_time"] = Json::Value(scheduling_time.str());
+    data[n]["clock_cycles"] = Json::Value(info.clock_cycles);
+    data[n]["throughput"] = Json::Value(throughput.str());
+    data[n]["approximate_throughput"] = Json::Value(approximate_throughput.str());
+
     ifs.close();
 
     Json::StreamWriterBuilder wbuilder;
+    wbuilder["indentation"] = "";
     std::string document = Json::writeString(wbuilder, data);
     std::ofstream ofs;
     ofs.open(output_data_file);

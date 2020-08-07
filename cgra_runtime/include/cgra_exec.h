@@ -6,8 +6,25 @@
 #include <ready/ready.h>
 #include <args.h>
 #include <chrono>
+#include <iomanip>
+#include <time.h>
 
 using namespace std::chrono;
+
+typedef struct info_t{
+
+   std::string arch;
+   std::string message;
+   
+   double exec_time;
+   double config_time;
+   double scheduling_time;
+   
+   long clock_cycles;
+   double throughput;
+   double approximate_throughput;
+        
+}info_t;
 
 int main(int argc, char **args);
 
@@ -21,6 +38,6 @@ std::map<int, std::pair<short *,int>> *read_input_data(std::string &data_file);
 
 std::map<int, std::pair<short *,int>> *read_output_data(std::string &data_file);
 
-void write_output_data(std::string &input_data_file,std::string &output_data_file,std::map<int, std::pair<short *,int>> &data_map, double time_exec);
+void write_output_data(std::string &input_data_file,std::string &output_data_file,std::map<int, std::pair<short *,int>> &data_map, const info_t& info);
 
 
