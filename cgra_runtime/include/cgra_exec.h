@@ -23,6 +23,8 @@ typedef struct info_t{
    long clock_cycles;
    double throughput;
    double approximate_throughput;
+   long total_input_bytes;
+   long total_output_bytes;
         
 }info_t;
 
@@ -40,4 +42,4 @@ std::map<int, std::pair<short *,int>> *read_output_data(std::string &data_file);
 
 void write_output_data(std::string &input_data_file,std::string &output_data_file,std::map<int, std::pair<short *,int>> &data_map, const info_t& info);
 
-
+double calc_conf_time(Cgra *cgraHw, std::string &arch_file,std::string &df_file);

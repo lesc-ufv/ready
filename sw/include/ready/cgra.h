@@ -68,7 +68,7 @@ public:
     setCgraProgramOutputStreamByName(const std::string &dataFlowName, int outputStreamID, const void *outputStreamData,
                                      size_t size);
 
-    void syncExecute(long waitTime);
+    bool syncExecute(long waitTime);
 
     cgra_program_t *getCgraProgram();
 

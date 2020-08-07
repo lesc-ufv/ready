@@ -26,9 +26,11 @@ void DataFlow::addOperator(Operator *op) {
         DataFlow::num_op++;
         if (op->getType() == OP_IN) {
             DataFlow::num_op_in++;
+            DataFlow::input_op_ids.push_back(op->getId());
         }
         if (op->getType() == OP_OUT) {
             DataFlow::num_op_out++;
+            DataFlow::output_op_ids.push_back(op->getId());
         }
     }
 }
@@ -299,4 +301,11 @@ int DataFlow::getNumEdges() const {
 
 int DataFlow::getNumLevel() const {
     return DataFlow::num_level;
+}
+std::vector<int> &DataFlow::getInputIds(){
+    return DataFlow::input_op_ids;
+}
+    
+std::vector<int> &DataFlow::getOutputIds(){
+    return DataFlow::output_op_ids;
 }

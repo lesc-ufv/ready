@@ -23,6 +23,8 @@ private:
     std::string name;
     std::map<int, Operator *> op_array;
     std::map<int, std::vector<int>> graph;
+    std::vector<int> input_op_ids;
+    std::vector<int> output_op_ids;    
     int num_op_in;
     int num_op_out;
     int num_op;
@@ -71,6 +73,11 @@ public:
     int getNumEdges() const;
 
     int getNumLevel() const;
+    
+    std::vector<int> &getInputIds();
+    
+    std::vector<int> &getOutputIds();
+    
 };
 
 

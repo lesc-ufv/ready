@@ -178,7 +178,7 @@ bool Cgra::readProgramFile(const std::string &filePath) {
     return true;
 }
 
-void Cgra::syncExecute(long waitTime) {
+bool Cgra::syncExecute(long waitTime) {
     auto cp = makeCopy(*Cgra::cgra_program);
     std::map<int, int> pe_in_map;
     std::map<int, int> pe_out_map;
@@ -393,6 +393,7 @@ void Cgra::syncExecute(long waitTime) {
         }
     }
     freeProgram(cp);
+    return Cgra::accManagement->isSimulated();
 }
 
 std::map<int, int> Cgra::makeListPe(int num_pe, int num_pe_in, int num_pe_out) {
