@@ -30,6 +30,7 @@ OperatorFactory::OperatorFactory() {
     Register("xori", &Xori::create);
     Register("pass_a", &PassA::create);
     Register("pass_b", &PassB::create);
+    Register("pass_bi", &PassB::create);
     Register("sgt", &Sgt::create);
     Register("sgti", &Sgti::create);
     Register("shl", &Shl::create);

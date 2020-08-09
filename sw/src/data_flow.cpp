@@ -142,8 +142,10 @@ void DataFlow::toJSON(const std::string &fileNamePath) {
         for (auto neighbor:op->getDst()) {
             cnt++;
             port = 1;
-            if (neighbor->getSrcA()->getId() == op->getId()) {
-                port = 0;
+            if(neighbor->getSrcA()) {
+                if (neighbor->getSrcA()->getId() == op->getId()) {
+                    port = 0;
+                }
             }
             sprintf(buf, str_edge, id_edges++, op->getId(), neighbor->getId(), port);
             if (cnt < numEdge)

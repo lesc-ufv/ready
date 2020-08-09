@@ -19,8 +19,8 @@ using namespace std::chrono;
 #define NUM_THREAD (8)
 #define SAMPLES (1)
 
-#define NUM_CLUSTERS 4
-#define NUM_DIM 4
+#define NUM_CLUSTERS 8
+#define NUM_DIM 5
 
 int kmeans(int idx, int num_clusters, int num_dim);
 

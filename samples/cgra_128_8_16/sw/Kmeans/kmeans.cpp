@@ -15,9 +15,13 @@ int main(int argc, char *argv[]) {
         kmeans(idx, NUM_CLUSTERS, NUM_DIM);
     if (test & 2)
         kmeans_openmp(idx, NUM_CLUSTERS, NUM_DIM);
+    
     if (test & 4)
         kmeans_cgra(idx, NUM_CLUSTERS, NUM_DIM);
 
+    if(test & 8)
+        createDataFlow(0, NUM_CLUSTERS, NUM_DIM);
+    
     return 0;
 }
 
@@ -333,6 +337,10 @@ DataFlow *createDataFlow(int id, int num_clusters, int num_dim) {
         df->connect(in, out, out->getPortB());
         df->connect(reg, out, out->getPortA());
     }
+    
+    df->toDOT("kmeans.dot");
+    df->toJSON("kmeans.json");
+    
     return df;
 }
 

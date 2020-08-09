@@ -13,11 +13,16 @@ int main(int argc, char *argv[]) {
 
     if (test & 1)
         sobel_filter(idx);
+    
     if (test & 2)
         sobel_filter_openmp(idx);
+    
     if (test & 4)
         sobel_filter_cgra(idx, 1);
 
+    if(test & 8)
+        createDataFlow(0,1);
+    
     return 0;
 }
 
@@ -315,6 +320,10 @@ DataFlow *createDataFlow(int id, int copies) {
     df->connect(mult1, add, add->getPortA());
     df->connect(mult2, add, add->getPortB());
     df->connect(add, output[0], output[0]->getPortA());
+    
+    df->toDOT("sobel.dot");
+    df->toJSON("sobel.json");
+    
     return df;
 }
 

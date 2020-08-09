@@ -24,6 +24,9 @@ int main(int argc, char *argv[]) {
         fir_openmp(idx, coef, TAPS);
     if (test & 4)
         fir_cgra(idx, 1, coef, TAPS);
+    
+    if (test & 8)
+        createDataFlow(0, 1, coef, TAPS);
 
     delete coef;
 

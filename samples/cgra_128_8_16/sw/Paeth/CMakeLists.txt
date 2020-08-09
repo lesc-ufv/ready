@@ -28,7 +28,6 @@ find_library(LIB_READY NAMES ready REQUIRED)
 find_library(LIB_READY_ASE NAMES ready_ase REQUIRED)
 find_library(LIB_JSONCPP NAMES jsoncpp REQUIRED)
 
-
 file(GLOB CPP_SRCS *.cpp)
 file(GLOB H_SRCS *.h)
 

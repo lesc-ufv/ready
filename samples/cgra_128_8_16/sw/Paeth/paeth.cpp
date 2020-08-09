@@ -18,6 +18,9 @@ int main(int argc, char *argv[]) {
     if (test & 4)
         paeth_cgra(idx, 2);
 
+    if (test & 8)
+        createDataFlow(0, 2);
+    
     return 0;
 }
 
@@ -331,6 +334,9 @@ DataFlow *createDataFlow(int id, int copies) {
         df->connect(regA9, muxCBA, muxCBA->getPortA());
         df->connect(muxCBA, out[i], out[i]->getPortA());
     }
-
+    
+    df->toDOT("paeth.dot");
+    df->toJSON("paeth.json");
+    
     return df;
 }
