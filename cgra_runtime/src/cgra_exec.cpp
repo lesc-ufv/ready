@@ -58,6 +58,7 @@ int exec_dataflow_cpu(std::string &df_file, std::string &input_data_file, std::s
     info.scheduling_time = 0;
     info.exec_time = 0;
     info.clock_cycles = 0;
+    info.clock_cgra = 0;
     info.throughput = 0;
     info.approximate_throughput = 0;
     info.total_input_bytes = 0;
@@ -190,13 +191,15 @@ int exec_dataflow_cgra(std::string &arch_file,std::string &df_file, std::string 
                 total_output_bytes += size_thread_bytes;
             }
         }
-
+        auto total_mb = (total_input_bytes+total_output_bytes)/(1024.0*1024.0);
+        auto exec_time_by_clock = info.clock_cycles*cgraHw->getCycleTime();
         auto is_sim = cgraHw->syncExecute(0);
+        info.clock_cgra = 1/(cgraHw->getCycleTime()*1000000.0);
         info.scheduling_time = scheduling_time;
         info.clock_cycles = cgraHw->getTotalCycles();
         info.exec_time = cgraHw->getTimeExec();
-        info.throughput = ((total_input_bytes+total_output_bytes)/(1024*1024))/info.exec_time;
-        info.approximate_throughput = ((total_input_bytes+total_output_bytes)/(1024*1024))/(info.clock_cycles*cgraHw->getCycleTime());
+        info.throughput = total_mb/(info.exec_time*10000);
+        info.approximate_throughput = total_mb/exec_time_by_clock);
         info.total_input_bytes = total_input_bytes;
         info.total_output_bytes = total_output_bytes;
         info.config_time = config_time;

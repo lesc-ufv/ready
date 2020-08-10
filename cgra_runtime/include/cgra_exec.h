@@ -21,6 +21,7 @@ typedef struct info_t{
    double scheduling_time;
    
    long clock_cycles;
+   double clock_cgra;
    double throughput;
    double approximate_throughput;
    long total_input_bytes;
