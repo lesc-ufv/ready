@@ -41,6 +41,9 @@ public:
     void reset();
 
     std::vector<int> getMapping(int dataFlowId, int threadID);
+    
+    static std::string getMessageError(int code);
+    
 };
 
 

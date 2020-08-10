@@ -270,4 +270,12 @@ std::vector<int> Scheduler::getMapping(int dataFlowId, int threadID) {
     int group = Scheduler::dataflow_group[Scheduler::dataflows[threadID]->getId()];
     return Scheduler::data_flow_mapping[group];
 }
+std::string Scheduler::getMessageError(int code){
+    code *= -1;
+    code -= 1;
+    if(code >= 0 && code <= 5){
+        return scheduler_error_message[code];
+    }
 
+    return "Error code does not exist.";
+}

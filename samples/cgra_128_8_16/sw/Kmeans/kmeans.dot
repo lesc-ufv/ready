@@ -1,0 +1,108 @@
+digraph kmeans{
+ 0 [ label = subi, VALUE = 0]
+ "0.0"[ label = 0 ]
+ 1 [ label = subi, VALUE = 1]
+ "1.1"[ label = 1 ]
+ 2 [ label = subi, VALUE = 2]
+ "2.2"[ label = 2 ]
+ 3 [ label = subi, VALUE = 3]
+ "3.3"[ label = 3 ]
+ 4 [ label = subi, VALUE = 4]
+ "4.4"[ label = 4 ]
+ 5 [ label = subi, VALUE = 5]
+ "5.5"[ label = 5 ]
+ 6 [ label = subi, VALUE = 6]
+ "6.6"[ label = 6 ]
+ 7 [ label = subi, VALUE = 7]
+ "7.7"[ label = 7 ]
+ 8 [ label = subi, VALUE = 8]
+ "8.8"[ label = 8 ]
+ 9 [ label = subi, VALUE = 9]
+ "9.9"[ label = 9 ]
+ 10 [ label = subi, VALUE = 10]
+ "10.10"[ label = 10 ]
+ 11 [ label = subi, VALUE = 11]
+ "11.11"[ label = 11 ]
+ 12 [ label = input12 ]
+ 13 [ label = input13 ]
+ 14 [ label = input14 ]
+ 15 [ label = input15 ]
+ 16 [ label = output16 ]
+ 17 [ label = add]
+ 18 [ label = add]
+ 19 [ label = add]
+ 20 [ label = add]
+ 21 [ label = add]
+ 22 [ label = add]
+ 23 [ label = add]
+ 24 [ label = add]
+ 25 [ label = add]
+ 26 [ label = slt]
+ 27 [ label = mux]
+ 28 [ label = regi, VALUE = 0]
+ "28.0"[ label = 0 ]
+ 29 [ label = regi, VALUE = 1]
+ "29.1"[ label = 1 ]
+ 30 [ label = reg]
+ 31 [ label = slt]
+ 32 [ label = mux]
+ 33 [ label = regi, VALUE = 2]
+ "33.2"[ label = 2 ]
+ "0.0" -> 0
+ 0 -> 17
+ "1.1" -> 1
+ 1 -> 17
+ "2.2" -> 2
+ 2 -> 18
+ "3.3" -> 3
+ 3 -> 18
+ "4.4" -> 4
+ 4 -> 20
+ "5.5" -> 5
+ 5 -> 20
+ "6.6" -> 6
+ 6 -> 21
+ "7.7" -> 7
+ 7 -> 21
+ "8.8" -> 8
+ 8 -> 23
+ "9.9" -> 9
+ 9 -> 23
+ "10.10" -> 10
+ 10 -> 24
+ "11.11" -> 11
+ 11 -> 24
+ 12 -> 0
+ 12 -> 4
+ 12 -> 8
+ 13 -> 1
+ 13 -> 5
+ 13 -> 9
+ 14 -> 2
+ 14 -> 6
+ 14 -> 10
+ 15 -> 3
+ 15 -> 7
+ 15 -> 11
+ 17 -> 19
+ 18 -> 19
+ 19 -> 26
+ 20 -> 22
+ 21 -> 22
+ 22 -> 26
+ 23 -> 25
+ 24 -> 25
+ 25 -> 30
+ 26 -> 27
+ 26 -> 31
+ 27 -> 32
+ "28.0" -> 28
+ 28 -> 27
+ "29.1" -> 29
+ 29 -> 27
+ 30 -> 31
+ 31 -> 32
+ 32 -> 16
+ "33.2" -> 33
+ 33 -> 32
+}

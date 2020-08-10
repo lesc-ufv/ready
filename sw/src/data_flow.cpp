@@ -141,10 +141,20 @@ void DataFlow::toJSON(const std::string &fileNamePath) {
         auto op = item.second;
         for (auto neighbor:op->getDst()) {
             cnt++;
-            port = 1;
+            port = -1;
             if(neighbor->getSrcA()) {
                 if (neighbor->getSrcA()->getId() == op->getId()) {
                     port = 0;
+                }
+            }
+            if(neighbor->getSrcB()) {
+                if (neighbor->getSrcB()->getId() == op->getId()) {
+                    port = 1;
+                }
+            }
+            if(neighbor->getBranchIn()) {
+                if (neighbor->getBranchIn()->getId() == op->getId()) {
+                    port = 2;
                 }
             }
             sprintf(buf, str_edge, id_edges++, op->getId(), neighbor->getId(), port);
@@ -185,8 +195,6 @@ void DataFlow::fromJSON(const std::string &fileNamePath) {
         if (e["group"] == "nodes") {
             int id = e["data"]["id"].asInt();
             std::string label = e["data"]["type"].asString();
-            int opcode = map_op[label]["opcode"].asInt();
-            int type = map_op[label]["type"].asInt();
             int constant = e["data"]["value"].asInt();
             auto params = Params(id, constant, nullptr, 0);
             auto op = OperatorFactory::Get()->CreateOperator(label, params);

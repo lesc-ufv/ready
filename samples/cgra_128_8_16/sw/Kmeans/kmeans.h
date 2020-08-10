@@ -1,7 +1,3 @@
-//
-// Created by lucas on 22/05/19.
-//
-
 #ifndef KMEANS_KMEANS_H
 #define KMEANS_KMEANS_H
 
@@ -15,12 +11,12 @@
 using namespace std;
 using namespace std::chrono;
 
-#define DATA_SIZE (1 << 23)
+#define DATA_SIZE (1 << 8)
 #define NUM_THREAD (8)
 #define SAMPLES (1)
 
-#define NUM_CLUSTERS 8
-#define NUM_DIM 5
+#define NUM_CLUSTERS 3
+#define NUM_DIM 4
 
 int kmeans(int idx, int num_clusters, int num_dim);
 

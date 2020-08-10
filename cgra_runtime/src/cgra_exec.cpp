@@ -155,7 +155,7 @@ int exec_dataflow_cgra(std::string &arch_file,std::string &df_file, std::string 
     do {
         r = scheduler.scheduling();
         tries++;
-    } while (r != SCHEDULE_SUCCESS && tries < 100);
+    } while (r != SCHEDULE_SUCCESS && tries < 1000);
 
     diff = high_resolution_clock::now() - s;
     double scheduling_time  = diff.count();
@@ -203,11 +203,8 @@ int exec_dataflow_cgra(std::string &arch_file,std::string &df_file, std::string 
         if (is_sim) {
             info.arch = "Simulated CGRA"; 
         }
-
-    }else{
-        info.message = "Error: Maximum number of scheduler attempts exceeded";
     }
-
+    info.message = scheduler.getMessageError(r);
     write_output_data(input_data_file, output_data_file, *output_map,info);
 
     for (auto dm:*input_map) {

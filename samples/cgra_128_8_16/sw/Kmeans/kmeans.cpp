@@ -19,9 +19,13 @@ int main(int argc, char *argv[]) {
     if (test & 4)
         kmeans_cgra(idx, NUM_CLUSTERS, NUM_DIM);
 
-    if(test & 8)
-        createDataFlow(0, NUM_CLUSTERS, NUM_DIM);
-    
+    if(test & 8) {
+        auto df = createDataFlow(0, NUM_CLUSTERS, NUM_DIM);
+        df->toDOT("../kmeans.dot");
+        df->toJSON("../kmeans.json");
+        delete df;
+    }
+
     return 0;
 }
 
@@ -156,7 +160,6 @@ int kmeans_cgra(int idx, int num_clusters, int num_dim) {
         centroids[i] = i;
     }
 
-
     for (int i = 0; i < NUM_THREAD; ++i) {
         dfs.push_back(createDataFlow(i, num_clusters, num_dim));
         scheduler.addDataFlow(dfs[i], i, 0);
@@ -166,7 +169,7 @@ int kmeans_cgra(int idx, int num_clusters, int num_dim) {
     do {
         r = scheduler.scheduling();
         tries++;
-    } while (r != SCHEDULE_SUCCESS && tries < 1000);
+    } while (r != SCHEDULE_SUCCESS && tries < 100);
 
     if (r == SCHEDULE_SUCCESS) {
         cgraHw->loadCgraProgram(cgraArch->getCgraProgram());
@@ -180,7 +183,7 @@ int kmeans_cgra(int idx, int num_clusters, int num_dim) {
                                                       &data_in[i * num_dim + (k * data_size)], sf * data_size);
             }
             cgraHw->setCgraProgramOutputStreamByID(m, (num_clusters * num_dim) + num_dim, &data_out[k * data_size],
-                                                   sf * data_size);
+                                                  sf * data_size);
             k++;
         }
         double cgraExecTime = 0;
@@ -337,10 +340,7 @@ DataFlow *createDataFlow(int id, int num_clusters, int num_dim) {
         df->connect(in, out, out->getPortB());
         df->connect(reg, out, out->getPortA());
     }
-    
-    df->toDOT("kmeans.dot");
-    df->toJSON("kmeans.json");
-    
+
     return df;
 }
 
