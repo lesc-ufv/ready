@@ -136,7 +136,9 @@ void DataFlow::toJSON(const std::string &fileNamePath) {
     }
     id_edges = max_id + 1;
     cnt = 0;
-    int port;
+    int port;         //src,dst,port
+    std::map<std::tuple<int,int,int>,bool> map_port;
+
     for (auto item:DataFlow::op_array) {
         auto op = item.second;
         for (auto neighbor:op->getDst()) {
@@ -144,12 +146,20 @@ void DataFlow::toJSON(const std::string &fileNamePath) {
             port = -1;
             if(neighbor->getSrcA()) {
                 if (neighbor->getSrcA()->getId() == op->getId()) {
-                    port = 0;
+                    auto key = std::tuple<int,int,int>(op->getId(),neighbor->getId(),0);
+                    if(map_port.find(key) == map_port.end()){
+                        port = 0;
+                        map_port[key] = true;
+                    }
                 }
             }
-            if(neighbor->getSrcB()) {
+            if(neighbor->getSrcB() && port == -1) {
                 if (neighbor->getSrcB()->getId() == op->getId()) {
-                    port = 1;
+                    auto key = std::tuple<int,int,int>(op->getId(),neighbor->getId(),1);
+                    if(map_port.find(key) == map_port.end()){
+                        port = 1;
+                        map_port[key] = true;
+                    }
                 }
             }
             if(neighbor->getBranchIn()) {

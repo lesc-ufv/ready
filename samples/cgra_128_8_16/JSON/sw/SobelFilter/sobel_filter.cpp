@@ -20,9 +20,11 @@ int main(int argc, char *argv[]) {
     if (test & 4)
         sobel_filter_cgra(idx, 1);
 
-    if(test & 8)
-        createDataFlow(0,1);
-    
+    if(test & 8) {
+        auto df = createDataFlow(0, 1);
+        df->toDOT("../sobel.dot");
+        df->toJSON("../sobel.json");
+    }
     return 0;
 }
 
@@ -320,9 +322,7 @@ DataFlow *createDataFlow(int id, int copies) {
     df->connect(mult1, add, add->getPortA());
     df->connect(mult2, add, add->getPortB());
     df->connect(add, output[0], output[0]->getPortA());
-    
-    df->toDOT("sobel.dot");
-    df->toJSON("sobel.json");
+
     
     return df;
 }
@@ -336,7 +336,7 @@ void itConv(byte *buffer, int buffer_size, int width, byte *op, byte *res) {
     }
 }
 
-byte convolution(byte *X, byte *Y, int c_size) {
+byte convolution(const byte *X, const byte *Y, int c_size) {
     byte sum = 0;
     for (int i = 0; i < c_size; i++) {
         sum += X[i] * Y[c_size - i - 1];
@@ -366,7 +366,7 @@ void makeOpMemCPU(const byte *buffer, int buffer_size, int width, int cindex, by
     op_mem[8] = !top && !right ? buffer[cindex + width + 1] : zero;
 }
 
-void makeOpMemCGRA(byte *buffer, int buffer_size, int width, short **op_mem) {
+void makeOpMemCGRA(const byte *buffer, int buffer_size, int width, short **op_mem) {
     for (int cindex = 0; cindex < buffer_size; cindex++) {
         int bottom = cindex - width < 0;
         int top = cindex + width >= buffer_size;

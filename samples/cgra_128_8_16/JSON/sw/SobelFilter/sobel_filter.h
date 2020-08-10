@@ -11,7 +11,7 @@
 using namespace std;
 using namespace std::chrono;
 
-#define DATA_SIZE (1024*1024)
+#define DATA_SIZE (16*16)
 #define NUM_THREAD (8)
 #define SAMPLES (1)
 #define SOBEL_OP_SIZE 9
@@ -29,11 +29,11 @@ DataFlow *createDataFlow(int id, int copies);
 
 void itConv(byte *buffer, int buffer_size, int width, byte *op, byte *res);
 
-byte convolution(byte *X, byte *Y, int c_size);
+byte convolution(const byte *X, const byte *Y, int c_size);
 
 void makeOpMemCPU(const byte *buffer, int buffer_size, int width, int cindex, byte *op_mem);
 
-void makeOpMemCGRA(byte *buffer, int buffer_size, int width, short **op_mem);
+void makeOpMemCGRA(const byte *buffer, int buffer_size, int width, short **op_mem);
 
 void contour(const byte *sobel_h, const byte *sobel_v, int gray_size, byte *contour_img);
 
