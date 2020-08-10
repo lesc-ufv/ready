@@ -192,13 +192,14 @@ int exec_dataflow_cgra(std::string &arch_file,std::string &df_file, std::string 
             }
         }
         auto total_mb = (total_input_bytes+total_output_bytes)/(1024.0*1024.0);
-        auto exec_time_by_clock = info.clock_cycles*cgraHw->getCycleTime();
+        auto exec_time_by_clock = cgraHw->getTotalCycles()*cgraHw->getCycleTime(); 
+        auto exec_time_sec = cgraHw->getTimeExec()*10000.0;
         auto is_sim = cgraHw->syncExecute(0);
-        info.clock_cgra = 1/(cgraHw->getCycleTime()*1000000.0);
+        info.clock_cgra = 1.0/(cgraHw->getCycleTime()*1000000.0);
         info.scheduling_time = scheduling_time;
         info.clock_cycles = cgraHw->getTotalCycles();
         info.exec_time = cgraHw->getTimeExec();
-        info.throughput = total_mb/(info.exec_time*10000);
+        info.throughput = total_mb/exec_time_sec;
         info.approximate_throughput = total_mb/exec_time_by_clock;
         info.total_input_bytes = total_input_bytes;
         info.total_output_bytes = total_output_bytes;
@@ -340,26 +341,29 @@ void write_output_data(std::string &input_data_file, std::string &output_data_fi
     }
 
     std::ostringstream exec_time;
-    exec_time << std::fixed << std::setprecision(3);
+    exec_time << std::fixed << std::setprecision(6);
     exec_time << info.exec_time << "ms";
     std::ostringstream config_time;
-    config_time << std::fixed << std::setprecision(3);
+    config_time << std::fixed << std::setprecision(6);
     config_time << info.config_time << "ms";
     std::ostringstream scheduling_time;
-    scheduling_time << std::fixed<< std::setprecision(3);
+    scheduling_time << std::fixed<< std::setprecision(6);
     scheduling_time << info.scheduling_time << "ms";
     std::ostringstream throughput;
-    throughput << std::fixed<< std::setprecision(3);
+    throughput << std::fixed<< std::setprecision(6);
     throughput << info.throughput << "MB/s";
     std::ostringstream approximate_throughput;
-    approximate_throughput << std::fixed << std::setprecision(3);
+    approximate_throughput << std::fixed << std::setprecision(6);
     approximate_throughput << info.approximate_throughput << "MB/s";
     std::ostringstream total_input_bytes;
-    total_input_bytes << std::fixed << std::setprecision(3);
+    total_input_bytes << std::fixed << std::setprecision(6);
     total_input_bytes << info.total_input_bytes;
     std::ostringstream total_output_bytes;
-    total_output_bytes << std::fixed << std::setprecision(3);
+    total_output_bytes << std::fixed << std::setprecision(6);
     total_output_bytes << info.total_output_bytes;
+    std::ostringstream clock_cgra;
+    clock_cgra << std::fixed << std::setprecision(1);
+    clock_cgra << info.clock_cgra;
     
     data[n]["type"] = Json::Value("info");
     data[n]["arch"] = Json::Value(info.arch);
@@ -372,6 +376,8 @@ void write_output_data(std::string &input_data_file, std::string &output_data_fi
     data[n]["approximate_throughput"] = Json::Value(approximate_throughput.str());
     data[n]["total_input_bytes"] = Json::Value(total_input_bytes.str());
     data[n]["total_output_bytes"] = Json::Value(total_output_bytes.str());
+    data[n]["clock_cgra"] = Json::Value(clock_cgra.str());
+    
 
     ifs.close();
 
