@@ -199,7 +199,7 @@ int exec_dataflow_cgra(std::string &arch_file,std::string &df_file, std::string 
         info.clock_cycles = cgraHw->getTotalCycles();
         info.exec_time = cgraHw->getTimeExec();
         info.throughput = total_mb/(info.exec_time*10000);
-        info.approximate_throughput = total_mb/exec_time_by_clock);
+        info.approximate_throughput = total_mb/exec_time_by_clock;
         info.total_input_bytes = total_input_bytes;
         info.total_output_bytes = total_output_bytes;
         info.config_time = config_time;
