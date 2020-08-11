@@ -193,7 +193,7 @@ int exec_dataflow_cgra(std::string &arch_file,std::string &df_file, std::string 
         }
         auto total_mb = (total_input_bytes+total_output_bytes)/(1024.0*1024.0);
         auto exec_time_by_clock = cgraHw->getTotalCycles()*cgraHw->getCycleTime(); 
-        auto exec_time_sec = cgraHw->getTimeExec()*1000.0;
+        auto exec_time_sec = cgraHw->getTimeExec()/1000.0;
         auto is_sim = cgraHw->syncExecute(0);
         info.clock_cgra = 1.0/(cgraHw->getCycleTime()*1000000.0);
         info.scheduling_time = scheduling_time;
