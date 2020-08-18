@@ -1,0 +1,9 @@
+{
+    "id": 0,
+    "num_pe": 4,
+    "num_in": 1,
+    "num_out": 1,
+    "net_radix": 2,
+    "net_extra_stagies": 0,
+    "word_size": 4
+}

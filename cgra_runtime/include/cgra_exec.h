@@ -8,6 +8,7 @@
 #include <chrono>
 #include <iomanip>
 #include <time.h>
+#include <exception>
 
 using namespace std::chrono;
 

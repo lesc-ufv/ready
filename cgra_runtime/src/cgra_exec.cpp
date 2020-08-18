@@ -16,7 +16,20 @@ int main(int argc, char **argv) {
     args::ValueFlag<std::string> output(group, "JSON Output File", "File to write the output data of execution", {'o',"out"});
     
     try{
-        parser.ParseCLI(argc, argv);    
+        parser.ParseCLI(argc, argv);
+        if(args::get(run) == "cpu"){
+            exec_dataflow_cpu(args::get(df),args::get(input),args::get(output));
+        }else if(args::get(run) == "cgra"){
+            if(arch){
+                exec_dataflow_cgra(args::get(arch),args::get(df),args::get(input),args::get(output));
+            }else{
+              std::cout << "Missing the arch parameter!" << std::endl;
+              std::cout << parser;
+              return 1;
+            }
+        }else{
+           std::cout << "Parameter error: run" << argv[0] << " -h to help!" << std::endl;
+        }
     }
     catch (args::Help){
         std::cout << parser;
@@ -32,20 +45,12 @@ int main(int argc, char **argv) {
         std::cerr << parser;
         return 1;
     }
-    
-    if(args::get(run) == "cpu"){
-            exec_dataflow_cpu(args::get(df),args::get(input),args::get(output));
-    }else if(args::get(run) == "cgra"){
-            if(arch){
-                exec_dataflow_cgra(args::get(arch),args::get(df),args::get(input),args::get(output));
-            }else{
-              std::cout << "Missing the arch parameter!" << std::endl;
-              std::cout << parser;
-              return 1;
-            }
-    }else{
-           std::cout << "Parameter error: run" << argv[0] << " -h to help!" << std::endl;
+    catch (exception& e)
+    {
+       cout << "Exception: " << e.what() << endl;
+       return 2;
     }
+    
   return 0;
 }
 
