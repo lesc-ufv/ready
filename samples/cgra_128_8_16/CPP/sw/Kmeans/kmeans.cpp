@@ -256,7 +256,7 @@ DataFlow *createDataFlow(int id, int num_clusters, int num_dim) {
                     aux_reduz.push_back(passA);
                     start = 1;
                 }
-                for (int l = start; l < aux.size(); l += 2) {
+                for (int l = start, s = aux.size(); l < s; l += 2) {
                     auto add = new Add(idx++);
                     df->connect(aux[l], add, add->getPortA());
                     df->connect(aux[l + 1], add, add->getPortB());
@@ -284,7 +284,7 @@ DataFlow *createDataFlow(int id, int num_clusters, int num_dim) {
         auto addEnd = aux[aux.size() - 1];
 
         while (aux.size() > 1) {
-            for (int l = 0; l < aux.size() - 1; l += 2) {
+            for (int l = 0,s=aux.size() - 1; l < s; l += 2) {
                 auto slt = new Slt(idx++);
                 auto mux = new Mux(idx++);
                 df->connect(aux[l], slt, slt->getPortA());
@@ -350,7 +350,9 @@ bool compare(Operator *a, Operator *b) {
 
 void helpKmeansUpdateConstants(cgra_program_t *cgra_program, int thread, unsigned short *constants, int num_clusters,
                                int num_dim) {
-    for (int i = 0; i < cgra_program->initial_conf.size(); ++i) {
+    
+    int s = cgra_program->initial_conf.size();
+    for (int i = 0; i < s ; ++i) {
         if (cgra_program->initial_conf[i].pe_constant_conf.conf_type == CGRA_CONF_SET_PE_CONST) {
             if (thread == cgra_program->initial_conf[i].pe_constant_conf.thread_id) {
                 int pe_id = (int) cgra_program->initial_conf[i].pe_constant_conf.pe_id;
