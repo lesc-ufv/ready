@@ -11,11 +11,11 @@
 using namespace std;
 using namespace std::chrono;
 
-#define DATA_SIZE (1 << 8)
+#define DATA_SIZE (1 << 30)
 #define NUM_THREAD (8)
 #define SAMPLES (1)
 
-#define NUM_CLUSTERS 3
+#define NUM_CLUSTERS 8
 #define NUM_DIM 4
 
 int kmeans(int idx, int num_clusters, int num_dim);

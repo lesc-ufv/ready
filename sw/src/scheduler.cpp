@@ -120,7 +120,9 @@ int Scheduler::mapAndRoute(int threadID) {
         }
     }
     do {
+
         pe_swap = Scheduler::placeAndRoute(solution, threadID);
+
         if (pe_swap == -1) {
             Scheduler::data_flow_mapping[group] = solution;
             return SCHEDULE_SUCCESS;

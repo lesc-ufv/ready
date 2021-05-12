@@ -25,41 +25,6 @@ CgraArch::CgraArch(arch_t arch):
         CgraArch::initialize();
 }
 
-CgraArch::CgraArch(std::string json_file){
-    Json::Value arch;
-
-    std::ifstream ifs;
-    
-    ifs.open(json_file);
-
-    Json::CharReaderBuilder builder;
-    
-    JSONCPP_STRING errs;
-
-    if (!parseFromStream(builder, ifs, &arch, &errs)) {
-        std::cout << errs << std::endl;
-        return;
-    }
-    ifs.close();
-    
-    id = arch["id"].asInt();
-    
-    num_pe = arch["num_pe"].asInt();
-    
-    num_pe_in = arch["num_pe_in"].asInt();
-    
-    num_pe_out = arch["num_pe_out"].asInt();
-    
-    num_extra_stage = arch["extra_stagies"].asInt();
-    
-    net_radix = arch["net_radix"].asInt();
-    
-    word_size = (int) std::ceil(arch["data_width"].asInt()/8.0); 
-        
-    CgraArch::initialize();
-    
-}
-
 void CgraArch::initialize(){
     int num_stages1 = Global::intLog(num_pe * 2, net_radix) + num_extra_stage;
     int num_stages2 = Global::intLog(num_pe, net_radix);

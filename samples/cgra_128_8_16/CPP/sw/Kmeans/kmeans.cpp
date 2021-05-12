@@ -139,7 +139,7 @@ int kmeans_openmp(int idx, int num_clusters, int num_dim) {
 }
 
 int kmeans_cgra(int idx, int num_clusters, int num_dim) {
-    auto cgraArch = new CgraArch(0, 128, 8, 8, 4, 0, 2);
+    auto cgraArch = new CgraArch(0, 128, 8, 8, 8, 0, 2);
     auto cgraHw = new Cgra();
     Scheduler scheduler(cgraArch);
     std::vector<DataFlow *> dfs;
@@ -179,7 +179,7 @@ int kmeans_cgra(int idx, int num_clusters, int num_dim) {
         for (int m = 0; m < NUM_THREAD; ++m) {
             helpKmeansUpdateConstants(cgraHw->getCgraProgram(), m, centroids, num_clusters, num_dim);
             for (int i = 0; i < num_dim; ++i) {
-                cgraHw->setCgraProgramInputStreamByID(m, (num_clusters * num_dim) + i,
+               cgraHw->setCgraProgramInputStreamByID(m, (num_clusters * num_dim) + i,
                                                       &data_in[i * num_dim + (k * data_size)], sf * data_size);
             }
             cgraHw->setCgraProgramOutputStreamByID(m, (num_clusters * num_dim) + num_dim, &data_out[k * data_size],
@@ -191,6 +191,7 @@ int kmeans_cgra(int idx, int num_clusters, int num_dim) {
             cgraHw->syncExecute(0);
             cgraExecTime += cgraHw->getTimeExec();
         }
+        
         cgraExecTime /= SAMPLES;
         printf("Time(ms) CGRA: %5.2lf\n", cgraExecTime);
 
