@@ -5,13 +5,17 @@ module cgra0_acc
   input start,
   input [8-1:0] acc_user_done_rd_data,
   input [8-1:0] acc_user_done_wr_data,
+  
   input [8-1:0] acc_user_available_read,
   output [8-1:0] acc_user_request_read,
+  
   input [8-1:0] acc_user_read_data_valid,
   input [4096-1:0] acc_user_read_data,
+  
   input [8-1:0] acc_user_available_write,
   output [8-1:0] acc_user_request_write,
   output [4096-1:0] acc_user_write_data,
+  
   output acc_user_done
 );
 

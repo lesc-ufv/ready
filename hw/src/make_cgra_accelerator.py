@@ -7,8 +7,8 @@ from math import log, ceil
 from veriloggen import *
 
 
-def make_cgra_accelerator(cgra_id, num_pe, num_pe_io_in, num_pe_io_out, data_width, net_radix, extra_stagies,
-                          mem_conf_depth):
+def make_cgra_accelerator(cgra_id, num_pe, num_pe_io_in, num_pe_io_out, data_width, net_radix, extra_stagies,mem_conf_depth):
+    
     num_stages = int(ceil(log((num_pe * 2), net_radix)) + extra_stagies)
     num_swicth_stages = int(ceil((num_pe * 2) / net_radix))
     num_swicth_total = num_stages * num_swicth_stages
@@ -27,6 +27,7 @@ def make_cgra_accelerator(cgra_id, num_pe, num_pe_io_in, num_pe_io_out, data_wid
     clk = m.Input('clk')
     rst = m.Input('rst')
     start = m.Input('start')
+    
     acc_user_done_rd_data = m.Input('acc_user_done_rd_data', num_pe_io_in)
     acc_user_done_wr_data = m.Input('acc_user_done_wr_data', num_pe_io_out)
     acc_user_available_read = m.Input('acc_user_available_read', num_pe_io_in)
@@ -56,6 +57,7 @@ def make_cgra_accelerator(cgra_id, num_pe, num_pe_io_in, num_pe_io_out, data_wid
     genv = m.Genvar('genv')
     if num_pe_io_in > 1:
         acc_user_request_read[1:].assign(request_read[1:])
+    
     acc_user_request_read[0].assign(request_read[0] | conf_control_req_rd_data)
 
     genInstFor1 = m.GenerateFor(genv(0), genv < num_pe_io_in, genv.inc(), 'inst_fecth_data')

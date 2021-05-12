@@ -61,7 +61,6 @@ int Scheduler::mapAndRoute(int threadID) {
     std::deque<int> pe_out_free;
     int pe_swap;
     int swapness[pes.size()];
-    int i = 0;
     int group = Scheduler::dataflow_group[Scheduler::dataflows[threadID]->getId()];
     std::vector<int> pe_list_aux;
     random_selector<> selector{};
@@ -70,9 +69,9 @@ int Scheduler::mapAndRoute(int threadID) {
         solution = Scheduler::data_flow_mapping[group];
     } else {
         solution.reserve(pes.size());
-        for (auto pe:pes) {
+        for (int i = 0,sz = pes.size(); i < sz;i++) {
             solution.push_back(-1);
-            swapness[i++] = -1;
+            swapness[i] = -1;
         }
         int idx = 0;
         for (auto op:operators) {
@@ -108,7 +107,7 @@ int Scheduler::mapAndRoute(int threadID) {
             idx = selector(pe_list_aux);
             solution[idx] = op.second->getId();
         }
-        for (int k = 0; k < solution.size(); k++) {
+        for (int k = 0, sz = solution.size(); k < sz; k++) {
             if (solution[k] == -1) {
                 if (pes[k]->getType() == PE_IN) {
                     pe_in_free.push_back(k);
@@ -174,10 +173,10 @@ int Scheduler::placeAndRoute(std::vector<int> &mapping, int threadID) {
     Omega *net_branch = Scheduler::cgraArch->getNetBranch(threadID);
     Scheduler::cgraArch->setDataFlow(Scheduler::dataflows[threadID], threadID);
 
-    for (int j = 0; j < mapping.size(); ++j) {
+    for (int j = 0, sz = mapping.size(); j < sz; ++j) {
         mapping_op[mapping[j]] = j;
     }
-    for (int i = 0; i < mapping.size(); ++i) {
+    for (int i = 0, sz = mapping.size(); i < sz; ++i) {
         if (mapping[i] != -1) {
             op_src = Scheduler::dataflows[threadID]->getOp(mapping[i]);
             pe_src = Scheduler::cgraArch->getPE(i);

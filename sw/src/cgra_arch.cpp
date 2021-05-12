@@ -1,23 +1,63 @@
 #include <ready/cgra_arch.h>
 
-CgraArch::CgraArch(int id, int num_pe, int num_pe_in, int num_pe_out, int net_radix, int num_extra_stage, int word_size)
-        : id(id), num_pe(num_pe),
-          num_pe_in(num_pe_in),
-          num_pe_out(num_pe_out),
-          net_radix(net_radix),
-          num_extra_stage(num_extra_stage),
-          word_size(word_size) {
+CgraArch::CgraArch(int id, int num_pe, int num_pe_in, int num_pe_out,
+                   int net_radix, int num_extra_stage, int word_size):
+    id(id),
+    num_pe(num_pe),
+    num_pe_in(num_pe_in),
+    num_pe_out(num_pe_out),
+    num_extra_stage(num_extra_stage),
+    net_radix(net_radix),
+    word_size(word_size) {
 
     CgraArch::initialize();
 
 }
-CgraArch::CgraArch(arch_t arch): id(arch.id), num_pe(arch.num_pe),
-                            num_pe_in(arch.num_in),
-                            num_pe_out(arch.num_out),
-                            net_radix(arch.net_radix),
-                            num_extra_stage(arch.net_extra_stagies),
-                            word_size(arch.word_size) {
+CgraArch::CgraArch(arch_t arch): 
+    id(arch.id),
+    num_pe(arch.num_pe),
+    num_pe_in(arch.num_in),
+    num_pe_out(arch.num_out),
+    num_extra_stage(arch.net_extra_stagies),
+    net_radix(arch.net_radix),
+    word_size(arch.word_size) {
+    
+        CgraArch::initialize();
+}
+
+CgraArch::CgraArch(std::string json_file){
+    Json::Value arch;
+
+    std::ifstream ifs;
+    
+    ifs.open(json_file);
+
+    Json::CharReaderBuilder builder;
+    
+    JSONCPP_STRING errs;
+
+    if (!parseFromStream(builder, ifs, &arch, &errs)) {
+        std::cout << errs << std::endl;
+        return;
+    }
+    ifs.close();
+    
+    id = arch["id"].asInt();
+    
+    num_pe = arch["num_pe"].asInt();
+    
+    num_pe_in = arch["num_pe_in"].asInt();
+    
+    num_pe_out = arch["num_pe_out"].asInt();
+    
+    num_extra_stage = arch["extra_stagies"].asInt();
+    
+    net_radix = arch["net_radix"].asInt();
+    
+    word_size = (int) std::ceil(arch["data_width"].asInt()/8.0); 
+        
     CgraArch::initialize();
+    
 }
 
 void CgraArch::initialize(){
@@ -248,11 +288,14 @@ void CgraArch::makeProgram() {
                 CgraArch::cgra_program.initial_conf.push_back(pe->getConf(j));
                 CgraArch::cgra_program.initial_conf.push_back(pe->getPcMaxConf(j));
                 CgraArch::cgra_program.initial_conf.push_back(pe->getPcLoopConf(j));
+                
                 CgraArch::cgra_program.map_pe_to_op[std::pair<int, int>(j, pe->getId() + 1)] = op->getId();
 
                 int inId = CgraArch::pe_in_map[pe->getId()];
                 int outId = CgraArch::pe_out_map[pe->getId()];
+                
                 auto t = std::tuple<int, int, int, std::string>(j, df->getId(), op->getId(), df->getName());
+                
                 switch (op->getType()) {
                     case OP_IN:
                         CgraArch::cgra_program.initial_conf.push_back(pe->getLoadIgnoreConf(j));
@@ -318,4 +361,3 @@ std::map<int, int> CgraArch::makeListPe(int num_pe, int num_pe_in, int num_pe_ou
 int CgraArch::getWordSize() const {
     return CgraArch::word_size;
 }
-

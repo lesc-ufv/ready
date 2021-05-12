@@ -45,7 +45,8 @@ Operator *DataFlow::removeOperator(int op_id) {
 void DataFlow::compute() {
 
     auto n = DataFlow::getNumLevel();
-    unsigned int allIsEnd = 0;
+    int allIsEnd = 0;
+    
     while (allIsEnd != DataFlow::getNumOpIn()) {
         allIsEnd = 0;
         for (int i = 0; i <= n; ++i) {
@@ -120,7 +121,6 @@ void DataFlow::toJSON(const std::string &fileNamePath) {
     char str_edge[] = R"({"data":{"id":%d,"source":%d,"target":%d, "port":%d},"group":"edges"})";
 
     char buf[256];
-    int numOp = DataFlow::getNumOp();
     int numEdge = DataFlow::getNumEdges();
     int cnt = 0;
     int max_id = 0;

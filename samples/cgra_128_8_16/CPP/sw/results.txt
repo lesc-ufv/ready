@@ -1,48 +1,48 @@
 Run Chebyshev ...
-Time(ms) CPU 1 Thread: 79.99
-Time(ms) CPU 8 Thread: 18.24
-Time(ms) CGRA: 42.44
+Time(ms) CPU 1 Thread: 15.54
+Time(ms) CPU 8 Thread:  6.17
+Time(ms) CGRA:  8.91
 Run Fir ...
-Time(ms) CPU 1 Thread: 555.82
-Time(ms) CPU 8 Thread: 98.62
-Time(ms) CGRA: 42.17
+Time(ms) CPU 1 Thread: 359.27
+Time(ms) CPU 8 Thread: 70.30
+Time(ms) CGRA: 42.46
 Run Kmeans ...
-Time(ms) CPU 1 Thread: 265.85
-Time(ms) CPU 8 Thread: 55.05
-Time(ms) CGRA: 42.53
+Time(ms) CPU 1 Thread: 131.02
+Time(ms) CPU 8 Thread: 32.39
+Time(ms) CGRA: 42.38
 Run Mibench ...
-Time(ms) CPU 1 Thread: 17.78
-Time(ms) CPU 8 Thread:  3.89
-Time(ms) CGRA: 42.55
+Time(ms) CPU 1 Thread:  8.99
+Time(ms) CPU 8 Thread:  2.48
+Time(ms) CGRA: 21.41
 Run Paeth ...
-Time(ms) CPU 1 Thread: 40.64
-Time(ms) CPU 8 Thread:  7.79
-Time(ms) CGRA: 42.25
+Time(ms) CPU 1 Thread: 20.68
+Time(ms) CPU 8 Thread:  4.23
+Time(ms) CGRA: 21.43
 Run Poly5 ...
-Time(ms) CPU 1 Thread: 65.36
-Time(ms) CPU 8 Thread: 11.01
-Time(ms) CGRA: 42.19
+Time(ms) CPU 1 Thread: 32.72
+Time(ms) CPU 8 Thread:  6.29
+Time(ms) CGRA: 21.50
 Run Poly6 ...
-Time(ms) CPU 1 Thread: 47.87
-Time(ms) CPU 8 Thread:  9.48
-Time(ms) CGRA: 42.20
+Time(ms) CPU 1 Thread: 45.74
+Time(ms) CPU 8 Thread:  9.49
+Time(ms) CGRA: 42.34
 Run Poly8 ...
-Time(ms) CPU 1 Thread: 19.02
-Time(ms) CPU 8 Thread:  8.62
-Time(ms) CGRA: 42.48
+Time(ms) CPU 1 Thread: 18.60
+Time(ms) CPU 8 Thread:  6.99
+Time(ms) CGRA: 42.37
 Run Qspline ...
-Time(ms) CPU 1 Thread: 10.62
-Time(ms) CPU 8 Thread:  4.65
-Time(ms) CGRA: 42.70
+Time(ms) CPU 1 Thread: 13.02
+Time(ms) CPU 8 Thread:  3.96
+Time(ms) CGRA: 42.33
 Run Sgfilter ...
-Time(ms) CPU 1 Thread: 73.05
-Time(ms) CPU 8 Thread: 25.16
-Time(ms) CGRA: 56.15
+Time(ms) CPU 1 Thread: 18.08
+Time(ms) CPU 8 Thread:  5.74
+Time(ms) CGRA: 14.34
 Run SobelFilter ...
-Time(ms) CPU 1 Thread: 258.49
-Time(ms) CPU 8 Thread: 80.96
-Time(ms) CGRA: 42.41
+Time(ms) CPU 1 Thread: 250.09
+Time(ms) CPU 1 Thread: 53.15
+Time(ms) CGRA: 42.32
 Run Loopback ...
-Time(ms) CPU 1 Thread: 25.77
-Time(ms) CPU 8 Thread: 25.82
-Time(ms) CGRA: 42.54
+Time(ms) CPU 1 Thread:  1.91
+Time(ms) CPU 8 Thread:  4.70
+Time(ms) CGRA:  5.38

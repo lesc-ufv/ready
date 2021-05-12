@@ -2,38 +2,39 @@
 
 Operator::Operator(int id, int op_code, int type, std::string label) :
         id(id),
+        level(0),
         opCode(op_code),
         type(type),
+        val(0),
+        constant(0),
         srcA(nullptr),
         srcB(nullptr),
         branchIn(nullptr),
-        constant(0),
-        level(0),
         dataFlowId(-1),
-        val(0),
-        isEnd(false),
-        label(std::move(label)) {
+        label(std::move(label)),
+        isEnd(false)
+        {
 
 }
 
 Operator::Operator(int id, int op_code, int type, std::string label, int constant) :
         id(id),
+        level(0),
         opCode(op_code),
         type(type),
+        val(0),
+        constant(constant),
         srcA(nullptr),
         srcB(nullptr),
         branchIn(nullptr),
-        constant(constant),
-        level(0),
         dataFlowId(-1),
         label(std::move(label)),
-        val(0),
         isEnd(false) {
 
 }
 
-Operator::~Operator() {
-    Operator::dst.clear();
+Operator::~Operator(){
+    dst.clear();
 }
 
 int Operator::getId() const {

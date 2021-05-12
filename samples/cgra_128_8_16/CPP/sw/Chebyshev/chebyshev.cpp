@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
         chebyshev_openmp(idx);
 
     if (test & 4)
-        chebyshev_cgra(idx, 1);
+        chebyshev_cgra(idx, 8);
 
     if (test & 8)
         chebyshev_dataflow_cpu();
@@ -27,13 +27,13 @@ int main(int argc, char *argv[]) {
 
 int chebyshev(int idx) {
 
-    unsigned short *data_in, *data_out;
+    short *data_in, *data_out;
 
-    data_in = new unsigned short[DATA_SIZE];
-    data_out = new unsigned short[DATA_SIZE];
+    data_in = new short[DATA_SIZE];
+    data_out = new short[DATA_SIZE];
 
     for (int k = 0; k < DATA_SIZE; ++k) {
-        data_in[k] = k;
+        data_in[k] = k+1;
         data_out[k] = 0;
     }
 
@@ -43,8 +43,8 @@ int chebyshev(int idx) {
     for (int i = 0; i < SAMPLES; i++) {
         s = high_resolution_clock::now();
         for (int k = 0; k < DATA_SIZE; ++k) {
-            int A = data_in[k];
-            data_out[k] = (unsigned short) (A * (A * (A * ((A * 16 * A) - 20)) + 5));
+            auto A = data_in[k];
+            data_out[k] = (A * (A * (A * ((A * 16 * A) - 20)) + 5));
         }
         diff += high_resolution_clock::now() - s;
     }
@@ -52,7 +52,11 @@ int chebyshev(int idx) {
     double cpuExecTime = (diff.count() * 1000) / SAMPLES;
 
     printf("Time(ms) CPU 1 Thread: %5.2lf\n", cpuExecTime);
-
+    
+    for(int i = 0; i < 1024; i++){
+        printf("%d ",data_out[i]);
+    }
+    
     int v = data_out[idx];
 
     delete data_in;
@@ -222,31 +226,33 @@ DataFlow *createDataFlow(int id, int copies) {
 
 void chebyshev_dataflow_cpu() {
 
-    int data_in[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    int data_out[10];
+    short *data_in, *data_out;
+
+    data_in = new short[DATA_SIZE];
+    data_out = new short[DATA_SIZE];
+
+    for (int k = 0; k < DATA_SIZE; ++k) {
+        data_in[k] = k+1;
+        data_out[k] = 0;
+    }
 
     auto dataFlow = createDataFlow(0, 1);
 
     auto in = reinterpret_cast<InputStream *>(dataFlow->getOp(0));
     auto out = reinterpret_cast<OutputStream *>(dataFlow->getOp(1));
     
-    in->setData(&data_in[0],10);
-    out->setData(&data_out[0],10);
+    in->setData(data_in,DATA_SIZE);
+    out->setData(data_out,DATA_SIZE);
 
     dataFlow->compute();
 
     dataFlow->toJSON("chebyshev.json");
     dataFlow->toDOT("chebyshev.dot");
 
-    for (auto v:data_in) {
-       cout << v << " ";
+    for(int i = 0; i < 1024; i++){
+//         printf("%d ",data_out[i]);
     }
-    cout << endl;
     
-    for (auto v:data_out) {
-       cout << v << " ";
-    }
-        cout << endl;
 
     delete dataFlow;
 }

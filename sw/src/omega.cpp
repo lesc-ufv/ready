@@ -59,7 +59,7 @@ bool Omega::addRoute(int port_in, int port_out) {
         for (const auto &s:Omega::conf_array) {
             conf_array.push_back(s);
         }
-        for (int j = 0; j < path.size() - 1; ++j) {
+        for (int j = 0, sz = path.size() - 1; j < sz; ++j) {
             sw1 = path[j];
             sw2 = path[j + 1];
             port_out_global = Omega::getPortOut(sw1, sw2);
@@ -106,7 +106,7 @@ void Omega::removeRoute(int port_in, int port_out) {
         int port_out_local = 0;
         int sw1 = 0;
         int sw2 = 0;
-        for (int j = 0; j < path.size() - 1; ++j) {
+        for (int j = 0, sz = path.size() - 1; j < sz; ++j) {
             sw1 = path[j];
             sw2 = path[j + 1];
             port_out_global = Omega::getPortOut(sw1, sw2);
@@ -138,9 +138,6 @@ int Omega::getPortOut(int sw1, int sw2) {
 }
 
 void Omega::createRouteTable() {
-
-    auto max_bits = Global::intLog(size, 2);
-    auto r_bits = Global::intLog(radix, 2);
 
     for (int sw_src = 0; sw_src < Omega::num_swicth_stages; ++sw_src) {
         for (int sw_dst = 0; sw_dst < Omega::num_swicth_stages; ++sw_dst) {
